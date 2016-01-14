@@ -1,0 +1,298 @@
+<div>
+    <form id="formdata">
+        <div class="mar_lr_1">
+            <div class="mar_t_2">
+                <div class="mar_tb_05"><span class="">基本信息</span><span class="weui_btn_brown bor_rad_3 text_color_fff font_s_8" style="padding:2px 8px 0; margin-left: 6px;">必填</span>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                        <span class="f-fl text_color_4c5 font_s_9">看房联系人：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <input type="text" class="weui_input" id="linkperson" ng-model="formData.contact" name="linkperson" maxlength="21" />
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                        <span class="f-fl text_color_4c5 font_s_9">看房联系人电话：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <input type="text" class="weui_input" id="linkpersontel" ng-model="formData.contactPhone" name="linkpersontel" maxlength="11" />
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                        <span class="f-fl text_color_4c5 font_s_9">报单联系人：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <input type="text" class="weui_input" id="billperson" ng-model="formData.client" name="billperson" maxlength="21" />
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                        <span class="f-fl text_color_4c5 font_s_9">报单联系人电话：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <input type="text" class="weui_input" id="billpersontel" ng-model="formData.clientPhone" name="billpersontel" maxlength="11" />
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
+                        <span class="weui_cell_bd f-fl text_color_4c5 font_s_9">评估公司：</span>
+                        <div class="weui_cell_primary_1 relativ">
+                            <input type="text" class="weui_input tx_l" name="assesscompany" id="assesscompany" name="assesscompany" ng-model="formData.estimateCompany" style="width:68%" readonly="true" />
+                            <div style="display:none;height: auto;" class="slidlist absolut" id="companylist">
+                                <ul>
+                                    <li ng-repeat="itemcompanys in companys" ng-click="compnylist(itemcompanys.valuezd)">{{itemcompanys.valuezd}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mar_lr_1">
+            <div class="mar_t_1">
+                <div class="mar_tb_05"><span class="">详细信息</span>
+                    <span class="weui_btn_dark bor_rad_3 text_color_fff font_s_8" style="padding:2px 8px 0; margin-left: 6px;">选填</span>
+                </div>
+                <div class="mar_b_10 bor_color_hui text_color_4c5 form_valid" style="height: 2.5em;">
+                    <div class="width_64 f-fl pad_xx_10 bor_color_hui bor" style="width:60%">
+                        <div class="bor_b_type_x bor_color_hui weui_cell_primary_1 bor_rad_3 font_s_9">
+                            <span class="f-fl">期贷金额：</span>
+                            <input type="text" class="weui_input tx_c" id="loanamount" name="loanamount" style="width:30%" maxlength="7" />
+                            <span class="f-fr pad_r_20 weui_icon_qb">万元</span>
+                        </div>
+                    </div>
+                    <div class="width_32 f-fr">
+                        <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                            <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj relativ">
+                                <input type="hidden" value="" id="loanrationum" name="loanrationum" />
+                                <input class="font_s_9 weui_input" id="loanratio" nmae="loanratio" value="请选择" readonly="true" />
+                                <div style="display:none" class="slidlist absolut" id="slidlist">
+                                    <ul>
+                                        <li data="0.1">一成</li>
+                                        <li data="0.2">二成</li>
+                                        <li data="0.3">三成</li>
+                                        <li data="0.4">四成</li>
+                                        <li data="0.5">五成</li>
+                                        <li data="0.6">六成</li>
+                                        <li data="0.7">七成</li>
+                                        <li data="0.8">八成</li>
+                                        <li data="0.9">九成</li>
+                                        <li data="1">十成</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f-cf"></div>
+                </div>
+                <div class="weui_cell text-bg-gray error" style="display:none" id="slidlisterrorinfo">
+                    <label><span class="error_color">错误提示：</span>请选择贷款成数!</label>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                        <span class="f-fl text_color_4c5 font_s_9">收件联系人：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <input type="text" class="weui_input" id="addressee" name="addressee" ng-model="formData.receiver" maxlength="25" />
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                        </div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                        <span class="f-fl text_color_4c5 font_s_9">收件联系人电话：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <input type="text" class="weui_input" id="addresseetel" name="addresseetel" ng-model="formData.receiverPhone" maxlength="11" />
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_b_10 text_color_4c5">
+                    <p class="pad_tb_04 font_s_9 mar_l_1">收件联系人地址：</p>
+                    <div class="width_100" style="height: 2.5em;">
+                        <div class="width_48 f-fl">
+                            <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
+                                    <select class="weui_select font_s_9 tx_c pad_r_1" id="cityname">
+                                        <option value="" selected>请选择</option>
+                                        <option ng-repeat="item in citylist" value="{{item.idzd}}">{{item.valuezd}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="width_48 f-fr">
+                            <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
+                                    <select class="weui_select font_s_9 tx_c pad_r_1" id="district">
+                                        <option value="" selected>请选择</option>
+                                        <option ng-repeat="items in district" value="{{item.idzd}}">{{items.valuezd}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="f-cf"></div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div>
+                        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                            <input class="weui_input pad_r_1" type="text" placeholder="请在此输入详细地址" id="deltaladdress" name="deltaladdress" ng-mode="formData.receiveAddress" maxlength="65"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mar_lr_1">
+            <div class="mar_t_1">
+                <span class="">房产信息</span>
+                <span class="weui_btn_dark bor_rad_3 text_color_fff font_s_8" style="padding:2px 8px 0; margin-left: 6px;">选填</span>
+                <span class="f-fr text_color_ac9" id="slidup">收起</span>
+            </div>
+            <div class="mar_tb_05" id="houseinfo">
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
+                        <span class="f-fl text_color_4c5 font_s_9">估价目的：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <select class="weui_select font_s_9 tx_c pad_r_1" id="purpose" ng-model="formData.purpose">
+                                <option value="" selected>--请选择--</option>
+                                <option value="抵押消费贷">抵押消费贷</option>
+                                <option value="二手房按揭">二手房按揭</option>
+                                <option value="移民评估">移民评估</option>
+                            </select>
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                        <span class="f-fl text_color_4c5 font_s_9">小区名称：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <input placeholder="输入小区id" id="residentialAreaID" ng-model="formData.residentialID" type="hidden" class="bor_color_hui bor_type_x weui_icon_qb bor_rad_0" />
+                            <input placeholder="输入小区名称" id="residentialAreaName" ng-model="formData.residentialAreaName" type="hidden" class="bor_color_hui bor_type_x weui_icon_qb bor_rad_0" />
+                            <input type="text" class="weui_input" id="community" name="community" ng-model="formData.community" value="" maxlength="60" />
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_t_10">
+                    <div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                            <span class="f-fl text_color_4c5 font_s_9">建筑面积：</span>
+                            <div class="weui_cell_bd weui_cell_primary_1">
+                                <input type="text" class="weui_input" id="area" name="area" ng-model="formData.area" maxlength="7" />
+                            </div>
+                            <div class="weui_cell_ft font_s_8 text_color_4c5 pad_r_20">㎡</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10">
+                    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
+                        <span class="f-fl text_color_4c5 font_s_9">物业类型：</span>
+                        <div class="weui_cell_bd weui_cell_primary_1">
+                            <select class="weui_select font_s_9 tx_c pad_r_1" id="houseType">
+                                <option value="" selected>--请选择--</option>
+                                <option value="普通住宅">普通住宅</option>
+                                <option value="独栋">独栋</option>
+                                <option value="联排">联排</option>
+                                <option value="双拼">双拼</option>
+                                <option value="叠拼">叠拼</option>
+                            </select>
+                        </div>
+                        <div class="weui_cell_ft font_s_8 text_color_4c5">
+                            <span style="margin-left: 17px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_b_10 text_color_4c5">
+                    <p class="pad_tb_04 font_s_9 mar_l_1">预约看房时间：</p>
+                    <div class="width_100" style="height: 2.5em;">
+                        <div class="width_48 f-fl">
+                            <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_rlh">
+                                    <select class="weui_select font_s_9 tx_c pad_r_1" id="lookday">
+                                        <option value="" selected>请选择</option>
+                                        <option ng-repeat="item in daytimes">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="width_48 f-fr">
+                            <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_rlh">
+                                    <select class="weui_select font_s_9 tx_c pad_r_1" id="looktime">
+                                        <option value="" selected>请选择</option>
+                                        <option value="8:00-12:00">8:00-12:00</option>
+                                        <option value="13:00-17:00">13:00-17:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="f-cf"></div>
+                    </div>
+                </div>
+                <div class="mar_t_10 text_color_4c5">
+                    <p class="font_s_9 mar_l_1">房本证载地址：</p>
+                    <div class="form_valid bor_color_hui text_color_4c5">
+                        <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                            <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                                <input class="weui_input" type="text" placeholder="请在此输入详细地址" ng-model="formData.street" id="hourseaddress" name="hourseaddress" maxlengh="100" style="width:92%" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_t_10 text_color_4c5 mar_b_3 form_valid">
+                    <p class="font_s_9 mar_l_1">备注：</p>
+                    <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                        <div class=" bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                            <textarea class="weui_input" style="word-wrap: break-word;" cols="3" id="note" ng-model="formData.note" maxlengh="210"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mar_lr_1 pad_t_1 pad_b_2">
+            <button class="weui_btn weui_btn_brown bor_rad_3" ng-click="submit2()">确认委托</button>
+        </div>
+    </form>
+</div>
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">数据加载中</p>
+    </div>
+</div>

@@ -1,0 +1,823 @@
+<div class="text_bg_f4f text_color_51">
+
+	<form >
+		<!-- 未完成业务-未受理 -->
+		<div class="results font_s_8">
+			<ul>
+				<li class="f-fl" ng-class="{'current':$index == selectedRow}" ng-click="selected($index)">全部</li>
+				<li class="f-fl" ng-class="{'current':$index == selectedRow}" ng-click="selected($index)">未完成业务</li>
+				<li class="f-fl" ng-class="{'current':$index == selectedRow}" ng-click="selected($index)">已完成业务</li>
+				<li class="f-fl" ng-class="{'current':$index == selectedRow}" ng-click="selected($index)">已中止业务</li>
+			</ul>
+		</div>
+
+		<div class="mar_lr_1" style="padding: 10px 0;">
+			<div class="accepted">
+				<ul class="width_500 f-fr text_bg_fff bor bor_color_eb bor_rad_3 font_s_9">
+					<li class="f-fl current case_rad_l">未受理</li>
+					<li class="f-fl case_rad_r" style="border-right: none;">受理中</li>
+					<li class="f-cf"></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="pad_b_1">
+			<div class="mar_lr_1 pad_tb_1 text_color_51">
+				<div class="pad_lr_06 bor bor_color_eb bor_rad_3 text_bg_fff font_s_6 ty_list">
+					<ul>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">订单号</dd>
+								<dd class="width_35 f-fl ccyc">评估对象</dd>
+								<dd class="width_300 f-fl">委托日期</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+						<li>
+							<dl class="pad_x_8">
+								<dd class="width_35 f-fl">514375123123</dd>
+								<dd class="width_35 f-fl ccyc">北京联合大学广告学院</dd>
+								<dd class="width_300 f-fl">2015-12-19</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+				<div class="mar_lr_1 font_s_8 tx_c text_color_51 pad_t_1">
+					请滑动手机左右翻页，当前第
+					<span class="error_color">1</span>
+					页，共
+					<span class="error_color">20</span>
+					页
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- 情况1 -->
+	<form style="display: none;">
+		<!-- 我的估估-报单详情1（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情2 催单（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">催单成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">已经催单成功。</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+				<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情2 催单成功（未完成业务） -->
+		<div class="text_bg_fff bor_rad_3 mar_lr_1 pad_12">
+			<p class="font_s_8 pad_b_1">
+				您已催单成功，估宝宝将催促当地合作房地产
+评估机构加速作业进度！
+			</p>
+			<div class="mar_lr_3">
+				<button class="weui_btn weui_btn_brown">朕,知道啦。</button>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情3 催单 等待受理阶段（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">催单成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">已经催单成功。</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情3 催单成功 等待受理阶段（未完成业务） -->
+		<div class="text_bg_fff bor_rad_3 mar_lr_1 pad_12">
+			<p class="font_s_8 pad_b_1">您好，您的委托报单处于等待受理阶段，如需改动请联系客服：400-017-2707</p>
+			<div class="mar_lr_3">
+				<button class="weui_btn weui_btn_brown">朕,知道啦。</button>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情5 催单成功 撤单中（未完成业务） -->
+		<div class="text_bg_fff bor_rad_3 mar_lr_1 pad_12">
+			<p class="font_s_8 pad_b_1">您已提交撤单申请，估宝宝将知会当地合作房地产评估机构停止报告作业！</p>
+			<div class="mar_lr_3">
+				<button class="weui_btn weui_btn_brown">朕,知道啦。</button>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情5 催单成功 是否撤单（未完成业务） -->
+		<div class="text_bg_fff bor_rad_3 mar_lr_1 pad_12">
+			<p class="text_color_red tx_c"> <strong>估宝宝提醒</strong>
+			</p>
+			<p class="text_color_red tx_c font_s_7 pad_b_1">
+				您是否确认撤单？撤单之后，
+如想再次委托需重新委托报单。
+			</p>
+			<div class="mar_lr_1 tx_c">
+				<ul>
+				<li class="f-fl width_50 mar_r_10">
+					<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">取消</button>
+				</li>
+				<li class="f-fl width_50">
+					<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">确定</button>
+				</li>
+				<li class="f-cf"></li>
+			</ul>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情6 催单成功 完成撤单（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">催单成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">已经催单成功。</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">撤单进行中</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线下系统撤单中......</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">撤单完成</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线下系统完成撤单。</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情6 催单成功 线下撤单中（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">催单成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">已经催单成功。</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">撤单进行中</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线下系统撤单中......</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- 情况2 -->
+	<form style="display: none;">
+		<!-- 我的估估-报单详情1（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情2 催单成功 是否撤单（未完成业务） -->
+		<div class="text_bg_fff bor_rad_3 mar_lr_1 pad_12">
+			<p class="text_color_red tx_c"> <strong>估宝宝提醒</strong>
+			</p>
+			<p class="text_color_red tx_c font_s_7 pad_b_1">您是否确认撤单？撤单之后，如想再次委托需重新委托报单。</p>
+			<div class="mar_lr_1 tx_c">
+				<ul>
+				<li class="f-fl width_50 mar_r_10">
+					<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">取消</button>
+				</li>
+				<li class="f-fl width_50">
+					<button class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">确定</button>
+				</li>
+				<li class="f-cf"></li>
+			</ul>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情3 已提交撤单申请（未完成业务） -->
+		<div class="text_bg_fff bor_rad_3 mar_lr_1 pad_12">
+			<p class="font_s_8 pad_b_1">您已提交撤单申请，估宝宝将知会当地合作房地产评估机构停止报告作业！</p>
+			<div class="mar_lr_3">
+				<button class="weui_btn weui_btn_brown">朕,知道啦。</button>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情4 撤单进行中（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">撤单进行中</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线下系统撤单中......</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form style="display: none;">
+		<!-- 我的估估-报单详情5 线下完成撤单（未完成业务） -->
+		<div class="text_bg_f4f text_color_51 pad_b_3">
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">委托成功</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线上递交委托报单...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">等待受理</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">等待线下正式受理...</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">撤单进行中</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线下系统撤单中......</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="pad_tb_04 text_color_ac9">
+				<p class="pad_l_1">撤单完成</p>
+			</div>
+			<div class="text_bg_fff pad_tb_08 font_s_8">
+				<div class="pad_lr_1">
+					<ul>
+						<li class="width_500 f-fl">线下系统完成撤单。</li>
+						<li class="width_500 f-fr tx_r">
+							<span class="pad_r_5">2015-12-13</span>
+							19:59:17
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mar_t_1">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">催单</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">修改</button>
+						</li>
+						<li class="f-fl width_300">
+							<button class="width_100 font_s_1 weui_btn_c3 text_color_51 pad_tb_04 bor_rad_3 bor bor_color_72">撤单</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>

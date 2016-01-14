@@ -1,0 +1,121 @@
+<form>
+	<div class="text_bg_f4f pad_tb_3">
+		<!-- 全选情况1 -->
+		<div class="mar_lr_1 pad_lr_10 bor bor_color_eb bor_rad_3 text_bg_fff font_s_7 ty_list">
+			<div class="width_100">
+			<ul>
+ 				 <li class="f-fl width_10 pad_x_5">
+ 					 <div class="tx_l">&nbsp</div>
+ 				 </li>
+ 				 <li class="f-fl width_300 pad_x_5">标题</li>
+ 				 <li class="f-fl width_300 pad_x_5">是否阅读</li>
+ 				 <li class="f-fl width_300 pad_x_5">日期</li>
+ 				 <li class="f-cf"></li>
+ 			 </ul>
+             </div>
+             
+             <div class="pad_lr_06 text_bg_fff font_s_6" id="msglist">
+             <div ng-repeat="item in items">
+				<div class="width_100">
+					<ul>
+						<li class="f-fl width_10 pad_x_5">
+							<div class="tx_l">
+								<input tag="{{item.xiaoXiId}}" type="checkbox" class="bor" ng-click="flagCheckBox(item.xiaoXiId)" />
+							</div>
+<<<<<<< HEAD
+						</li>
+						<li ng-click="gotoDetails(item.xiaoXiId)" class="f-fl width_300 pad_x_8">{{item.xiaoXiTitle}}</li>
+						<li ng-click="gotoDetails(item.xiaoXiId)" class="f-fl width_300 pad_x_8">
+							<span ng-class="{1: 'width_300', 0: 'text_color_red'}[item.xiaoXiZhuangTai]">{{formatRead(item.xiaoXiZhuangTai)}}</span>
+						</li>
+						<li ng-click="gotoDetails(item.xiaoXiId)" class="f-fl width_300 pad_x_8 tx_c">{{formatDate(item.xiaoXiFaSongShiJian)}}</li>
+						<li class="f-cf"></li>
+					</ul>
+					</div>
+				</div>
+				</div>
+
+			<!-- <div class="pad_lr_06 text_bg_fff font_s_6 ty_list" id="msglist">
+				<div ng-repeat="item in items">
+				<div class="pad_x_8">
+					<ul>
+						<li class="f-fl width_10">
+							<div class="tx_l">
+								<input tag="{{item.xiaoXiId}}" type="checkbox" class="bor" ng-click="flagCheckBox(item.xiaoXiId)" />
+							</div>
+						</li>
+						<li ng-click="gotoDetails(item.xiaoXiId)" class="f-fl width_300">{{item.xiaoXiTitle}}</li>
+						<li ng-click="gotoDetails(item.xiaoXiId)" class="f-fl width_300">
+							<span ng-class="{1: 'width_300', 0: 'text_color_red'}[item.xiaoXiZhuangTai]">{{formatRead(item.xiaoXiZhuangTai)}}</span>
+						</li>
+						<li ng-click="gotoDetails(item.xiaoXiId)" class="f-fl width_300">{{formatDate(item.xiaoXiFaSongShiJian)}}</li>
+						<li class="f-cf"></li>
+					</ul>
+					</div>
+				</div>
+			</div> -->
+=======
+						</dd>
+						<a ng-click="gotoDetails(item.xiaoXiId)">
+						<dd class="f-fl width_300">{{item.xiaoXiTitle}}</dd>
+						<dd class="f-fl width_300">
+							<span ng-class="{1: 'width_300', 0: 'text_color_red'}[item.xiaoXiZhuangTai]">{{formatRead(item.xiaoXiZhuangTai)}}</span>
+						</dd>
+						<dd class="f-fl width_300">{{formatDate(item.xiaoXiFaSongShiJian)}}</dd>
+						<dd class="f-cf"></dd>
+						</a>
+					</dl>
+				</li>
+			</ul>
+			</div>
+			<dl class="pad_x_8">
+				<dd class="f-cf">请滑动手机左右翻页，当前页第<span>{{pageIndex}}</span>页，共{{pageTotal}}页</dd>
+			</dl>
+		</div>
+>>>>>>> origin/FontEnd
+		</div>
+		<div class="font_s_9 mar_lr_1 tx_c" style="padding: 1em 0 3em;">
+			请滑动手机左右翻页，当前页第<span>{{pageIndex}}</span>页，共{{pageTotal}}页
+			</div>
+		<div class="fixed_0 width_100">
+			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+				<div class="font_s_1 tx_c">
+					<ul>
+						<li class="f-fl width_300">
+							<button id="btnSelectAll" ng-click="selectAll()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">全选</button>
+						</li>
+						<li class="f-fl width_300 mar_lr_5_b">
+							<button ng-click="delete()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">删除</button>
+						</li>
+						<li class="f-fl width_300">
+							<button ng-click="read()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">标记已读</button>
+						</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- 弹窗 -->
+<div ng-class="{true: 'block', false: 'hidden'}[commit]">
+	<div class="weui_mask_transition weui_fade_toggle block"></div>
+	<div class="weui_dialog pad_1 ">
+		<p class="text_color_red tx_c"> <strong>{{commitTitle}}</strong></p>
+		<p class="text_color_red tx_c font_s_7 pad_b_1">{{commitMsg}}</p>
+		<div class="mar_lr_1 tx_c" id="dialogConfirm">
+				<ul>
+					<li class="f-fl width_50 mar_r_10">
+						<button ng-click="commitCancel()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">取消</button>
+					</li>
+					<li class="f-fl width_50">
+						<button ng-click="commitConfirm()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">确定</button>
+					</li>
+					<li class="f-cf"></li>
+				</ul>
+		</div>
+		<div class="mar_lr_3" id="dialogCancel">
+			<button ng-click="commitCancel()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">朕,知道啦。</button>
+		</div>
+	</div>
+</div>

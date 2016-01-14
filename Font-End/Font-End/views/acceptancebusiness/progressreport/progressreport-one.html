@@ -1,0 +1,33 @@
+<div class="text_bg_f4f">
+    <div class="pad_b_1" id="top">
+        <p class="weui_btn_brown tx_c text_color_fff pad_tb_04">使用须知</p>
+        <p class="mar_1 text_color_51 font_s_9">
+            “报告进度”查询功能，是客户在房估估平台或者与房估估有合作的当地
+            机构进行委托报单，并已获得<span class="text_color_red">12位数订单号</span>，客户就可以凭借<span class="text_color_red">
+                12位数的
+                订单号
+            </span>，对委托后的报告作业进行随时随地的跟进。
+        </p>
+    </div>
+
+    <div class="pad_b_1" style="margin-bottom: 4em;">
+        <p class="weui_btn_brown tx_c text_color_fff pad_tb_04">与房估估合作的评估机构</p>
+        <div id="divCompany" style="overflow:auto;">
+            <div class="text_color_51" ng-repeat="item in CityList">
+                <div class="mar_1 bor_b bor_color_eb tx_c">
+                    <p><span style="font-weight:bolder!important;">{{item.cityName}}</span></p>
+                    <p class="font_s_9" ng-repeat="subItem in item.companyList">{{subItem}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" weui_btn_e3" style="position:fixed;bottom:0;left:0; width:100%;" id="fixedbottom">
+        <div style="position:relative;margin: 1em .5em;">
+            <a href="#/progressreport-two">
+                <button class="weui_btn weui_btn_brown" ng-click="startSelect()">开始查进度</button>
+            </a>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,61 @@
+<div class="text_bg_f4f text_color_4c5 pad_tb_2" style="height:100%;">
+    <div class="mar_lr_1 pad_lr_10 bor bor_color_eb bor_rad_3 text_bg_fff font_s_9">
+        <div class="bor_b bor_color_eb pad_tb_04">估价对象：{{recordsdetial.weituopingguxiangmu}}</div>
+        <div class="bor_b bor_color_eb pad_tb_04">建筑面积：{{recordsdetial.weituopinggumianji}}平米</div>
+        <div class="bor_b bor_color_eb pad_tb_04">
+            居室类型：{{recordsdetial.jushileixing}}
+            <span>{{recordsdetial.chaoxiang}}朝向</span> 复式{{recordsdetial.teshuyinsu}}
+        </div>
+        <div class="bor_b bor_color_eb pad_tb_04">楼层情况：所在{{recordsdetial.suozailouceng}}层，总共{{recordsdetial.zonglouceng}}层</div>
+        <div class="bor_b bor_color_eb pad_tb_04">建成年代：{{recordsdetial.jianchengniandai}}年</div>
+        <div class="bor_b bor_color_eb pad_tb_04">
+            <p>
+                市场总价：
+                <span class="text_color_red">{{recordsdetial.zongjia}}</span> 万元
+            </p>
+            <p>
+                市场单价：
+                <span class="text_color_red">{{recordsdetial.shichangdanjia}}</span> 元/平米
+            </p>
+        </div>
+        <div class="pad_tb_04">
+            估价时间：
+            <span class="text_color_red">
+				<span class="pad_l_1">{{recordsdetial.pinggutime}}</span>
+            </span>
+        </div>
+    </div>
+    <div class="mar_lr_1 pad_tb_2">
+        <div class="width_100">
+            <ul class="tx_c">
+                <li class="width_500 f-fl">
+                    <button class="weui_btn_brown width_70 pad_tb_06 bor_rad_3 text_color_fff font_s_1" ng-click="entrust()">委托报单</button>
+                </li>
+                <li class="width_500 f-fl">
+                    <button class="weui_btn_brown width_70 pad_tb_06 bor_rad_3 text_color_fff font_s_1" ng-click="appraisal()">重新估价</button>
+                </li>
+                <div class="f-cf"></div>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">数据加载中</p>
+    </div>
+</div>

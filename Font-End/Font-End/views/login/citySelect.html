@@ -1,0 +1,19 @@
+﻿<div class="text_bg_f4f pad_tb_2" style="height: 100%;">
+	<div class="mar_lr_1">
+		<div class="pad_b_1">
+			<p class="text_color_9a">当前城市选择</p>
+			<div class="bor bor_color_eb text_bg_fff pad_04 bor_rad_3"> <i class="weui_icon_dingwei pad_xx_8"></i>
+				<span class="pad_l_10" id="text"></span>
+			</div>
+		</div>
+		<div class="mar_t_1">
+			<p class="text_color_9a">全部城市</p>
+			<div class="pad_b_1 city_list">
+				<ul class="tx_c">
+					<li class="pad_tb_02 bor bor_color_eb bor_rad_3"  ng-class="{'current':$index == selectedRow}" ng-repeat="item in cityList" ng-click="selected($index)">{{item.value_zd}}</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+</div>

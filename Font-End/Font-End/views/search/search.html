@@ -1,0 +1,37 @@
+﻿<div class="pad_tb_2 text_bg_f4f" id="wrap">
+	<form id="formData">
+		<div class="mar_lr_1">
+			<div class="bor bor_color_eb mar_b_10 text_bg_fff">
+				<div class="mar_tb_02 pad_tb_04">
+					<div class="weui_cell_bd weui_cell_primary">
+						<input type="text" class="weui_input font_s_1" placeholder="搜索小区名称或者小区地址" ng-model="formData.residentialAreaName" id="residentialAreaName" name="residentialAreaName" />
+					</div>
+					<div class="weui_cell_hd">
+						<label class="weui_label"> <i class="bor_l bor_color_eb weui_icon_ss" style="padding: 5px 20px;"></i>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- 无查询结果 -->
+	<div class="pad_t_5 mar_lr_1" ng-show="isnull">
+		<p class="text_color_ac9 tx_c">估宝宝没有找到“{{formData.residentialAreaName}}”相关信息，您可以换换其他条件试试。</p>
+	</div>
+
+	<!-- 有查询结果 -->
+
+	<div class="pad_lr_1 text_bg_fff mar_lr_1" ng-hide="isnull">
+		<div class="bor_b bor_r bor_l bor_color_eb">
+			<ul class="tx_c text_color_9a" id="list">
+				<li class="bor_b bor_color_eb pad_tb_04" ng-class="{'text_color_ac9':$index == selectedRow}"ng-click="select($index)" ng-repeat="item in list">{{item.matchName}}[{{item.districtFullName}}]</li>
+			</ul>
+		</div>
+	</div>
+	<div class="mar_lr_1 pad_b_2" ng-show="isBig">
+		<p class="f-fr pad_6_6 bor bor_color_eb text_bg_fff mar_t_10"> <i class="pad_8_10 weui_icon_top"></i>
+		</p>
+	</div>
+
+</div>

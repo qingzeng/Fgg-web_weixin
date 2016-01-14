@@ -1,0 +1,263 @@
+﻿<div class="text_bg_f4f text_color_51">
+	<div class="results font_s_9">
+		<ul>
+			<li class="f-fl current">价格详情</li>
+			<li class="f-fl">案例汇总</li>
+			<li class="f-fl">价格走势</li>
+			<li class="f-fl">周边小区</li>
+			<li class="f-cf"></li>
+		</ul>
+	</div>
+	<div style="padding-bottom:4em">
+		<div id="wrap0">
+			<!-- 价格详情 -->
+			<div class="mar_lr_1">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3 font_s_8" style="margin-top: 10px">
+
+					<div class="f-fl">估价对象：</div>
+					<div style="margin-left:80px;word-break:break-all">
+						{{getResidentialAreaDetai.residentialAreaName}}{{getResidentialAreaDetai.floorBuilding}}{{getResidentialAreaDetai.cellNumber}}{{getResidentialAreaDetai.houseNumber}}
+					</div>
+					<div  class="f-cf"></div>
+				</div>
+			</div>
+
+			<div class="mar_lr_1">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3 font_s_8" style="margin-top: 10px;">
+					<p>建筑面积：{{getResidentialAreaDetai.area}}㎡</p>
+					<p>
+						居室类型：{{getResidentialAreaDetai.houseType}}、{{getResidentialAreaDetai.toward }}、{{getResidentialAreaDetai.specialFactors}}
+					</p>
+					<p>
+						楼层情况：所在{{getResidentialAreaDetai.floor}}层、共{{getResidentialAreaDetai.totalfloor}}层
+					</p>
+					<p>建成年代：{{getResidentialAreaDetai.buildingyear}}年</p>
+				</div>
+			</div>
+
+			<div class="mar_lr_1">
+				<div class="bor bor_color_eb text_bg_fff pad_05 font_s_8 bor_rad_3" style="margin-top: 10px;">
+					<li class="f-fr">
+						市场单价:
+						<span class="error_color pad_lr_02" style="font-weight:bolder;">{{getResidentialAreaDetai.price}}</span>
+						元/㎡
+					</li>
+					<li  >
+						市场总价:
+						<span class="error_color pad_lr_02" style="font-weight:bolder;">{{getResidentialAreaDetai.totalprice}}</span>
+						万元
+					</li>
+
+				</div>
+			</div>
+
+			<div class="mar_lr_1">
+				<div class="weui_input pad_tb_10" style="margin-top: 7px;">
+					<span class="f-fl text_color_4c5 font_s_9">您觉得以上价格是否准确</span>
+					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_l_1">
+						<span class="weui_btn_brown bor_rad_3 text_color_fff" id="piceCkeck_true" style="padding: 4px 18px 2px; margin-left: 6px;" ng-click="piceCkeck('true')">准</span>
+						<span class="text_bg_51 bor_rad_3 text_color_fff" id="piceCkeck_false" style="padding: 4px 12px 2px;  margin-left: 6px;" ng-click="piceCkeck('false')">不准</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="mar_lr_1">
+				<div class="pad_1 bor bor_color_eb text_bg_fff font_s_9 bor_rad_3" >
+					<span class="weui_btn_e3 f-fr bor_rad_3" ng-click="map()" style="padding: 5px 12px; margin-top: -5px;"> <i class="weui_icon_ditu pad_10_15"></i>
+						地图
+					</span>
+					<span class="ccyc"> <i class="weui_icon_dingwei pad_10_15"></i>
+						{{getResidentialAreaDetai.address}}
+					</span>
+					<span clss="f-cf"></span>
+				</div>
+			</div>
+
+			<div class="mar_lr_1" style="padding-bottom: 3em;">
+				<div class="pad_1 bor bor_color_eb text_bg_fff font_s_9 bor_rad_3" style="margin-top: 10px;">
+
+					<span class="weui_btn_e3 f-fr bor_rad_3" ng-click="getResidentialAreaDetais()" style="padding: 5px 12px; margin-top: -5px;">
+						<i class="weui_icon_xq pad_10_15"></i>
+						详情
+					</span>
+					<span class="ccyc">
+						<i class="weui_icon_fz pad_10_15"></i>
+						{{getResidentialAreaDetai.residentialAreaName}}
+					</span>
+					<span clss="f-cf"></span>
+				</div>
+			</div>
+
+		</div>
+		<div id="wrap1">
+
+			<!-- 案例 -->
+			<div class="mar_lr_1" style="padding: 10px 0;">
+				<div class="case bor bor_color_eb bor_rad_3 tx_c text_bg_fff selected" id="anli">
+					<ul>
+						<li class="f-fl current" ng-click="getCaseInfo('挂牌')">挂牌案例</li>
+						<li class="f-fl" ng-click="getCaseInfo('成交')">成交案例</li>
+						<li class="f-fl" ng-click="getCaseInfo('询价')">估价案例</li>
+						<li class="f-cf"></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="mar_lr_1">
+				<div class="pad_lr_06 bor_rad_3 text_bg_fff font_s_6 ty_list">
+					<ul>
+						<li>
+							<dl class="pad_x_5">
+								<dd class="width_23 f-fl">{{caseType.name}}时间</dd>
+								<dd class="width_15 f-fl">面积(㎡)</dd>
+								<dd class="width_20 f-fl">居室类型</dd>
+								<dd class="width_22 f-fl">单价(元/㎡)</dd>
+								<dd class="width_20 f-fl">总价(万元)</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+
+					</ul>
+				</div>
+				<div class="pad_lr_06 bor bor_color_eb bor_rad_3 text_bg_fff font_s_6 ty_list" id="caselist">
+					<ul>
+						<li ng-repeat="item in caseInfos">
+							<dl class="pad_x_5">
+								<dd class="width_23 f-fl">{{item.caseTime}}</dd>
+								<dd class="width_15 f-fl">{{item.area}}</dd>
+								<dd class="width_20 f-fl">{{item.roomNumType}}</dd>
+								<dd class="width_22 f-fl">{{item.price}}</dd>
+								<dd class="width_20 f-fl">{{item.totalPrice}}</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;" ng-show="caseType.isCaseType"
+                >该小区没有一条{{caseType.name}}数据</div>
+
+			<div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;" ng-show="caseType.getCaseInfoMorevisMore"  ng-hide="caseType.isCaseType">
+				请滑动手机左右翻页，当前第
+				<span class="error_color">{{curPage}}</span>
+				页，共
+				<span class="error_color" id="totalPage"></span>
+				页
+			</div>
+		</div>
+		<div id="wrap2">
+			<!-- 价格走势 -->
+
+			<div class="mar_lr_1" style="padding: 10px 0;">
+				<div class="case bor bor_color_eb bor_rad_3 tx_c text_bg_fff iselect" id="case">
+					<div class="f-fl trend_bor current" ng-click="jiagezoushi('lishi')">历史走势</div>
+					<div class="f-fl trend_bor" ng-click="jiagezoushi('weilai')">未来走势</div>
+					<div class="f-cf"></div>
+				</div>
+			</div>
+
+			<div class="mar_lr_1" style="padding-bottom: 6em;">
+				<div class="bor bor_color_eb bor_rad_3 text_bg_fff pad_06">
+					<div style="text-align:center" ng-show="isgetPriceTrendPic_history">{{getPriceTrendPicStr}}走势暂无数据</div>
+					<div id="chart" style="width:100%;height:15em;"></div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div id="wrap3">
+			<!-- 周边小区 -->
+			<div class="mar_lr_1" style="padding-top: 10px;">
+				<div class="pad_lr_06 bor_rad_3 text_bg_fff font_s_6 ty_list">
+					<ul class="tx_l">
+						<li>
+							<dl class="pad_x_5">
+								<dd class="width_57 f-fl ccyc">小区名称</dd>
+								<dd class="width_28 f-fl">基准价(元/㎡)</dd>
+								<dd class="width_15 f-fl">距离(m)</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+
+					</ul>
+				</div>
+				<div class="pad_lr_06 bor bor_color_eb bor_rad_3 text_bg_fff font_s_6 ty_list">
+					<ul class="tx_l">
+						<li ng-repeat="item in getresidentialArealist">
+							<dl class="pad_x_5">
+								<dd class="width_57 f-fl ccyc">{{item.residentialAreaName}}</dd>
+								<dd class="width_28 f-fl">{{item.unitPrice}}</dd>
+								<dd class="width_15 f-fl">{{item.distance}}</dd>
+								<dd class="f-cf"></dd>
+							</dl>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+
+			<div class="mar_lr_1 font_s_9 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;">为您显示距离最近的5个小区</div>
+
+		</div>
+	</div>
+
+</div>
+<div class=" weui_btn_e3" style="position:fixed;bottom:0;left:0; width:100%;">
+	<div style="position:relative;margin: 1em .5em;">
+		<button class="weui_btn weui_btn_brown" ng-click="next()">委托报单</button>
+	</div>
+</div>
+<div ng-class="{true: 'block', false: 'hidden'}[iscommit]">
+	<div class="weui_mask_transition weui_fade_toggle block"></div>
+	<form id='form'>
+		<div class="weui_dialog pad_1 " style="text-align:left">
+			<p class="tx_c text_color_666">
+				请输入您对房价的估价
+				<br/>
+				以便我们的提高
+			</p>
+
+			<div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+				<div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+					<div class="weui_cell_bd weui_cell_primary_1">
+						<input type="text" class="weui_input" id="price" name="price" ng-model="formData.price"></div>
+					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_r_20">元/㎡</div>
+				</div>
+			</div>
+
+			<div class=" pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_05 form_valid">
+				<div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+					<div class="weui_cell_bd weui_cell_primary_1">
+						<input type="text" class="weui_input" id="totalprice" name="totalprice" ng-model="formData.totalprice"></div>
+					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_r_20">万元</div>
+				</div>
+			</div>
+			<div class="mar_tb_1">
+				<button class="weui_btn weui_btn_brown" ng-click="commit()">确定</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="loadingToast" class="weui_loading_toast" ng-show="ngloading">
+	<div class="weui_mask_transparent"></div>
+	<div class="weui_toast">
+		<div class="weui_loading">
+			<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+		</div>
+		<p class="weui_toast_content">数据加载中</p>
+	</div>
+</div>

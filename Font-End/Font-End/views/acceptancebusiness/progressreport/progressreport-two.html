@@ -1,0 +1,39 @@
+<div class="text_bg_f4f">
+	<div class="pad_b_1">
+		<p class="weui_btn_brown tx_c text_color_fff pad_tb_04">输入查询</p>
+		<div class="mar_1">
+			<div class="bor bor_color_brown bor_rad_3 pad_xx_10 mar_t_2">
+				<input id="weiTuoPingGuNo" type="text" class="weui_input" placeholder="请输入12位订单号" maxlength="12"/>
+			</div>
+			<button class="weui_btn weui_btn_brown mar_tb_1" ng-click="gotoDetails('')">查询</button>
+		</div>
+	</div>
+
+	<div class="pad_b_1">
+		<p class="weui_btn_brown tx_c text_color_fff pad_tb_04">直接查询</p>
+		<div class="mar_lr_1 pad_tb_3 text_color_51">
+			<div class="pad_lr_06 bor bor_color_eb bor_rad_3 text_bg_fff font_s_6 ty_list">
+
+				<ul>
+					<li>
+						<dl class="pad_x_8">
+							<dd class="width_35 f-fl">订单号</dd>
+							<dd class="width_35 f-fl ccyc">评估对象</dd>
+							<dd class="width_300 f-fl">委托日期</dd>
+							<dd class="f-cf"></dd>
+						</dl>
+					</li>
+					<li>
+						<dl class="pad_x_8" ng-repeat="item in items" ng-click="gotoDetails(item.weiTuoPingGuNo)">
+							<dd class="width_35 f-fl" >{{item.weiTuoPingGuNo}}</dd>
+							<dd class="width_35 f-fl ccyc">{{formatNull(item.weiTuoXiangMuDiZhi)}}&nbsp</dd>
+							<dd class="width_300 f-fl">{{formatDate(item.weiTuoPingGuTime)}}</dd>
+							<dd class="f-cf"></dd>
+						</dl>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+</div>

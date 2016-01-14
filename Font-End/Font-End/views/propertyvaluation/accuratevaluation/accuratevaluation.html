@@ -1,0 +1,188 @@
+﻿<form id="Assess">
+    <div class="pad_tb_1 mar_lr_1">
+        <div class="bor bor_color_hui bor_rad_3 pad_xx_10 mar_b_10 mar_t_2 form_valid">
+            <div>
+                <div>
+                    <!-- 小区名称 -->
+                    <input type="text" class="weui_input bor_b bor_color_hui bor_type_x weui_icon_qb bor_rad_0" maxlength="50" placeholder="请在此输入评估对象" id="appraisalobject" name="appraisalobject" ng-model="form.residentialAreaName" />
+                </div>
+            </div>
+        </div>
+        <div class="mar_b_10">
+            <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                    <span class="f-fl text_color_4c5">楼栋号：</span>
+                    <div class="weui_cell_bd weui_cell_primary_1">
+                        <!-- 楼栋-->
+                        <input ng-click="selectBuild()" ng-model="form.floorBuilding" type="text" class="weui_input" name="buildingnum" id="buildingnum" style="width: 50%;" maxlength="20" />
+                        <!-- 单元-->
+                        <input ng-click="selectUnit()" ng-model="form.cellNumber" type="text" class="weui_input" name="unit" id="unit" style="width: 30%;" />
+                    </div>
+                    <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="mar_lr_1 text_bg_fff bor bor_color_eb bor_rad_2 text_color_9a" style="height: 10em ;overflow: auto;" ng-style="{display:isShowBuildLs?'block':'none'}" id="buildnumber">
+            <!-- 楼栋号弹窗 -->
+            <ul class="tx_c">
+                <!-- error_color-->
+                <li class="pad_tb_04" ng-repeat="builder in buildingList" ng-click="buildClick(builder)">{{builder.buildingName}}</li>
+            </ul>
+        </div>
+        <div class="mar_lr_1 text_bg_fff bor bor_color_eb bor_rad_2 text_color_9a" style="height: 10em ;overflow: auto" ng-style="{display:isShowUnitLs? 'block':'none'}" id="unitnumber">
+            <!-- 单元号弹窗 -->
+            <ul class="tx_c">
+                <!--  error_color -->
+                <li class="pad_tb_04" ng-repeat="unit in unitList" ng-click="unitClick(unit)">{{unit.unitName}}</li>
+            </ul>
+        </div>
+        <div class="mar_b_10">
+            <div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                    <span class="f-fl text_color_4c5">门牌号：</span>
+                    <div class="weui_cell_bd weui_cell_primary_1">
+                        <!-- 门牌号 -->
+                        <input ng-click="selectHouseNum()" ng-model="form.houseNumber" type="text" class="weui_input" name="roomnumber" id="roomnumber" />
+                    </div>
+                    <div class="weui_cell_ft font_s_8 text_color_4c5">
+                        <span style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 门牌号弹出层 -->
+        <div class="mar_lr_1 text_bg_fff bor bor_color_eb bor_rad_2 text_color_9a" id="roomnumberList" style="height: 10em ;overflow: auto;" ng-style="{display:isShowHouseLs?'block':'none'}">
+            <ul class="tx_c">
+                <!-- error_color-->
+                <li class="pad_tb_04" ng-repeat="houseName in houseNameLs" ng-click="houseClick(houseName)">{{houseName.houseName}}</li>
+            </ul>
+        </div>
+        <div class="mar_b_10">
+            <div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                    <span class="f-fl text_color_4c5">建筑面积：</span>
+                    <div class="weui_cell_bd weui_cell_primary_1">
+                        <!-- 建筑面积 -->
+                        <input ng-model="form.area" type="text" class="weui_input" name="areas" id="areas"  maxlength="7" />
+                    </div>
+                    <div class="weui_cell_ft font_s_8 text_color_4c5">
+                    <span style="margin-right: 25px; "> ㎡</span>
+                        <!--  <span class="weui_btn_brown bor_rad_3 text_color_fff"
+                              style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;">必填</span>
+                    -->
+                </div>
+            </div>
+        </div>
+        <!--<label class="text_color_4c5 font_s_8">
+        <span class="error_color">提示：</span>
+        具体提示文案参考需求文档
+    </label>
+    -->
+</div>
+<div class="mar_b_10" ng-show="isgetroom">
+    匹配居室：
+    <span ng-repeat="item in getroomResult">{{item.Value}}&nbsp;&nbsp;</span>
+</div>
+<div class="mar_b_10">
+    <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+            <span class="f-fl text_color_4c5">居室类型：</span>
+            <div class="weui_cell_bd weui_cell_primary_1 relativ">
+                <!-- 居室类型-->
+                <!--             <input ng-model="form.roomtype" type="text" class="weui_input" name="roomtype" id="roomtype" style="width: 60%;" readonly="readonly" />
+                <input ng-model="form.toward" type="text" class="weui_input" name="toward" id="toward" style="width: 40%;" readonly="readonly" />
+                -->
+                <input ng-model="roomtype_toward" type="text" class="weui_input" name="roomtype" id="roomtype" style="width:80%;" readonly="readonly" />
+
+                <div style="display:none;height: 7em;" class="slidlist absolut" id="roomtypelist">
+                    <ul>
+                        <li ng-repeat="itemroomtype in houseTypes" ng-click="roomtypelist(itemroomtype.typeName)">{{itemroomtype.typeName}}</li>
+                    </ul>
+                </div>
+                <div style="display:none;height: 7em;" class="slidlist absolut" id="towardlist">
+                    <ul>
+                        <li ng-repeat="itemtowards in towards" ng-click="towardlist(itemtowards.towardName)">{{itemtowards.towardName}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="weui_cell_ft font_s_8 text_color_4c5">
+                <span style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mar_b_10" id="special" style="display:none;">
+    <div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+            <span class="f-fl text_color_4c5">特殊因素：</span>
+            <div class="weui_cell_bd weui_cell_primary_1 relativ">
+                <!-- 门牌号 -->
+                <input ng-model="form.specialFactors" type="text" class="weui_input" name="rspecialreson" id="specialreson" value="" readonly="readonly" ng-click="clicklist()" />
+                <div style="height:auto;display:none;" class="slidlist absolut" id="speciallist">
+                    <ul>
+                        <li ng-click="hasnone('无')">无</li>
+                        <li ng-repeat="itemspeciallist in specialFactorsLs" ng-click="speciallist(itemspeciallist.value)">{{itemspeciallist.value}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="weui_cell_ft font_s_8 text_color_4c5">
+                <span style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mar_b_10">
+    <div class=" pad_xx_10 bor bor_color_hui bor_rad_3">
+        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb form_valid">
+            <span class="f-fl text_color_4c5">楼层情况：</span>
+            <div class="weui_cell_bd weui_cell_primary_2 font_s_9">
+                <span class="f-fl">所在</span>
+                <span class="f-fl" style="width: 20%">
+                    <input ng-model="form.floor" type="text" class="weui_input tx_c" maxlength="3" name="currentfloor" id="currentfloor"/>
+                </span>
+                <span class="f-fl">层，共</span>
+                <span class="f-fl" style="width: 20%">
+                    <input type="text" ng-model="form.totalfloor" maxlength="3" class="weui_input tx_c" name="totalfloor" id="totalfloor"/>
+                </span>
+                <span class="f-fl">层</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+    <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+        <span class="f-fl text_color_4c5">建成年代：</span>
+        <div class="weui_cell_bd weui_cell_primary_1">
+            <input ng-model="form.buildingyear" type="text" class="weui_input" name="buildingyear" id="buildingyear" />
+        </div>
+        <div class="weui_cell_ft font_s_8 text_color_4c5">
+            <span style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;"></span>
+        </div>
+    </div>
+</div>
+<div class="mar_t_3">
+    <button class="weui_btn weui_btn_brown" ng-click="onSubmit()">精准估值</button>
+</div>
+<p class="font_s_8 error_color pad_t_12 tx_c">输入条件越完善，估值越精准</p>
+</div>
+</form>
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+<div class="weui_mask_transparent"></div>
+<div class="weui_toast">
+<div class="weui_loading">
+    <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+    <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+</div>
+<p class="weui_toast_content">数据加载中</p>
+</div>
+</div>

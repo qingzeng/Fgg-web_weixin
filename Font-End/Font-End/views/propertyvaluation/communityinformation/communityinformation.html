@@ -1,0 +1,230 @@
+<div class="text_bg_f4f text_color_51">
+	<div class="xq_xx font_s_9">
+		<ul>
+			<li class="f-fl current">基本信息</li>
+			<li class="f-fl">详细信息</li>
+			<li class="f-fl">周边配套</li>
+			<li class="f-cf"></li>
+		</ul>
+	</div>
+
+	<!-- 详细信息 -->
+	<div style="padding-bottom:4em">
+		<div id="wrap0">
+			<div class="mar_lr_1" style="margin-top: 10px;">
+				<p class="pad_tb_06">
+					<img src="http://fungugu.com/content/images/untitledBig_d42e273.jpg"  style="width:16em;height:12em;display:block;margin:0 auto;" id="pic" />
+				</p>
+			</div>
+
+			<div class="mar_lr_1" style="margin-bottom: 5em;">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3" style="margin-top: 10px;">
+					<p> <strong class="text_color_ac9 font_s_11">{{getResidentialAreaDeta.residentialAreaName}}</strong>
+					</p>
+					<p> <strong>行&nbsp;&nbsp;政&nbsp;&nbsp;区：</strong>
+						{{getResidentialAreaDeta.districtName}}
+					</p>
+					<p>
+						<strong>片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：</strong>
+						{{getResidentialAreaDeta.regionName}}
+					</p>
+					<div>
+						<div class="f-fl">小区地址：</div>
+						<div style="margin-left:80px;">{{getResidentialAreaDeta.address}}</div>
+						<div  class="f-cf"></div>
+					</div>
+					<p>
+						<strong>小区均价：</strong>
+						<span class="error_color pad_r_10">{{getResidentialAreaDeta.unitPrice}}</span>
+						元
+					</p>
+					<p>
+						<strong  class="f-fl">价格涨幅：</strong>
+						<div  class="f-fl">
+							<span class="font_s_9 pad_r_1">
+								环比
+								<span ng-bind-html="getResidentialAreaDeta.xiangbishangyuestr | unsafe"></span>
+							</span>
+							<br/>
+							<span class="font_s_9">
+								同比
+								<span ng-bind-html="getResidentialAreaDeta.xiangbitongyuestr | unsafe"></span>
+							</span>
+						</div>
+						<div class="f-cf"></div>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div id="wrap1">
+			<!-- 详细信息 -->
+			<div class="mar_lr_1"style="margin-top: 10px;">
+				<p class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3 tx_c text_color_ac9">
+					<strong>浏览人数：{{times}}</strong>
+				</p>
+			</div>
+
+			<div class="mar_lr_1" style="margin-top: 10px; margin-bottom: 4em;">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
+					<div>
+						<div class="f-fl">楼盘地址：</div>
+						<div style="margin-left:80px;">{{getResidentialAreaDeta.address}}</div>
+					
+					</div>
+					<div class="f-cf"></div>
+					<div>
+						<ul>
+							<li class="f-fl" style="width: 50%">
+								<strong>用      途：</strong>
+								{{getResidentialAreaDeta.purpose}}
+							</li>
+							<li class="f-fl" style="width: 50%">
+								<strong>建筑类别：</strong>
+								{{getResidentialAreaDeta.buildingType}}
+							</li>
+
+							<li class="f-fl" style="width: 50%">
+								<strong>楼层状况：</strong>
+								{{getResidentialAreaDeta.floorCondition}}
+							</li>
+							<li class="f-fl" style="width: 50%">
+								<strong>车位状况：</strong>
+								{{getResidentialAreaDeta.carCondition}}
+							</li>
+
+							<li class="f-fl" style="width: 50%">
+								<strong>容积率：</strong>
+								{{getResidentialAreaDeta.plotRatio}}
+							</li>
+							<li class="f-fl" style="width: 50%">
+								<strong>绿化率：</strong>
+								{{getResidentialAreaDeta.greeningRate}}
+							</li>
+						</ul>
+						<div class="f-cf"></div>
+					</div>
+					<div>
+						<strong>物业管理费：</strong>
+						{{getResidentialAreaDeta.managementFee}}元/月
+					</div>
+					<div>
+						<strong>物业管理公司：</strong>
+						{{getResidentialAreaDeta.managementConpany}}
+					</div>
+					<div>
+						<strong>开发商：</strong>
+						{{getResidentialAreaDeta.developers}}
+					</div>
+					<div>
+						<strong>土地面积：</strong>
+						{{getResidentialAreaDeta.area}}㎡
+					</div>
+					<div>
+						<strong>建筑面积：</strong>
+						{{getResidentialAreaDeta.buildingArea}}㎡
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="wrap2">
+			<!-- 周边配套 -->
+			<div class="mar_lr_1"  style="margin-top: 10px;">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
+					<p>
+						<h1 class="text_color_ac9 bor_b bor_color_eb pad_lr_5 font_s_12">教育机构</h1>
+					</p>
+					<p class="pad_lr_5 font_s_9" style="margin-top: 8px;">
+						<span ng-repeat="item in schoolMap">{{item.name}}</span>
+					</p>
+				</div>
+			</div>
+
+			<div class="mar_lr_1" style="margin-top: 10px;">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
+					<p>
+						<h1 class="text_color_ac9 bor_b bor_color_eb pad_lr_5 font_s_12" >医疗机构</h1>
+					</p>
+					<p class="pad_lr_5 font_s_9" style="margin-top: 8px;">
+						<span ng-repeat="item in hospitalMap">{{item.name}}</span>
+					</p>
+				</div>
+			</div>
+
+			<div class="mar_lr_1" style="margin-top: 10px;">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
+					<p>
+						<h1 class="text_color_ac9 bor_b bor_color_eb pad_lr_5 font_s_12">商服机构</h1>
+					</p>
+					<p class="pad_lr_5 font_s_9" style="margin-top: 8px;">
+						<span ng-repeat="item in supermarketMap">{{item.name}}</span>
+					</p>
+				</div>
+			</div>
+
+			<div class="mar_lr_1" style="margin-top: 10px;">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
+					<p>
+						<h1 class="text_color_ac9 bor_b bor_color_eb pad_lr_5 font_s_12">金融机构</h1>
+					</p>
+					<p class="pad_lr_5 font_s_9" style="margin-top: 8px;">
+						<span ng-repeat="item in bankMap">{{item.name}}</span>
+					</p>
+
+				</div>
+			</div>
+
+			<div class="mar_lr_1" style="margin-top: 10px;">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
+					<p>
+						<h1 class="text_color_ac9 bor_b bor_color_eb pad_lr_5 font_s_12">周边公园</h1>
+					</p>
+					<p class="pad_lr_5 font_s_9" style="margin-top: 8px;">
+
+						<span ng-repeat="item in parkMap">{{item.name}}</span>
+
+					</p>
+				</div>
+			</div>
+
+			<div class="mar_lr_1" style="margin-top: 10px;margin-bottom: 20px">
+				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
+					<p>
+						<h1 class="text_color_ac9 bor_b bor_color_eb pad_lr_5 font_s_12">交通状况</h1>
+					</p>
+					<p class="pad_lr_5 font_s_9" style="margin-top: 8px;">
+						公交：
+						<span ng-repeat="item in busStationMap">{{item.name}}</span>
+						轨道交通：
+						<span ng-repeat="item in subwayStationMap">{{item.name}}</span>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class=" weui_btn_e3" style="position:fixed;bottom:0;left:0; width:100%;">
+		<div style="position:relative;margin: 1em .5em;">
+			<button class="weui_btn weui_btn_brown" ng-click="next()">精准估值</button>
+		</div>
+	</div>
+</div>
+<div id="loadingToast" class="weui_loading_toast" ng-show="ngloading">
+	<div class="weui_mask_transparent"></div>
+	<div class="weui_toast">
+		<div class="weui_loading">
+			<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+			<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+		</div>
+		<p class="weui_toast_content">数据加载中</p>
+	</div>
+</div>

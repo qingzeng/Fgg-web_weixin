@@ -1,0 +1,49 @@
+
+<div class="text_bg_f4f">
+    <div class="pad_b_1">
+        <p class="weui_btn_brown tx_c text_color_fff pad_tb_04">输入查询</p>
+        <div class="mar_1">
+            <form id="authenticitycheck">
+                <div class="bor bor_color_brown bor_rad_3 pad_xx_10 mar_b_10 form_valid">
+                    <input type="text" class="weui_input" placeholder="请输入15位报告编号" id="reportunm" ng-model="formData.reportNum" name="reportunm"  maxlength="15" />
+                </div>
+                <div class="bor bor_color_brown bor_rad_3 pad_xx_10 mar_b_10 form_valid">
+                    <input type="text" class="weui_input" placeholder="请输入委托方的姓名" id="entrustname" ng-model="formData.client" name="entrustname" />
+                </div>
+                <button class="weui_btn weui_btn_brown mar_tb_1" ng-click="truesubmit()">查询</button>
+            </form>
+            <div class="font_s_8 text_color_red mar_b_10">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="text_top">注1、</td>
+                        <td>“15位报告编号”栏请填写诸如 “000121231000000”而不是121231000000</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="font_s_8 text_color_red mar_b_10">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="text_top">注2、</td>
+                        <td>
+                            “委托方名称”请参考报告上的委托方全称及顺序填写；若有两人 以上请都填上，并以空格加以分离。
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="font_s_8 text_color_red">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="text_top">注3、</td>
+                        <td>查询过程中有任何问题，请致电400-017-2707（个人业务）。</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="pad_b_1">
+        <p class="weui_btn_brown tx_c text_color_fff pad_tb_04">二维码查询</p>
+        <div class="mar_lr_3 pad_tb_3 tx_c">
+            <button class="text_color_ac9 bor bor_color_brown bor_rad_3 font_s_1 pad_tb_08 width_100" ng-click="scanning()">扫一扫</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="text_bg_f4f text_color_51">
+
+    <!-- 情况5 -->
+    <form>
+        <!-- 我的估估-报单详情 完成业务情况5 -->
+        <div class="text_bg_f4f text_color_51 pad_b_3">
+            <div ng-repeat="reportInfo in reportList">
+                <div class="pad_tb_04 text_color_ac9">
+                    <p class="pad_l_1">{{reportInfo.currentState}}</p>
+                </div>
+                <div class="text_bg_fff pad_tb_08 font_s_8">
+                    <div class="pad_lr_1">
+                        <ul>
+                            <li class="width_500 f-fl">{{reportInfo.reportProperty}}</li>
+                            <li class="width_500 f-fr tx_r">
+                                <span class="pad_r_5">{{reportInfo.createdDate}}</span>
+                                <!--19:59:17-->
+                            </li>
+                            <li class="f-cf"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="text_bg_f4f text_color_51 pad_b_3">
+                <div>
+                    <div class="pad_tb_04 text_color_ac9">
+                        <p class="pad_l_1">委托成功</p>
+                    </div>
+                    <div class="text_bg_fff pad_tb_08 font_s_8">
+                        <div class="pad_lr_1">
+                            <ul>
+                                <li class="width_500 f-fl">线上递交委托报单�/li>
+                                <li class="width_500 f-fr tx_r">
+                                    <span class="pad_r_5">2015-12-13</span>
+                                    19:59:17
+                                </li>
+                                <li class="f-cf"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+
+        <div class="mar_t_1 fixed_0" style="width: 100%;">
+            <div class="pad_051 weui_btn_e3" style="padding: .6em 1em;">
+                <div class="tx_c">
+                    <ul>
+                        <li class="f-fl width_300">
+                            <button ng-click="Cuidan()"
+                                    class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor "
+                                    ng-class="{true:'weui_btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[isCuidan]">
+                                催单
+                            </button>
+                        </li>
+                        <li class="f-fl width_300 mar_lr_5_b">
+                            <button ng-click="Modify()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor"
+                                    ng-class="{true:'weui_btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[isModify]">
+                                修改
+                            </button>
+                        </li>
+                        <li class="f-fl width_300">
+                            <button ng-click="Chedan()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor"
+                                    ng-class="{true:'weui_btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[isChedan]">
+                                撤单
+                            </button>
+                        </li>
+                        <li class="f-cf"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 弹窗 -->
+<div ng-class="{true: 'block', false: 'hidden'}[commit]"><!---->
+    <div class="weui_mask_transition weui_fade_toggle block"></div>
+    <div class="weui_dialog pad_1 ">
+        <p class="text_color_red tx_c"><strong>{{title}}</strong></p>
+        <p class="tx_c font_s_7 pad_b_1" ng-class="{true: 'text_color_red', false: 'text_color_51'}[redContext]">
+            {{context}}</p>
+        <div class="mar_lr_1 tx_c" id="dialogConfirm" ng-style="{display:isShowBut?'block':'none'}">
+            <ul>
+                <li class="f-fl width_50 mar_r_10">
+                    <button ng-click="commitCancel()"
+                            class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">
+                        取消
+                    </button>
+                </li>
+                <li class="f-fl width_50">
+                    <button ng-click="commitConfirm()"
+                            class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">
+                        确定
+                    </button>
+                </li>
+                <li class="f-cf"></li>
+            </ul>
+        </div>
+        <div class="mar_lr_3" id="dialogCancel" ng-style="{display:isShowBut?'none':'block'}">
+            <button ng-click="commitCancel()"
+                    class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">
+                朕，知道啦。
+            </button>
+        </div>
+    </div>
+</div>
