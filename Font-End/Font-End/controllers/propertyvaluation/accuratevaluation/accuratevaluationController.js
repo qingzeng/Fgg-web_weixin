@@ -6,9 +6,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
 
         app.controller('AccuratevaluationCtrl', function ($scope, AccuratevaluationService) {
             //handler.isKeHuID();
-            var cc="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcb3XzxWvocinSXXMbxj2JwuZZCStkGZ4q98geVke1DzxqL/L3JVyY0XVOanDTeHDlMmWQ+9mlrWLlDR3cv0bbwTJ74ujZufRFnohP2HTa614uLry+HthqtUT3zUCWOo3SZfOQRJzZzvQfzfddJWZBFYMUeQiN+ieIUM5Glx89JFjPW2saQ9S8GY80Exf7DIJfrqr+81sUo+1A9B37467oo03El+LjkuIR+CSf5chlDEZtNKP6CD1Q6aF5wDucYAQWodecqgA0Dl2mcFry15okYSZLhAe9K5AI8UKshjp1+FHiGjGm42X45cgA0hH+32R34DxxkNuDS+o8GIK0Wz3B jiahui.li@yunfangdata.com"
-            var ss="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcb3XzxWvocinSXXMbxj2JwuZZCStkGZ4q98geVke1DzxqL/L3JVyY0XVOanDTeHDlMmWQ+9mlrWLlDR3cv0bbwTJ74ujZufRFnohP2HTa614uLry+HthqtUT3zUCWOo3SZfOQRJzZzvQfzfddJWZBFYMUeQiN+ieIUM5Glx89JFjPW2saQ9S8GY80Exf7DIJfrqr+81sUo+1A9B37467oo03El+LjkuIR+CSf5chlDEZtNKP6CD1Q6aF5wDucYAQWodecqgA0Dl2mcFry15okYSZLhAe9K5AI8UKshjp1+FHiGjGm42X45cgA0hH+32R34DxxkNuDS+o8GIK0Wz3B jiahui.li@yunfangdata.com";
-            alert(cc==ss);
             handler.setTitle("精准估价");
             //总楼层
             $scope.form = {};
@@ -56,7 +53,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 towardName: "南",
                 value: 2
             }, {
-
                 towardName: "西",
                 value: 3
             }, {
