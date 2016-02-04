@@ -2,8 +2,8 @@
  * completeddeclaration/已完成报单
  */
 define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationrecords/declarationServices'],
-    function (app, $, handler, declarationServices) {
-        app.controller('CompleteddeclarationCtrl', function ($scope, declarationServices) {
+    function(app, $, handler, declarationServices) {
+        app.controller('CompleteddeclarationCtrl', function($scope, declarationServices) {
             handler.isKeHuID();
             handler.setTitle("报单详情");
 
@@ -15,31 +15,30 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
             $scope.redContext = false;
             //报单号
             $scope.reportNum;
-            var reportNum = getParameterByName('reportNum');//报单号
-            var reportStat = getParameterByName('reportStat');// 报单状态
-            debugger;
+            var reportNum = getParameterByName('reportNum'); //报单号
+            var reportStat = getParameterByName('reportStat'); // 报单状态
             switch (reportStat) {
-                case '1'://未受理
+                case '1': //未受理
                     $scope.isModify = true;
                     $scope.isChedan = true;
                     $scope.isCuidan = true;
                     break;
-                case '2'://受理中
+                case '2': //受理中
                     $scope.isModify = true;
                     $scope.isChedan = false;
                     $scope.isCuidan = true;
                     break;
-                case '3'://已完成
+                case '3': //已完成
                     $scope.isModify = true;
                     $scope.isChedan = false;
                     $scope.isCuidan = true;
                     break;
-                case '4'://已中止
+                case '4': //已中止
                     $scope.isModify = false;
                     $scope.isChedan = false;
                     $scope.isCuidan = false;
                     break;
-                case '5'://全部
+                case '5': //全部
                     $scope.isModify = true;
                     $scope.isChedan = true;
                     $scope.isCuidan = true;
@@ -62,7 +61,7 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
              * 催单
              * @constructor
              */
-            $scope.Cuidan = function () {
+            $scope.Cuidan = function() {
                 if ($scope.isCuidan) {
                     cunDanCeDan('催单');
                 }
@@ -72,21 +71,21 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
              * 修改
              * @constructor
              */
-            $scope.Modify = function () {
-                if ($scope.isModify) {
-                    $scope.commit = true;
-                    $scope.redContext = false;
-                    $scope.title = '';
-                    $scope.isShowBut = false;
-                    $scope.context = '您好，您的委托报单处于等待受理阶段，如需改动请联系客服：400-017-2707';
-                    //TODO 弹出 对话框
+            $scope.Modify = function() {
+                    if ($scope.isModify) {
+                        $scope.commit = true;
+                        $scope.redContext = false;
+                        $scope.title = '';
+                        $scope.isShowBut = false;
+                        $scope.context = '您好，您的委托报单处于等待受理阶段，如需改动请联系客服：400-017-2707';
+                        //TODO 弹出 对话框
+                    }
                 }
-            }
-            /***
-             * 撤单
-             * @constructor
-             */
-            $scope.Chedan = function () {
+                /***
+                 * 撤单
+                 * @constructor
+                 */
+            $scope.Chedan = function() {
                 if ($scope.isChedan) {
                     $scope.commit = true;
                     $scope.title = '估宝宝提醒';
@@ -101,13 +100,13 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
             /***
              * 关闭对话框
              */
-            $scope.commitCancel = function () {
+            $scope.commitCancel = function() {
                 $scope.commit = false;
             };
             /***
              * 撤单点击确定了
              */
-            $scope.commitConfirm = function () {
+            $scope.commitConfirm = function() {
                 cunDanCeDan('撤单');
             };
 
@@ -115,12 +114,12 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
              * 催单撤单
              * @param type
              */
-            var cunDanCeDan = function (type) {
+            var cunDanCeDan = function(type) {
                 var from = {
                     type: type,
                     reportNum: $scope.reportNum
                 }
-                declarationServices.editCommissionedEvaluation(from).success(function (data, dtatue) {
+                declarationServices.editCommissionedEvaluation(from).success(function(data, dtatue) {
                     if (data.code == 200) {
                         // TODO 催单撤单成功
                         if (type == '催单') {
@@ -137,15 +136,15 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
                             $scope.title = '';
                             $scope.context = '您已提交撤单申请，估宝宝将知会当地合作房地产评估机构停止报告作业！';
                             $scope.isChedan = false;
-                            $scope.isModify=false;
-                            $scope.isCuidan=false;
+                            $scope.isModify = false;
+                            $scope.isCuidan = false;
                         }
                         //催单撤单后都要重新请求报单详情数据
                         getReportResult();
                     } else {
 
                     }
-                }).error(function (data, statue) {
+                }).error(function(data, statue) {
 
                 });
             }
@@ -153,11 +152,18 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
             /***
              * 获取报告详情
              */
-            var getReportResult = function () {
-                declarationServices.findCommissionedEvaluation({reportNum: $scope.reportNum}).success(function (data, statue) {
-                    debugger;
+            var getReportResult = function() {
+                declarationServices.findCommissionedEvaluation({
+                    reportNum: $scope.reportNum
+                }).success(function(data, statue) {
                     if (data.code == 200) {
                         $scope.reportList = data.data.result;
+
+                        for (var i = 0; i < $scope.reportList.length; i++) {
+                            if ($scope.reportList[i].createdDate.indexOf(".") != -1) {
+                                $scope.reportList[i].createdDate = $scope.reportList[i].createdDate.substring(0, $scope.reportList[i].createdDate.indexOf("."));
+                            }
+                        }
                         /*[
                          {
                          "reportProperty": "等待线下正式受理......",
@@ -183,7 +189,7 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
                          "createdDate": "2016-01-07 14:39:57",
                          "projectNo": "538440697949"
                          }
-                         ]*///data.data;//.result;
+                         ]*/ //data.data;//.result;
 
                         /***
                          * 催单状态获取
@@ -202,10 +208,10 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
                          * 撤单状态获取
                          */
                         if (data.data.isChedan && data.data.isChedan != null && data.data.isChedan != "") {
-                            if (data.data.isChedan == '1') {// 已经撤单了
+                            if (data.data.isChedan == '1') { // 已经撤单了
                                 $scope.isChedan = false;
-                                $scope.isModify=false;
-                                $scope.isCuidan=false;
+                                $scope.isModify = false;
+                                $scope.isCuidan = false;
                             } else if (data.data.isChedan == '0') {
                                 $scope.isChedan = true;
                             }
@@ -217,7 +223,7 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/declarationreco
                         //TODO 获取报告详情失败
                     }
 
-                }).error(function (data, statue) {
+                }).error(function(data, statue) {
 
                 });
             }

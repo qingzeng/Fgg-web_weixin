@@ -1,17 +1,17 @@
 <div class="text_bg_f4f">
 	<div class="pad_b_1">
-		<p class="weui_btn_brown tx_c text_color_fff pad_tb_04">输入查询</p>
+		<p class="bg_grey tx_c text_color_fff pad_tb_04">输入查询</p>
 		<div class="mar_1">
 			<div class="bor bor_color_brown bor_rad_3 pad_xx_10 mar_t_2">
 				<input id="weiTuoPingGuNo" type="text" class="weui_input" placeholder="请输入12位订单号" maxlength="12"/>
 			</div>
-			<button class="weui_btn weui_btn_brown mar_tb_1" ng-click="gotoDetails('')">查询</button>
+			<button class="weui_btn weui_btn_brown mar_tb_1" ng-click="gotoDetails('')" style="width:82%;margin-left:auto;margin-right:auto;">查询</button>
 		</div>
 	</div>
 
 	<div class="pad_b_1">
-		<p class="weui_btn_brown tx_c text_color_fff pad_tb_04">直接查询</p>
-		<div class="mar_lr_1 pad_tb_3 text_color_51">
+		<p class="bg_grey tx_c text_color_fff pad_tb_04">直接查询</p>
+		<div class="mar_lr_1 pad_tb_101 text_color_51">
 			<div class="pad_lr_06 bor bor_color_eb bor_rad_3 text_bg_fff font_s_6 ty_list">
 
 				<ul>
@@ -23,16 +23,25 @@
 							<dd class="f-cf"></dd>
 						</dl>
 					</li>
+				</ul>
+			</div>
+
+			<div class="pad_lr_06 bor_rad_3 text_bg_fff font_s_6 ty_list" ng-show="isNull">
+				<ul>
+
 					<li>
-						<dl class="pad_x_8" ng-repeat="item in items" ng-click="gotoDetails(item.weiTuoPingGuNo)">
-							<dd class="width_35 f-fl" >{{item.weiTuoPingGuNo}}</dd>
-							<dd class="width_35 f-fl ccyc">{{formatNull(item.weiTuoXiangMuDiZhi)}}&nbsp</dd>
-							<dd class="width_300 f-fl">{{formatDate(item.weiTuoPingGuTime)}}</dd>
+						<dl class="pad_x_8" ng-repeat="item in items" ng-click="gotoDetails(item.reportNum)">
+							<dd class="width_35 f-fl" >{{item.reportNum}}</dd>
+							<dd class="width_35 f-fl ccyc">{{formatNull(item.community)}}&nbsp</dd>
+							<dd class="width_300 f-fl">{{formatDate(item.preEvaluationDate)}}</dd>
 							<dd class="f-cf"></dd>
 						</dl>
 					</li>
 				</ul>
 
+			</div>
+			<div class="pad_lr_06 bor_rad_3 text_bg_fff font_s_6 ty_list" ng-hide="isNull">
+				当前暂无最新报单记录，请到<a href="#/delegatedeclaration">委托报单</a>页面
 			</div>
 		</div>
 	</div>

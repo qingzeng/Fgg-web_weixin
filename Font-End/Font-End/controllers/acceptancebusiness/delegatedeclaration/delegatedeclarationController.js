@@ -13,13 +13,13 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
         $scope.daytimes = dayarry();
         var isCheck = false;
         var residentialAreaList;
-
         $scope.formData = {}; //表单提交
         $scope.cityData = {}; //城市获取
         $scope.result = {};
         $scope.comData = {};
         $scope.infoData = {}; //个人信息
         $scope.formData.city = cityName;
+        $scope.nonecompany = true;
         //$scope.infoData.keHuId = "fde87e4b9fd142b6b51e382b7700745a"; //个信息，所在城市所以评估公司
         //$scope.formData.keHuId = "fde87e4b9fd142b6b51e382b7700745a";
         $scope.comData.cityName = cityName;
@@ -27,7 +27,26 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
         $scope.formData.keHuId = keHuID;
         $scope.disData = {}; //行政区请求
         $scope.district = {}; //行政区结果
+        $scope.chengshi = {};
+        $scope.xizhengqus = {};
+        $scope.xizhengqui = false;
+        var xizhengqu;
         //$scope.formData.city = "beijing";
+        //$("#slidlisterrorinfo").hide();
+        $("#infomation").slideUp();
+
+        function messagehide() {
+            var money = $("#loanamount").val();
+            if (money == "") {
+                $("#infomation").slideUp();
+            } else {
+                if ($("#loanratio").val() == "请选择") {
+                    $("#infomation").slideDown();
+                } else {
+                    $("#infomation").slideUp();
+                }
+            }
+        }
         //判断是否有值
         if (getParameterByName("residentialAreaName")) {
             $("#houseinfo").slideDown();
@@ -62,14 +81,11 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             else {
                 $('#companylist').hide(); // 如不是则隐藏元素
             }
+            //$("html,body").css("overflow", "auto");
         });
         $scope.cityData = {};
         //获取城市
         getcity($scope, delegatedeclarationServices);
-
-        //获取个人信息
-        getuserinfo($scope, delegatedeclarationServices);
-
         //获取个人城市所有评估公司
         getcitycompany($scope, delegatedeclarationServices);
         $scope.submit2 = function(event) {
@@ -78,14 +94,14 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 if ($("#linkperson").val() == "" || $("#linkpersontel").val() == "" || $('#billperson').val() == "" || $('#billpersontel').val() == "" || $('#assesscompany').val() == "") {
                     return;
                 } else {
-                    if ($("#loanamount").val() != "" && $("#loanratio").text() == "请选择") {
-                        $("#slidlisterrorinfo").show();
+                    if ($("#loanamount").val() != "" && $("#loanratio").val() == "请选择") {
+                        messagehide();
                     } else {
                         $("#slidlisterrorinfo").hide();
-                        if ($("#loanamount").val() != null || $("#loanamount").val() != "") {
-                            $scope.formData.expectPrice = parseFloat($("#loanamount").val()) * parseFloat($("#loanrationum").val()); //期贷金额
-                        }
-                        if ($("#lookday").val() != null || $("#lookday").val() != "") {
+                        if ($("#loanamount").val() != "" && $("#loanamount").val() != null && $("#loanamount").val() != "") {
+                            $scope.formData.expectPrice = (parseFloat($("#loanamount").val()) * parseFloat($("#loanrationum").val())) + ""; //期贷金额
+                        }  
+                        if ($("#lookday").val() != null && $("#lookday").val() != "" && $("#lookday").val() != "请选择") {
                             $scope.formData.appointmentTime = $("#lookday").val() + $("#looktime").val(); //看房时间
                         }
                         $("#loadingToast").show();
@@ -114,12 +130,16 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 }
             }
         }
+        $("#loanamount").blur(function(event) {
+            if ($("#loanamount").val() != "" && $("#loanratio").val() == "请选择") {
+                messagehide();
+            } else {
+                $("#infomation").slideUp();
+            }
+        });
         $("#formdata").validate({
-            focusout: true,
-            onsubmit: false,
             rules: {
                 linkperson: { //看房联系人
-                    stringCheck: true,
                     required: true,
                     maxlength: 20
                 },
@@ -128,7 +148,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                     isMobile: true
                 },
                 billperson: { //报单联系人
-                    stringCheck: true,
                     required: true,
                     maxlength: 20
                 },
@@ -145,7 +164,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                     min: 1
                 },
                 addressee: { //收件联系人
-                    stringCheck: true,
                     maxlength: 20
                 },
                 addresseetel: { //收件联系人电话
@@ -173,7 +191,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             messages: {
                 linkperson: {
                     required: "请输入看房联系人!",
-                    stringCheck: "联系人不能输入特殊字符!",
                     maxlength: "请输入最多20个字符!"
                 },
                 linkpersontel: {
@@ -182,7 +199,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 },
                 billperson: {
                     required: "请输入报单联系人!",
-                    stringCheck: "不能输入特殊字符!",
                     maxlength: "请输入最多20个字符!"
                 },
                 billpersontel: { //报单联系人电话
@@ -190,15 +206,14 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                     isMobile: "请输入正确的11位手机号码!"
                 },
                 assesscompany: { //评估公司
-                    required: "请输入评估公司!"
+                    required: "请选择评估公司!"
                 },
                 loanamount: { //报单联系人
                     posintdec: "请输入金额为1~9999，只留两位小数",
                     max: "请输入金额为1~9999，只留两位小数",
-                    min:"请输入金额为1~9999，只留两位小数"
+                    min: "请输入金额为1~9999，只留两位小数"
                 },
                 addressee: { //收件联系人
-                    stringCheck: "联系人不能输入特殊字符!",
                     maxlength: "请输入最多20个字符!"
                 },
                 addresseetel: { //收件联系人
@@ -224,15 +239,26 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             },
             success: function(label) {
                 label.closest('.form_valid').next(".error").remove();
-                $("#" + label[0].control.id).parent().parent().parent().removeClass('error_bor');
+                if (label[0].control.id == "loanamount") {
+                    $("#" + label[0].control.id).parent().parent().removeClass('error_bor');
+                } else {
+                    $("#" + label[0].control.id).parent().parent().parent().removeClass('error_bor');
+                }
             },
             errorPlacement: function(error, element) {
                 element.closest('.form_valid').next(".error").remove();
                 if (error[0].innerHTML != "") {
-                    var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">错误提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
-                    element.closest('.form_valid').after(html);
-                    element.closest('.form_valid').addClass('bor error_bor');
-                    $("#" + element[0].id).focus();
+                    if (element[0].id == "loanamount") {
+                        var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
+                        element.closest('.form_valid').after(html);
+                        element.closest('.ss').addClass('bor error_bor');
+                        $("#" + element[0].id).focus();
+                    } else {
+                        var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
+                        element.closest('.form_valid').after(html);
+                        element.closest('.form_valid').addClass('bor error_bor');
+                        $("#" + element[0].id).focus();
+                    }
                 }
             }
         });
@@ -240,31 +266,38 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
         $("#assesscompany").click(function(event) {
             $("#companylist").show();
             event.stopPropagation();
-            $("html,body").css("overflow", "hidden");
+            //$("html,body").css("overflow", "hidden");
         });
         $scope.compnylist = function(val) {
-                $scope.formData.estimateCompany = val;
-                $("#companylist").hide();
-                $("html,body").css("overflow", "auto");
+            $scope.formData.estimateCompany = val;
+            $("#companylist").hide();
+            $scope.nonecompany = false;
+            //$("html,body").css("overflow", "auto");
+        }
+        $scope.nonchoice = function() {
+                $scope.nonecompany = true;
+                $scope.formData.estimateCompany = "";
             }
             //贷款成数下拉选择
         $("#loanratio").click(function(event) {
             $("#slidlist").show();
             event.stopPropagation();
-            $("html,body").css("overflow", "hidden");
+            //$("html,body").css("overflow", "hidden");
         });
 
         $("#slidlist li").click(function(event) {
             $("#loanratio").val($(this).text());
+            messagehide();
             $("#loanrationum").val($(this).attr("data"));
             $("#slidlist").hide();
-            $("html,body").css("overflow", "auto");
+            //$("html,body").css("overflow", "auto");
             event.stopPropagation();
         });
         //地址自动添加
         $("#cityname").change(function(event) {
+            $scope.xizhengqui = false;
             //$scope.cityname.cityName = $("#cityname option:selected").text();
-            if ($("#cityname option:selected").text() != "请选择") {
+            if ($("#cityname option:selected").text() != "城市选择") {
                 $scope.disData.parentid = $("#cityname option:selected").val();
                 $("#deltaladdress").val($("#cityname option:selected").text());
                 getdistrict($scope, delegatedeclarationServices);
@@ -275,13 +308,14 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             }
         });
         $("#district").change(function(event) {
-            if ($("#district option:selected").text() != "请选择") {
+            $scope.xizhengqui = false;
+            if ($("#district option:selected").text() != "区域选择") {
                 $("#deltaladdress").val($("#cityname option:selected").text() + $("#district option:selected").text());
             } else {
-                if ($("#cityname option:selected").text() != "请选择") {
+                if ($("#cityname option:selected").text() != "区域选择") {
                     $("#deltaladdress").val($("#cityname option:selected").text());
                 } else {
-                    $("#deltaladdress").val();
+                    $("#deltaladdress").val("");
                 }
             }
         });
@@ -368,28 +402,34 @@ function getuserinfo($scope, delegatedeclarationServices) {
     delegatedeclarationServices.userInfo($scope.infoData).success(function(data, statue) {
         if (data.code == 200) {
             if (data.data != null && data.data != "") {
-                if (data.data.kehudanwei != null || data.data.kehudanwei != "") {
-                    $scope.formData.estimateCompany = data.data.kehudanwei; //客户所在评估公司
-                } else {
-                    $scope.formData.estimateCompany = "";
-
-                }
                 if (data.data.kehudengluzhanghao != null || data.data.kehudengluzhanghao != "") {
                     $scope.formData.client = data.data.kehudengluzhanghao; //客户登录账号
                     $scope.formData.receiver = data.data.kehudengluzhanghao;
                 } else {
-                    $scope.formData.estimateCompany = "";
+                    $scope.formData.client = "";
+                    $scope.formData.receiver = "";
+                }
+                if (data.data.kehuchengshi != null || data.data.kehuchengshi != "") {
+                    for (var i = 0; i < $("#cityname option").length; i++) {
+                        if (data.data.kehuchengshi == $("#cityname option").eq(i).text()) {
+                            $("#cityname option").eq(0).attr("selected", false);
+                            $("#cityname option").eq(i).attr("selected", true);
+                            $scope.disData.parentid = $("#cityname option").eq(i).val();
+                            getdistrict($scope, delegatedeclarationServices);
+                            xizhengqu = data.data.kehuxingzhengqu;
+                            break;
+                        }
+                    }
                 }
                 if (data.data.kehushouji != null || data.data.kehushouji != "") {
                     //$("#billpersontel").val(data.data.kehushouji); //客户手机
                     $scope.formData.clientPhone = data.data.kehushouji; //客户手机
                     $scope.formData.receiverPhone = data.data.kehushouji; //收件人联系电话
                     $scope.formData.receiveAddress = data.data.kehuxiangxidizhi; //收件人详细地址
-                    //$("#cityname")= data.data.kehuchengshi;
-                    //$("#district")= data.data.kehuxingzhengqu;
+                    //$("#deltaladdress").val(data.data.kehuxiangxidizhi);
                 } else {
-                    $scope.formData.estimateCompany = "";
-
+                    $scope.formData.clientPhone = "";
+                    $scope.formData.receiverPhone = "";
                 }
             }
         }
@@ -404,6 +444,7 @@ function getcitycompany($scope, delegatedeclarationServices) {
         if (data.code == 200) {
             if (data.data.length > 0) {
                 $scope.companys = data.data;
+                getuserinfo($scope, delegatedeclarationServices);
             } else {
                 $("#companylist").hide();
             }
@@ -417,6 +458,16 @@ function getcitycompany($scope, delegatedeclarationServices) {
 function getdistrict($scope, delegatedeclarationServices) {
     delegatedeclarationServices.getcityarea($scope.disData).success(function(data, statue) {
         if (data.code == 200) {
+            if (xizhengqu != null || xizhengqu != "") {
+                for (var i = 0; i < data.data.length; i++) {
+                    if (xizhengqu == data.data[i].valuezd) {
+                        $scope.xizhengqus.selecte = data.data[i].valuezd;
+                        data.data.splice(i, 1);
+                        $scope.xizhengqui = true;
+                        break;
+                    }
+                }
+            }
             $scope.district = data.data;
         }
     }).error(function(data, statue) {

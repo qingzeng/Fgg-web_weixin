@@ -17,8 +17,8 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             }
         }
 
-        $scope.scanning = function () {
-            wxReady($scope, $layer, authenticitycheckServices);
+        $scope.scanningSweep = function () {
+            wxReadyLoading($scope, $layer, authenticitycheckServices);
         }
 
 
@@ -54,7 +54,7 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             errorPlacement: function (error, element) {
                 element.closest('.form_valid').next(".error").remove();
                 if (error[0].innerHTML != "") {
-                    var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">错误提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
+                    var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
                     element.closest('.form_valid').after(html);
                     element.closest('.form_valid').addClass('bor error_bor');
                     $("#" + element[0].id).focus();
@@ -131,7 +131,7 @@ function wxConfig() {
 
 
 //微信方法执行
-function wxReady($scope, $layer, Services) {
+function wxReadyLoading($scope, $layer, Services) {
     wx.ready(function () {
         wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，

@@ -13,7 +13,7 @@ define(['handler'], function(handler) {
             var feekback = function(from) {
 
                 var params = {
-                    cityName: from.cityName,
+                    cityName_Zh: from.cityName_Zh,
                     xunjiaID: from.xunjiaID,
                     price: from.price,
                     totalprice: from.totalprice,
@@ -25,6 +25,20 @@ define(['handler'], function(handler) {
                     url: rootUrl + '/webservice/feekback'
                 });
             };
+
+
+            var recorddetails = function(from) {
+
+                var params = {
+                    jiLuId: from.jiLuId
+                }
+                return $http({
+                    method: 'GET',
+                    params: params,
+                    url: rootUrl + '/webservice/findAccurateValuation'
+                });
+            };
+
             var getAroundResidentialAreaInfo = function(from) {
 
                 var params = {
@@ -71,6 +85,9 @@ define(['handler'], function(handler) {
             return {
                 feekback: function(from) {
                     return feekback(from);
+                },
+                recorddetails: function(from) {
+                    return recorddetails(from);
                 },
                 getAroundResidentialAreaInfo: function(from) {
                     return getAroundResidentialAreaInfo(from);

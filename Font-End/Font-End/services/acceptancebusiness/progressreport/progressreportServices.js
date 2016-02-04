@@ -32,7 +32,9 @@ define(['handler'], function(handler) {
                 var params = {
                   keHuId:keHuId,
                   type:itype,
-                  cityName:cityName
+                  cityName:cityName,
+                  pageIndex:1,
+                  pageSize:15,
                 }
                 return $http({
                     method: 'GET',

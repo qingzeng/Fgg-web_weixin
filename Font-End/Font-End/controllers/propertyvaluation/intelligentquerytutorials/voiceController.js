@@ -1,9 +1,10 @@
 /**
- * voice/新手引导-录音
+ * voice/语音查询
  */
-define(['app', 'jquery'], function(app, $) {
-app.controller('VoiceCtrl', function($scope) {
-	document.title="语音查询-教程"//alert("")
-});
- 
+define(['app', 'jquery', 'handler'], function(app, $, handler) {
+	app.controller('VoiceCtrl', function($scope) {
+		handler.setTitle("语音查询");
+		//$(".text_bg_red").height($(window).height());
+	});
+
 });

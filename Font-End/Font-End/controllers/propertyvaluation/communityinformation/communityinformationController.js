@@ -20,6 +20,7 @@ define(['app', 'jquery', 'handler', '_layer', '../../../services/propertyvaluati
 		$scope.formData.cityName = window.localStorage.getItem("cityName");
 		$scope.formData.residentialAreaID = getParameterByName("residentialAreaID");
 		getresidentialAreaCount($scope, communityinformationServices, $layer);
+		getResidentialAreaDetai($scope, communityinformationServices, $layer);
 		$("#wrap1,#wrap2").hide();
 		$("#wrap0").show();
 		$(".xq_xx ul li").click(function() {
@@ -30,31 +31,31 @@ define(['app', 'jquery', 'handler', '_layer', '../../../services/propertyvaluati
 				case 0:
 					$("#wrap1,#wrap2").hide();
 					$("#wrap0").show();
-
-					getResidentialAreaDetai($scope, communityinformationServices, $layer);
 					break;
 				case 1:
 					$("#wrap0,#wrap2").hide();
 					$("#wrap1").show();
-
-					getResidentialAreaDetai($scope, communityinformationServices, $layer);
-
 					break;
 				case 2:
 					$("#wrap0,#wrap1").hide();
 					$("#wrap2").show();
+					if ($("#wrap2").attr("flag") == "false") {
+						$("#wrap2").attr("flag", "true");
+						getResidentialAreaAroundInfo($scope, communityinformationServices, $layer);
+					}
 
-					getResidentialAreaAroundInfo($scope, communityinformationServices, $layer);
 					break;
 			}
 
 		})
-		getResidentialAreaDetai($scope, communityinformationServices, $layer);
 
 
 		$scope.next = function() {
-
-			window.location.href = "#/accuratevaluation?residentialAreaID=" + $scope.formData.residentialAreaID + "&residentialAreaName=" + $scope.getResidentialAreaDeta.residentialAreaName;
+			if ($scope.getResidentialAreaDeta.residentialAreaName == null || $scope.getResidentialAreaDeta.residentialAreaName == "" || $scope.getResidentialAreaDeta.residentialAreaName == undefined) {
+				return false;
+			} else {
+				window.location.href = "#/accuratevaluation?residentialAreaID=" + $scope.formData.residentialAreaID + "&residentialAreaName=" + $scope.getResidentialAreaDeta.residentialAreaName;
+			}
 		}
 	}).filter('unsafe', ['$sce', function($sce) {
 		return function(val) {
@@ -82,6 +83,7 @@ function getResidentialAreaDetai($scope, communityinformationServices, $layer) {
 				$("#pic").attr("src", "http://fungugu.com/content/images/untitledBig_d42e273.jpg");
 			}
 
+			$scope.getResidentialAreaDeta.unitPrice = upade($scope.getResidentialAreaDeta.unitPrice);
 
 			$scope.getResidentialAreaDeta.xiangbitongyuestr = "";
 			$scope.getResidentialAreaDeta.xiangbishangyuestr = "";
@@ -101,10 +103,10 @@ function getResidentialAreaDetai($scope, communityinformationServices, $layer) {
 			}
 
 		} else {
-			var str ="当前城市暂无此小区信息，请选择切换城市";
+			var str = "当前城市暂无此小区信息，请选择切换城市";
 			$layer.open({
 				content: str,
-				btn:['确定']
+				btn: ['确定']
 			});
 		}
 
@@ -196,4 +198,15 @@ function arryplice(arry) {
 		return arry;
 	}
 
+}
+
+function upade(num) {
+	var _num = num + "";
+	var str = "";
+	if (_num != null && _num.length > 2) {
+		str = Math.round(parseInt(num) / 100) * 100 + "";
+	} else {
+		str = "0";
+	}
+	return str;
 }

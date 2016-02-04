@@ -52,12 +52,14 @@
                     <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
                         <span class="weui_cell_bd f-fl text_color_4c5 font_s_9">评估公司：</span>
                         <div class="weui_cell_primary_1 relativ">
-                            <input type="text" class="weui_input tx_l" name="assesscompany" id="assesscompany" name="assesscompany" ng-model="formData.estimateCompany" style="width:68%" readonly="true" />
+                            <input type="text" class="weui_input tx_l" name="assesscompany" id="assesscompany" name="assesscompany" ng-model="formData.estimateCompany" style="width:68%" readonly="true"/>
                             <div style="display:none;height: auto;" class="slidlist absolut" id="companylist">
                                 <ul>
+                                    <li ng-click="nonchoice()">请选择</li>
                                     <li ng-repeat="itemcompanys in companys" ng-click="compnylist(itemcompanys.valuezd)">{{itemcompanys.valuezd}}</li>
                                 </ul>
                             </div>
+                            <div style="position:absolute;top:0em;left:6em;" ng-show="nonecompany">请选择</div>
                         </div>
                     </div>
                 </div>
@@ -69,7 +71,7 @@
                     <span class="weui_btn_dark bor_rad_3 text_color_fff font_s_8" style="padding:2px 8px 0; margin-left: 6px;">选填</span>
                 </div>
                 <div class="mar_b_10 bor_color_hui text_color_4c5 form_valid" style="height: 2.5em;">
-                    <div class="width_64 f-fl pad_xx_10 bor_color_hui bor" style="width:60%">
+                    <div class="width_64 f-fl pad_xx_10 bor_color_hui bor ss" style="width:60%">
                         <div class="bor_b_type_x bor_color_hui weui_cell_primary_1 bor_rad_3 font_s_9">
                             <span class="f-fl">期贷金额：</span>
                             <input type="text" class="weui_input tx_c" id="loanamount" name="loanamount" style="width:30%" maxlength="7" />
@@ -100,8 +102,8 @@
                     </div>
                     <div class="f-cf"></div>
                 </div>
-                <div class="weui_cell text-bg-gray error" style="display:none" id="slidlisterrorinfo">
-                    <label><span class="error_color">错误提示：</span>请选择贷款成数!</label>
+                <div class="weui_cell text-bg-gray" id="infomation" style="font-size:0.9em;">
+                    <label><span class="error_color">提示：</span>请选择贷款成数!</label>
                 </div>
                 <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
                     <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
@@ -131,7 +133,7 @@
                             <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
                                 <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
                                     <select class="weui_select font_s_9 tx_c pad_r_1" id="cityname">
-                                        <option value="" selected>请选择</option>
+                                        <option value="">城市选择</option>
                                         <option ng-repeat="item in citylist" value="{{item.idzd}}">{{item.valuezd}}</option>
                                     </select>
                                 </div>
@@ -141,7 +143,8 @@
                             <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
                                 <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
                                     <select class="weui_select font_s_9 tx_c pad_r_1" id="district">
-                                        <option value="" selected>请选择</option>
+                                        <option value="">区域选择</option>
+                                        <option value="" ng-show="xizhengqui" selected>{{xizhengqus.selecte}}</option>
                                         <option ng-repeat="items in district" value="{{item.idzd}}">{{items.valuezd}}</option>
                                     </select>
                                 </div>
@@ -153,7 +156,7 @@
                 <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
                     <div>
                         <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
-                            <input class="weui_input pad_r_1" type="text" placeholder="请在此输入详细地址" id="deltaladdress" name="deltaladdress" ng-mode="formData.receiveAddress" maxlength="65"/>
+                            <input type="text" class="weui_input pad_r_1" id="deltaladdress" ng-model="formData.receiveAddress" name="deltaladdress" placeholder="请在此输入详细地址" maxlength="65" />
                         </div>
                     </div>
                 </div>

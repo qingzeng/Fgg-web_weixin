@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8"/>
+    <title>位置地图</title>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <!-- 移动设备支持 -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control"/>
+    <meta content="no-cache" http-equiv="pragma"/>
+    <meta content="0" http-equiv="expires"/>
+    <meta content="telephone=no, address=no" name="format-detection"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <link href="content/css/style.css"  rel="stylesheet" type="text/css" />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=i8umWqdB48AWu9gCvm2Vc2Wv"></script>
+</head>
+<body>
+    <div style="width:100%; height:300px" id="allmap"></div>
+    <script type="text/javascript">
+        $("#allmap").height($(window).height());
+        var map = new BMap.Map("allmap"); // 创建Map实例
+        var mapType1 = new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]});
+        var mapType2 = new BMap.MapTypeControl({anchor: BMAP_ANCHOR_TOP_LEFT});
+        var overView = new BMap.OverviewMapControl();
+        var overViewOpen = new BMap.OverviewMapControl({isOpen:false, anchor: BMAP_ANCHOR_BOTTOM_RIGHT});
+        map.removeControl(mapType1);
+        map.removeControl(mapType2);
+        map.removeControl(overView);
+        map.removeControl(overViewOpen);
+        var marker = new BMap.Marker(new BMap.Point(parseFloat(getParameterByName("x")), parseFloat(getParameterByName("y")))); // 创建点
+        map.centerAndZoom(new BMap.Point(parseFloat(getParameterByName("x")), parseFloat(getParameterByName("y"))), 18); // 初始化地图,设置中心点坐标和地图级别
+        map.addOverlay(marker);
+        map.enableScrollWheelZoom(true);
+
+
+        //获取URL参数
+        function getParameterByName(name) {
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.href);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+        }
+</script>
+</body>
+</html>

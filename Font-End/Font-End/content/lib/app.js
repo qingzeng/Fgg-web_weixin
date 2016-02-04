@@ -1,62 +1,52 @@
-define(['angularAMD', 'angular-route', 'handler', 'jquery'], function (angularAMD) {
+define(['angularAMD', 'angular-route', 'handler', 'jquery'], function(angularAMD) {
     var app = angular.module("webapp", ['ngRoute']);
 
-
-    ////登陆判断
-    //if (window.localStorage.getItem("keHuId") == "" || window.localStorage.getItem("keHuId") == null || window.localStorage.getItem("keHuId") == "null" || window.localStorage.getItem("keHuId") == undefined || window.localStorage.getItem("keHuId") == "undefined") {
-    //    if (window.location.href.indexOf('/login') < 0)
-    //    {
-    //        window.location.href =handler.redirectUrl;
-    //        return;
-    //    }
-    //}
-
-
-    app.factory('UserInterceptor', ["$q", "$rootScope", "$location", function ($q, $rootScope, $location) {
+    app.factory('UserInterceptor', ["$q", "$rootScope", "$location", function($q, $rootScope, $location) {
         return {
-            request: function (config) {
-
-                // config.url = "views/login/citySelect.html";
+            request: function(config) {
                 return config;
             },
-            responseError: function (response) {
-                // alert(response.status);
+            responseError: function(response) {
                 return $q.reject(response);
             }
         };
     }]);
 
-    app.config(function ($httpProvider) {
+    app.config(function($httpProvider) {
         $httpProvider.interceptors.push('UserInterceptor');
     });
     //监听路由事件
-    app.run(['$rootScope', '$location', function ($rootScope, $location) {
-        $rootScope.$on('$routeChangeStart', function () {
+    app.run(['$rootScope', '$location', function($rootScope, $location) {
+        $rootScope.$on('$routeChangeStart', function() {
             if (window.localStorage.getItem("keHuId") == "" || window.localStorage.getItem("keHuId") == null || window.localStorage.getItem("keHuId") == "null" || window.localStorage.getItem("keHuId") == undefined || window.localStorage.getItem("keHuId") == "undefined") {
-              //  alert("Url=" + window.location.href.indexOf('/login'));
                 if (window.location.href.indexOf('/login') < 0) {
-                    var code = getParameterByName("code");
-                    GetUserInfoByCode(code);
-                    if (handler.KeHuIDIsNull()) {
-                        $location.path('/login?openid=' + window.localStorage.getItem("openid"));
+                    if (window.location.href.indexOf('/locate') > -1) {
+                        $location.path('/locate');
+                    } else if (window.location.href.indexOf('/tochatwith') > -1) {
+                        $location.path('/tochatwith');
+                    } else if (window.location.href.indexOf('/voice') > -1) {
+                        $location.path('/voice');
+                    } else {
+                        var code = getParameterByName("code");
+                        var openid = getParameterByName("openid");
+                        if (code != "" && code != null && code != "null" && code != undefined && code != 'undefined') {
+                            GetUserInfoByCode(code);
+                        } else if (openid != "" && openid != null && openid != "null" && openid != undefined && openid != 'undefined') {
+                            getUserInfoByOpenId(openid);
+                        }
+                        if (handler.KeHuIDIsNull()) {
+                            $location.path('/login?openid=' + window.localStorage.getItem("openid"));
+                        }
                     }
                 }
             }
-          
-
-
-            // alert(window.location.href);
-            //alert("xx:" + code);
-            //请求获取是否登录
-            //如果登录
-
 
         });
     }]);
 
 
     // 路由规则
-    app.config(function ($routeProvider) {
+    app.config(function($routeProvider) {
         $routeProvider
             .when("/login", angularAMD.route({ //登录
                 templateUrl: 'views/login/login.html',
@@ -98,17 +88,17 @@ define(['angularAMD', 'angular-route', 'handler', 'jquery'], function (angularAM
                 controller: 'CommunityinformationCtrl',
                 controllerUrl: '../../controllers/propertyvaluation/communityinformation/communityinformationController'
             }))
-            .when("/locate", angularAMD.route({ //新手引导-定位
+            .when("/locate", angularAMD.route({ //定位查询
                 templateUrl: 'views/propertyvaluation/intelligentquerytutorials/locate.html',
                 controller: 'LocateCtrl',
                 controllerUrl: '../../controllers/propertyvaluation/intelligentquerytutorials/locateController'
             }))
-            .when("/tochatwith", angularAMD.route({ //新手引导-聊天
+            .when("/tochatwith", angularAMD.route({ //文字查询
                 templateUrl: 'views/propertyvaluation/intelligentquerytutorials/tochatwith.html',
                 controller: 'TochatwithCtrl',
                 controllerUrl: '../../controllers/propertyvaluation/intelligentquerytutorials/tochatwithController'
             }))
-            .when("/voice", angularAMD.route({ //新手引导-语言
+            .when("/voice", angularAMD.route({ //语音查询
                 templateUrl: 'views/propertyvaluation/intelligentquerytutorials/voice.html',
                 controller: 'VoiceCtrl',
                 controllerUrl: '../../controllers/propertyvaluation/intelligentquerytutorials/voiceController'
@@ -242,17 +232,7 @@ define(['angularAMD', 'angular-route', 'handler', 'jquery'], function (angularAM
                 redirectTo: "/login"
             });
 
-
     });
-
-    //if (window.localStorage.getItem("keHuId") == "" || window.localStorage.getItem("keHuId") == null || window.localStorage.getItem("keHuId") == "null" || window.localStorage.getItem("keHuId") == undefined || window.localStorage.getItem("keHuId") == "undefined") {
-    //    if (window.location.href.indexOf('/login') < 0)
-    //    {
-    //        window.location.href =handler.redirectUrl;
-    //        return;
-    //    }
-    //}
-
 
     return angularAMD.bootstrap(app);
 });
@@ -266,8 +246,8 @@ function GetUserInfoByCode(code) {
         url: Url,
         async: false,
         dataType: "json",
-        success: function (data) {
-           // alert("code=" + JSON.stringify(data));
+        success: function(data) {
+            // alert("code=" + JSON.stringify(data));
             if (data.code == 200 && data.data != null) {
                 var myOpenid = data.data.openid;
                 var myCid = data.data.cid;
@@ -286,9 +266,36 @@ function GetUserInfoByCode(code) {
     });
 }
 
+
+//通过openid获取kehuId
+function getUserInfoByOpenId(openid) {
+    var Url = handler.rootUrl + '/webservice/getUserByOpenid';
+    var params = {
+        openid: openid
+    }
+    $.ajax({
+        url: Url,
+        async: false,
+        data: params,
+        type: "get",
+        dataType: "json",
+        success: function(data) {
+            //alert("openid=" + JSON.stringify(data));
+            if (data.code == 200) {
+                var myCid = data.data;
+
+                if (myCid != undefined && myCid != null && myCid != "null") {
+                    window.localStorage.setItem("keHuId", myCid);
+                }
+            } else {
+                window.localStorage.setItem("keHuId", null);
+            }
+        }
+    });
+}
+
 //获取URL参数
 function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.href);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
-

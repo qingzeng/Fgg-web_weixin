@@ -2,71 +2,64 @@
     <div class="mar_lr_1 pad_t_1">
         <div class="pad_lr_06 bor bor_color_eb bor_rad_3 text_bg_fff font_s_6 ty_list">
             <dl class="pad_x_8">
-                <dd class="width_40 f-fl ccyc" style="width:35%;">小区名称</dd>
-                <dd class="width_20 f-fl" style="width:30%;">总价(万元)</dd>
-                <dd class="width_40 f-fl" style="width:35%;">估价日期</dd>
+                <dd class="width_40 f-fl ccyc">小区名称</dd>
+                <dd class="width_20 f-fl">总价(万元)</dd>
+                <dd class="width_40 f-fl">估价日期</dd>
                 <dd class="f-cf"></dd>
             </dl>
-            <div ng-show="norecord">
-                <p margin-top:1em;>暂无数据，请到<a href="#/accuratevaluation">精准评估</a>页面评估。</p>
+        </div>
+        <div ng-show="norecord" class="font_s_6">
+            <p style="margin-top:1em;text-align:center">
+                暂无估价数据，请到
+                <a href="#/accuratevaluation">精准评估</a>
+                页面评估。
+            </p>
+        </div>
+        <div ng-hide="norecord">
+            <div class=" bor_rad_3 text_bg_fff font_s_6 ty_list" id="ty_list">
+                <table style="width:100%">
+                    <tr ng-repeat="item in recordlist" class="pad_x_5 bor_b bor_color_eb">
+                        <td class="width_40 pad_x_8" ng-click="seted()" style="vertical-align:middle">
+                            <a href="#/valuationdetails?jiLuId={{item.pinggujiluid}}" style="color:#000">{{item.weituopingguxiangmu}}</a>
+                        </td>
+                        <td class="width_20 pad_x_8"  ng-click="seted(item)"style="vertical-align:middle">
+                            <a href="#/valuationdetails?jiLuId={{item.pinggujiluid}}" style="color:#000">{{item.zongjia}}</a>
+                        </td>
+                        <td class="width_40 pad_x_8"  ng-click="seted(item)" style="vertical-align:middle">
+                            <a href="#/valuationdetails?jiLuId={{item.pinggujiluid}}"  style="color:#000">{{item.pinggutime}}</a>
+                        </td>
+
+                    </tr>
+                </table>
             </div>
-            <div class="swiper-container">
-                <div id="slider" class="swiper-wrapper">
-                    <!--<ul>
-                        <li ng-repeat="items in recordlist">
-                            <a href="#/valuationdetails?jiLuId={{items.pinggujiluid}}">
-                                <dl class="pad_x_8">
-                                    <dd class="width_40 f-fl ccyc">{{items.weituopingguxiangmu}}</dd>
-                                    <dd class="width_20 f-fl">{{items.zongjia}}</dd>
-                                    <dd class="width_40 f-fl">
-                                        <span class="pad_r_5">{{items.pinggutime}}
-                                    </dd>
-                                    <dd class="f-cf"></dd>
-                                </dl>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li ng-repeat="items in recordlist">
-                            <a href="#/valuationdetails?jiLuId={{items.pinggujiluid}}">
-                                <dl class="pad_x_8">
-                                    <dd class="width_40 f-fl ccyc">{{items.weituopingguxiangmu}}</dd>
-                                    <dd class="width_20 f-fl">{{items.zongjia}}</dd>
-                                    <dd class="width_40 f-fl">
-                                        <span class="pad_r_5">{{items.pinggutime}}
-                                    </dd>
-                                    <dd class="f-cf"></dd>
-                                </dl>
-                            </a>
-                        </li>
-                    </ul>-->
-                </div>
+
+            <div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;">
+                请滑动手机左右翻页，当前第
+                <span class="error_color">{{formData.page}}</span>
+                页，共
+                <span class="error_color">{{totalPage}}</span>
+                页
             </div>
         </div>
     </div>
-    <div ng-show="pagecontent" class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;">
-        请滑动手机左右翻页，当前第
-        <span class="error_color" id="page">1</span> 页，共
-                                        <span class="error_color">{{pagetotal}}</span> 页
-                </div>
-            </div>
-            <div id="loadingToast" class="weui_loading_toast" style="display:none;">
-                <div class="weui_mask_transparent"></div>
-                <div class="weui_toast">
-                    <div class="weui_loading">
-                        <div class="weui_loading_leaf weui_loading_leaf_0"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_1"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_2"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_3"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_4"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_5"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_6"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_7"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_8"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_9"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_10"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_11"></div>
-                    </div>
-                    <p class="weui_toast_content">数据加载中</p>
-                </div>
-            </div>
+</div>
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p class="weui_toast_content">数据加载中</p>
+    </div>
+</div>

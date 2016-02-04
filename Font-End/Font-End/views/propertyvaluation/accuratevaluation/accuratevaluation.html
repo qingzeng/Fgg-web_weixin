@@ -9,14 +9,13 @@
             </div>
         </div>
         <div class="mar_b_10">
-            <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
-                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
-                    <span class="f-fl text_color_4c5">楼栋号：</span>
+            <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid" style="height:45px;">
+                <div class="weui_input bor_rad_0 weui_icon_qb" style="  background-position: right 12px;height: auto;">
+                    <span class="f-fl text_color_4c5" style="margin-top:10px;">房屋坐落：</span>
                     <div class="weui_cell_bd weui_cell_primary_1">
+                        <span id="morenloudong"></span>
                         <!-- 楼栋-->
-                        <input ng-click="selectBuild()" ng-model="form.floorBuilding" type="text" class="weui_input" name="buildingnum" id="buildingnum" style="width: 50%;" maxlength="20" />
-                        <!-- 单元-->
-                        <input ng-click="selectUnit()" ng-model="form.cellNumber" type="text" class="weui_input" name="unit" id="unit" style="width: 30%;" />
+                        <textarea ng-click="selectBuild()" ng-model="form.floorBuilding" type="text" class="weui_input" name="buildingnum" id="buildingnum" style="width:90%;height:45px;" maxlength="30"></textarea >
                     </div>
                     <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
                 </div>
@@ -26,8 +25,20 @@
             <!-- 楼栋号弹窗 -->
             <ul class="tx_c">
                 <!-- error_color-->
-                <li class="pad_tb_04" ng-repeat="builder in buildingList" ng-click="buildClick(builder)">{{builder.buildingName}}</li>
+                <li class="pad_tb_04" ng-repeat="builder in buildingList" ng-show="just_building" ng-click="buildClick(builder)">{{builder.buildingName}}</li>
+                <li class="pad_tb_04" ng-repeat="units in unitList" ng-show="just_unit" ng-click="hasnobuilding(units)">{{units.unitName}}</li>
             </ul>
+        </div>
+        <div class="mar_b_10" id="hasorunite" style="display:none;">
+            <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                    <div class="weui_cell_bd weui_cell_primary_1">
+                        <!-- 单元-->
+                        <input ng-click="selectUnit()" ng-model="form.cellNumber" type="text" class="weui_input" name="unit" id="unit" />
+                    </div>
+                    <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
+                </div>
+            </div>
         </div>
         <div class="mar_lr_1 text_bg_fff bor bor_color_eb bor_rad_2 text_color_9a" style="height: 10em ;overflow: auto" ng-style="{display:isShowUnitLs? 'block':'none'}" id="unitnumber">
             <!-- 单元号弹窗 -->
@@ -42,7 +53,7 @@
                     <span class="f-fl text_color_4c5">门牌号：</span>
                     <div class="weui_cell_bd weui_cell_primary_1">
                         <!-- 门牌号 -->
-                        <input ng-click="selectHouseNum()" ng-model="form.houseNumber" type="text" class="weui_input" name="roomnumber" id="roomnumber" />
+                        <input ng-click="selectHouseNum()" ng-model="form.houseNumber" type="text" class="weui_input" name="roomnumber" maxlength="6" id="roomnumber" />
                     </div>
                     <div class="weui_cell_ft font_s_8 text_color_4c5">
                         <span style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;"></span>
@@ -63,10 +74,10 @@
                     <span class="f-fl text_color_4c5">建筑面积：</span>
                     <div class="weui_cell_bd weui_cell_primary_1">
                         <!-- 建筑面积 -->
-                        <input ng-model="form.area" type="text" class="weui_input" name="areas" id="areas"  maxlength="7" />
+                        <input ng-model="form.area" type="text" class="weui_input" name="areas" id="areas" maxlength="7" />
                     </div>
                     <div class="weui_cell_ft font_s_8 text_color_4c5">
-                    <span style="margin-right: 25px; "> ㎡</span>
+                        <span style="margin-right: 25px; ">㎡</span>
                         <!--  <span class="weui_btn_brown bor_rad_3 text_color_fff"
                               style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;">必填</span>
                     -->
@@ -80,20 +91,20 @@
     -->
 </div>
 <div class="mar_b_10" ng-show="isgetroom">
-    匹配居室：
-    <span ng-repeat="item in getroomResult">{{item.Value}}&nbsp;&nbsp;</span>
+    <span  class="error_color">
+        匹配居室：
+        <span ng-repeat="item in getroomResult">{{item.Value}}&nbsp;&nbsp;</span>
+    </span>
 </div>
 <div class="mar_b_10">
     <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
         <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
             <span class="f-fl text_color_4c5">居室类型：</span>
             <div class="weui_cell_bd weui_cell_primary_1 relativ">
-                <!-- 居室类型-->
-                <!--             <input ng-model="form.roomtype" type="text" class="weui_input" name="roomtype" id="roomtype" style="width: 60%;" readonly="readonly" />
-                <input ng-model="form.toward" type="text" class="weui_input" name="toward" id="toward" style="width: 40%;" readonly="readonly" />
-                -->
-                <input ng-model="roomtype_toward" type="text" class="weui_input" name="roomtype" id="roomtype" style="width:80%;" readonly="readonly" />
-
+                <input  type="text" class="weui_input f-fl"  id="roomtypetoward" flag="true" style="width: 100%;" readonly="readonly" />
+                <div style="display:none" id="groups">
+                <input ng-model="form.roomtype" required="true" type="text" class="weui_input" name="roomtype" id="roomtype" style="width: 60%;" readonly="readonly" /><input type="text"  style="width:40%"  class="weui_input" name="toward" id="toward" value="" readonly="readonly" />
+                </div>
                 <div style="display:none;height: 7em;" class="slidlist absolut" id="roomtypelist">
                     <ul>
                         <li ng-repeat="itemroomtype in houseTypes" ng-click="roomtypelist(itemroomtype.typeName)">{{itemroomtype.typeName}}</li>
@@ -101,12 +112,17 @@
                 </div>
                 <div style="display:none;height: 7em;" class="slidlist absolut" id="towardlist">
                     <ul>
-                        <li ng-repeat="itemtowards in towards" ng-click="towardlist(itemtowards.towardName)">{{itemtowards.towardName}}</li>
+                        <li ng-repeat="itemtowards in towards" ng-click="towardlist(itemtowards.towardName)">{{itemtowards.towardName}}朝向</li>
+                    </ul>
+                </div>
+                 <div style="display:none;height: 7em;" class="slidlist absolut" id="towardlist1">
+                    <ul>
+                        <li ng-repeat="itemtowards in towards" ng-click="towardlist1(itemtowards.towardName)">{{itemtowards.towardName}}朝向</li>
                     </ul>
                 </div>
             </div>
             <div class="weui_cell_ft font_s_8 text_color_4c5">
-                <span style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;"></span>
+                <span style="margin-right: 15px; margin-left: 15px;"></span>
             </div>
         </div>
     </div>
@@ -117,7 +133,7 @@
             <span class="f-fl text_color_4c5">特殊因素：</span>
             <div class="weui_cell_bd weui_cell_primary_1 relativ">
                 <!-- 门牌号 -->
-                <input ng-model="form.specialFactors" type="text" class="weui_input" name="rspecialreson" id="specialreson" value="" readonly="readonly" ng-click="clicklist()" />
+                <input type="text" class="weui_input" name="rspecialreson" id="specialreson" value="" readonly="readonly" ng-click="clicklist()" />
                 <div style="height:auto;display:none;" class="slidlist absolut" id="speciallist">
                     <ul>
                         <li ng-click="hasnone('无')">无</li>
@@ -132,17 +148,17 @@
     </div>
 </div>
 <div class="mar_b_10">
-    <div class=" pad_xx_10 bor bor_color_hui bor_rad_3">
-        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb form_valid">
+    <div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb ">
             <span class="f-fl text_color_4c5">楼层情况：</span>
             <div class="weui_cell_bd weui_cell_primary_2 font_s_9">
                 <span class="f-fl">所在</span>
                 <span class="f-fl" style="width: 20%">
-                    <input ng-model="form.floor" type="text" class="weui_input tx_c" maxlength="3" name="currentfloor" id="currentfloor"/>
+                    <input ng-model="form.floor" type="text" class="weui_input tx_c" maxlength="2" name="currentfloor" id="currentfloor"/>
                 </span>
                 <span class="f-fl">层，共</span>
                 <span class="f-fl" style="width: 20%">
-                    <input type="text" ng-model="form.totalfloor" maxlength="3" class="weui_input tx_c" name="totalfloor" id="totalfloor"/>
+                    <input type="text" ng-model="form.totalfloor" maxlength="2" class="weui_input tx_c" name="totalfloor" id="totalfloor"/>
                 </span>
                 <span class="f-fl">层</span>
             </div>
@@ -153,7 +169,7 @@
     <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
         <span class="f-fl text_color_4c5">建成年代：</span>
         <div class="weui_cell_bd weui_cell_primary_1">
-            <input ng-model="form.buildingyear" type="text" class="weui_input" name="buildingyear" id="buildingyear" />
+            <input ng-model="form.buildingyear" type="text" class="weui_input" name="buildingyear" id="buildingyear" minlength="4" maxlength="4" />
         </div>
         <div class="weui_cell_ft font_s_8 text_color_4c5">
             <span style="padding: 2px 7px; margin-right: 25px; margin-left: 15px;"></span>

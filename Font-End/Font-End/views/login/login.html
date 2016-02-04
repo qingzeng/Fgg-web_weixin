@@ -10,7 +10,6 @@
                 <div class="weui_cell_bd weui_cell_primary">
                     <input type="text" class="weui_input font_s_1" placeholder="请在此输入帐号" ng-model="formData.userName" id="userName" name="userName" />
                 </div>
-
             </div>
         </div>
         <div style="height:10px;"></div>
@@ -32,9 +31,7 @@
             北京云房数据技术有限责任公司 | 网络经营许可证 京ICP备13050679号-2 ©2015 房估估Fungugu.com 版权所有
         </p>
     </div>
-
 </div>
-
 <div class="weui_loading_toast" ng-show="isloading">
     <div class="weui_mask_transparent"></div>
     <div class="weui_toast">
@@ -54,4 +51,126 @@
         </div>
         <p class="weui_toast_content">数据加载中</p>
     </div>
+</div>
+<!-- 弹窗 -->
+<div ng-hide="user_info" id="info">
+    <!---->
+    <div class="weui_mask_transition weui_fade_toggle block"></div>
+    <form id="userinfo">
+        <div class="weui_dialog"  style="    position: absolute;width: 80%;top: 50%;left: 50%;height: 100%;overflow: hidden;">
+            <div class="pad_1 mar_t_1" style=" max-height: 400px; height: 400px; overflow-y: auto; display: block; text-align: left;">
+                <div class="mar_b_10">
+                    <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                            <span class="f-fl text_color_4c5">姓名：</span>
+                            <div class="weui_cell_bd weui_cell_primary_1">
+                                <!-- 姓名-->
+                                <input type="text" name="usernames" id="usernames" ng-model="userinfodetal.reslName" class="weui_input" maxlength="15" />
+                            </div>
+                            <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_b_10">
+                    <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                            <span class="f-fl text_color_4c5">电话：</span>
+                            <div class="weui_cell_bd weui_cell_primary_1">
+                                <!-- 电话-->
+                                <input type="text" name="usertel" ng-model="userinfodetal.phone" id="usertel" class="weui_input" maxlength="11" />
+                            </div>
+                            <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_b_10">
+                    <div class="f-fl mar_r_b_6" style="width: 50%">
+                        <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                            <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0">
+                                <span class="f-fl text_color_4c5 font_s_9">验证码：</span>
+                                <div class="weui_cell_bd weui_cell_primary_1">
+                                    <input type="text" name="usercode" ng-model="userinfodetal.identifying" id="usercode" class="weui_input" maxlength="6" />
+                                </div>
+                                <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f-fr bor bor_color_hui" style="width: 40%;overflow:hidden">
+                        <input class="width_100 font_s_9 text_color_ac9" ng-click="sendcodes()" id="sendcode" value="获取验证码" style="padding:11px 0 11px 10px;" readonly="readonly"></div>
+                    <div class="f-cf"></div>
+                </div>
+                <div class="mar_b_10">
+                    <div class="f-fl width_25 text_color_4c5 pad_x_8">性别:</div>
+                    <div class="f-fr gender text_color_9a" id="gender">
+                        <ul>
+                            <li class="f-fl mar_r_b_6 pad_xx_10 one">男</li>
+                            <li class="f-fl pad_xx_10">女</li>
+                        </ul>
+                    </div>
+                    <div class="f-cf"></div>
+                </div>
+                <div class="mar_b_10">
+                    <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                            <span class="f-fl text_color_4c5">职业：</span>
+                            <div class="weui_cell_bd weui_cell_primary_1">
+                                <!-- 职业-->
+                                <input type="text" name="userwork" ng-model="userinfodetal.woke" id="userwork" class="weui_input" maxlength="30" />
+                            </div>
+                            <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_b_10">
+                    <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+                        <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
+                            <span class="f-fl text_color_4c5">所在机构(公司)：</span>
+                            <div class="weui_cell_bd weui_cell_primary_1">
+                                <!-- 机构 -->
+                                <input type="text" name="usercompany" ng-model="userinfodetal.organ" id="usercompany" class="weui_input" maxlength="50" />
+                            </div>
+                            <div class="weui_cell_ft font_s_8 text_color_4c5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_b_10 text_color_4c5">
+                    <p class="pad_b_04 font_s_9 mar_l_1" style="text-align:left;">收件联系人地址：</p>
+                    <div class="width_100">
+                        <div class="width_48 f-fl">
+                            <div class="pad_xx_10 bor bor_color_hui bor_rad_3">
+                                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
+                                    <select class="weui_select font_s_9 tx_c pad_r_1" id="cityname" ng-model="userinfodetal.city">
+                                        <option value="" selected>城市选择</option>
+                                        <option ng-repeat="item in citylist" data="{{item.idzd}}" value="{{item.valuezd}}">{{item.valuezd}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="width_48 f-fr">
+                            <div class="pad_xx_10 bor bor_color_hui bor_rad_3" style="padding:8px 10px 8px 0;">
+                                <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
+                                    <select class="weui_select font_s_9 tx_c pad_r_1" id="districtname" ng-model="userinfodetal.district">
+                                        <option value="" selected>区域选择</option>
+                                        <option ng-repeat="items in districts" value="{{items.valuezd}}">{{items.valuezd}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="f-cf"></div>
+                    </div>
+                </div>
+                <div class="bor bor_color_hui bor_rad_3 pad_xx_10 mar_b_10 form_valid">
+                    <div>
+                        <div>
+                            <!-- 详细地址 -->
+                            <input type="text" class="weui_input bor_b bor_color_hui bor_type_x weui_icon_qb bor_rad_0" name="deltaladdress" id="deltaladdress" ng-model="userinfodetal.address" placeholder="请在此输入详细地址" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mar_tb_02">
+                    <button class="weui_btn weui_btn_brown" ng-click="info_submit()">确认</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

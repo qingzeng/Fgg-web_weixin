@@ -2,15 +2,14 @@
  * progressdetails-oneController/报告详细
  */
 define(['app', 'jquery','handler','../../../services/acceptancebusiness/progressreport/progressreportServices'], function(app, $,handler,progressreportServices) {
-    app.controller('Progressreport-oneCtrl', function ($scope, progressreportServices) {
-    debugger;
+app.controller('Progressreport-oneCtrl', function ($scope, progressreportServices) {
 	$scope.items = {};
 	handler.setTitle("报告进度");
 	//用户登陆判断
-    handler.isKeHuID();
+  handler.isKeHuID();
 	var keHuId = window.localStorage.getItem("keHuId");
 	var cityName = window.localStorage.getItem("cityName");
-    //initParam();
+  //initParam();
 	//获取报告进度结果
 	getData($scope,progressreportServices);
 
@@ -24,7 +23,7 @@ define(['app', 'jquery','handler','../../../services/acceptancebusiness/progress
 				if(data != null){
 					var CityList = new Array();
 					var CityStr = "";
-					//获取所有城��
+					//获取所有城市
 					for (var i = 0; i < data.length; i++) {
 						 var obj = {};
 						 obj.cityName = data[i].codezd;
@@ -35,7 +34,7 @@ define(['app', 'jquery','handler','../../../services/acceptancebusiness/progress
 						 }
 					}
 
-					//把评估公司加入到城市对象��
+					//把评估公司加入到城市对象
 					for (var j = 0; j < CityList.length; j++) {
 						 var cityName = CityList[j].cityName;
 						 var companyList =Array();
@@ -53,7 +52,7 @@ define(['app', 'jquery','handler','../../../services/acceptancebusiness/progress
  		}).error(function(data, statue) {});
 	}
 
-	//初始化参��测试��发布需要删除掉
+	//初始化参数测试用发布需要删除掉
 	function initParam(){
 		if(cityName == null || cityName.length <= 0){
 			cityName='beijing';

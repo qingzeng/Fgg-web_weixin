@@ -7,7 +7,7 @@
 						<input type="text" class="weui_input font_s_1" placeholder="搜索小区名称或者小区地址" ng-model="formData.residentialAreaName" id="residentialAreaName" name="residentialAreaName" />
 					</div>
 					<div class="weui_cell_hd">
-						<label class="weui_label"> <i class="bor_l bor_color_eb weui_icon_ss" style="padding: 5px 20px;"></i>
+						<label class="weui_label" ng-click="pressedit()"> <i class="bor_l bor_color_eb weui_icon_ss" style="padding: 5px 20px;"></i>
 						</label>
 					</div>
 				</div>
@@ -15,14 +15,19 @@
 		</div>
 	</form>
 
+	<!-- 特殊字符 -->
+	<div class="pad_t_5 mar_lr_1" id="special">
+		<p class="text_color_ac9 tx_c">您输入的是非法字符，请重新输入。</p>
+	</div>
+
+
 	<!-- 无查询结果 -->
-	<div class="pad_t_5 mar_lr_1" ng-show="isnull">
+	<div class="pad_t_5 mar_lr_1"  id="isnull">
 		<p class="text_color_ac9 tx_c">估宝宝没有找到“{{formData.residentialAreaName}}”相关信息，您可以换换其他条件试试。</p>
 	</div>
 
 	<!-- 有查询结果 -->
-
-	<div class="pad_lr_1 text_bg_fff mar_lr_1" ng-hide="isnull">
+	<div class="pad_lr_1 text_bg_fff mar_lr_1" id="notnull">
 		<div class="bor_b bor_r bor_l bor_color_eb">
 			<ul class="tx_c text_color_9a" id="list">
 				<li class="bor_b bor_color_eb pad_tb_04" ng-class="{'text_color_ac9':$index == selectedRow}"ng-click="select($index)" ng-repeat="item in list">{{item.matchName}}[{{item.districtFullName}}]</li>

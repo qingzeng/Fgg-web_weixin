@@ -12,29 +12,20 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 		$scope.getresidentialArealist = [];
 		$scope.iscommit = false;
 		$scope.ngloading = false;
+		$scope.ispass = false;
+		var _obj = $.parseJSON(window.localStorage.getItem("obj"));
 		$scope.type = {};
+		$scope.type.xunjiaID = _obj.jiLuId;
 		$scope.formData.kehuId = window.localStorage.getItem("keHuID");
 		$scope.formData.cityName = window.localStorage.getItem("cityName");
-
 		$scope.getResidentialAreaDetai = {};
+		$scope.ispermit = true;
+		$scope.isdisallow = true;
 
-		if (getParameterByName("resultStr") != "" && getParameterByName("resultStr") != null) {
-			$scope.getResidentialAreaDetai = $.parseJSON(getParameterByName("resultStr"));
-			$scope.formData.residentialAreaID = $scope.getResidentialAreaDetai.residentialId;
-			$scope.formData.residentialAreaName = $scope.getResidentialAreaDetai.residentialAreaName;
-			$scope.formData.price = $scope.getResidentialAreaDetai.price;
-			$scope.formData.totalprice = $scope.getResidentialAreaDetai.totalprice;
-			$scope.type.xunjiaID = $scope.getResidentialAreaDetai.xunjiaID;
-			$scope.position = {};
-			$scope.position = {
-				x: $scope.getResidentialAreaDetai.x,
-				y: $scope.getResidentialAreaDetai.y
-			};
-			window.localStorage.setItem("position", JSON.stringify($scope.position));
-		}
-
+		$scope.getResidentialAreaDetai.cellNumber = getParameterByName("cellNumber");
 		$scope.formData.pageSize = 10;
 		$scope.formData.pageIndex = 1;
+		recorddetails($scope, accuratevaluationResultServices, _obj);
 		$(function() {
 			valid();
 			$("#wrap1,#wrap2,#wrap3").hide();
@@ -55,7 +46,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 						$scope.formData.pageIndex = 1;
 						$("#anli ul li").removeClass("current");
 						$("#anli ul li").eq(0).addClass('current');
-						getCaseInfo($scope, accuratevaluationResultServices, $scope.caseinfoType, $layer);
+						getCaseInfo($scope, accuratevaluationResultServices, "挂牌", $layer);
 						break;
 					case 2:
 						$("#wrap0,#wrap1,#wrap3").hide();
@@ -67,7 +58,10 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 					case 3:
 						$("#wrap0,#wrap1,#wrap2").hide();
 						$("#wrap3").show();
-						getresidentialArea($scope, accuratevaluationResultServices, $layer);
+						if ($("#wrap3").attr("flag") == "true") {
+							$("#wrap3").attr("flag", "false");
+							getresidentialArea($scope, accuratevaluationResultServices, $layer);
+						}
 						break;
 				}
 
@@ -75,16 +69,26 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 
 			$("#price").on('keyup paste', function() {
 				if ($.trim($(this).val()) != "") {
-					$("#totalprice").val((($scope.formData.price * $scope.getResidentialAreaDetai.area) / 10000).toFixed(2));
+					if (/^[1-9]\d*$/.test($.trim($(this).val()))) {
+						$("#totalprice").val((parseInt($("#price").val()) * parseInt($scope.getResidentialAreaDetai.weituopinggumianji) / 10000).toFixed(2));
+
+					} else {
+						$(this).val("");
+					}
 				} else {
-					$scope.formData.totalprice = "0";
+					$("#totalprice").val("");
 				}
 			});
 			$("#totalprice").on('keyup paste', function() {
 				if ($.trim($(this).val()) != "") {
-					$("#price").val((($scope.formData.totalprice * 10000) / $scope.getResidentialAreaDetai.area).toFixed(0));
+					if (/^[1-9]+\.{0,1}[0-9]{0,2}$/.test($.trim($(this).val()))) {
+						$("#price").val(((parseInt($("#totalprice").val()) * 10000) / parseInt($scope.getResidentialAreaDetai.weituopinggumianji)).toFixed(0));
+
+					} else {
+						$(this).val("");
+					}
 				} else {
-					$scope.formData.price = "0";
+					$("#price").val("");
 				}
 			});
 
@@ -110,8 +114,28 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 				}
 			});
 
+			// $("#ispermitclick").click(function(){
+			// 	$scope.ispermit = false;
+			// 	$("#isallowclick").unbind("click");
+			// })
+
+			// $("#isallowclick").click(function(){
+			// 	$scope.iscommit = true;
+			// })
+
 		})
 
+		var flag = true;
+		$scope.permitclick = function() {
+			$scope.ispermit = false;
+			$("#isallowclick").unbind("click");
+			flag=false;
+		};
+		$scope.allowclick = function() {
+			if(flag){
+		 	$scope.iscommit = true;
+		 	}
+		};
 		$scope.jiagezoushi = function(id) {
 
 			if (id == "lishi") {
@@ -124,47 +148,53 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 			getPriceTrendPic($scope, accuratevaluationResultServices, ec, id)
 		}
 
-		$scope.piceCkeck = function(flag) {
-			if (flag == "true") {
-				$("#piceCkeck_true").css("background", "#5F4B19");
-			} else {
-				$scope.iscommit = true;
-			}
+
+
+		$scope.cancel = function() {
+			$("#totalprice,#price").val("");
+
+			$scope.iscommit = false;
 		};
-
-
 		$scope.commit = function() {
 			var flag = $("#form").valid();
 			if (flag) {
-				$scope.type.cityName = window.localStorage.getItem("cityName");
+				if ($("#totalprice").val() != "" && $("#price").val() != "") {
+					$scope.ispass = false;
+					$scope.type.cityName_Zh = window.localStorage.getItem("cityName_Zh");
+					$scope.type.price = $.trim($("#price").val());
+					$scope.type.totalprice = $.trim($("#totalprice").val());
 
-				$scope.type.price = $.trim($("#price").val());
-				$scope.type.totalprice = $.trim($("#totalprice").val());
-
-				accuratevaluationResultServices.feekback($scope.type).success(function(data, statue) {
-					if (data.code = 200) {
+					accuratevaluationResultServices.feekback($scope.type).success(function(data, statue) {
+						$("#totalprice,#price").val("");
 						$scope.iscommit = false;
-						$layer.open({
-							content: "反馈成功!",
-							btn: ['OK']
-						});
-					} else {
+						if (data.code = 200) {
+							$scope.isdisallow = false;
+							$("#ispermitclick,#isallowclick").unbind("click");
+							$layer.open({
+								content: "反馈成功!",
+								btn: ['OK']
+							});
+						}else{
+							$scope.isdisallow = true;
+						}
+					}).error(function(data, statue) {
+						$("#totalprice,#price").val("");
+						$scope.iscommit = false;
+						$scope.isdisallow = true;
 
-					}
-
-				}).error(function(data, statue) {
-					$scope.iscommit = false;
-				});
+					});
+				} else {
+					$scope.ispass = true;
+				}
 			}
 		};
 		$scope.map = function() {
-			window.location.href = "#/bdmap";
+			window.location.href = handler.bdMapUrl + "?x=" + _obj.x + "&y=" + _obj.y;
 		};
 
 		$scope.getResidentialAreaDetais = function() {
 			window.location.href = "#/communityinformation?residentialAreaID=" + $scope.formData.residentialAreaID;
 		};
-
 
 		$scope.getCaseInfo = function(val) {
 
@@ -184,32 +214,28 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 			getCaseInfo($scope, accuratevaluationResultServices, val, $layer);
 		}
 		$scope.next = function() {
-			window.location.href = "#/delegatedeclaration?residentialAreaID=" + $scope.formData.residentialAreaID + "&residentialAreaName=" + $scope.formData.residentialAreaName + "&area=" + $scope.getResidentialAreaDetai.area + "&address=" + $scope.getResidentialAreaDetai.address;
+			window.location.href = "#/delegatedeclaration?residentialAreaID=" + $scope.formData.residentialAreaID + "&residentialAreaName=" + $scope.getResidentialAreaDetai.xiaoquname + "&area=" + $scope.getResidentialAreaDetai.weituopinggumianji + "&address=" + $scope.getResidentialAreaDetai.xiangxidizhi;
 		}
-
-
 
 		function valid() {
 			$("#form").validate({
 				rules: {
 					totalprice: {
-						required: true,
 						posintdec: true
 					},
 					price: {
-						required: true,
-						posint: true
+						posint: true,
 					},
-
 				},
 				messages: {
 					totalprice: {
-						required: "请输入总价!",
-						posintdec: "总价保留两位小数"
+						posintdec: "总价保留两位小数",
+						maxlength: "最大长度为7位"
 					},
 					price: {
-						required: "请输入单价!",
-						posint: "单价为正整数"
+
+						posint: "单价为正整数",
+						maxlength: "最大长度为7位"
 
 					},
 
@@ -221,7 +247,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 				errorPlacement: function(error, element) {
 					element.closest('.form_valid').next(".error").remove();
 					if (error[0].innerHTML != "") {
-						var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">错误提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
+						var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
 						element.closest('.form_valid').after(html);
 						element.closest('.form_valid').addClass('bor error_bor');
 						$("#" + element[0].id).focus();
@@ -230,28 +256,62 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 			})
 		};
 
-	}).controller('baiduMapCtrl', function($scope) {
-
-		var _width = $(window).width();
-		var _height = $(window).height() - 4;
-		$scope.position = $.parseJSON(window.localStorage.getItem("position"));
-		var str = "<img src='http://api.map.baidu.com/staticimage?center=" + $scope.position.x + "," + $scope.position.y + "&zoom=18&markers=" + $scope.position.x + "," + $scope.position.y + "&markerStyles=-1,http://api.map.baidu.com/images/marker_red.png,-1' style='width:" + _width + "px;height:" + _height + "px'>";
-		$("#allmap").append(str);
-		$("body").css({})
-			// var map = new BMap.Map("allmap"); // 创建Map实例
-			// var marker = new BMap.Marker(new BMap.Point(parseFloat($scope.position.x), parseFloat($scope.position.y))); // 创建点
-			// map.centerAndZoom(new BMap.Point(parseFloat($scope.position.x), parseFloat($scope.position.y)), 11); // 初始化地图,设置中心点坐标和地图级别
-			// map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
-			// map.addOverlay(marker);
-			// map.enableScrollWheelZoom(true);
-	});
-
+	})
 });
 //获取URL参数
 function getParameterByName(name) {
 	var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.href);
 	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
+//
+function recorddetails($scope, accuratevaluationResultServices, _obj) {
+	$scope.allfrom = {};
+	$scope.allfrom.jiLuId = _obj.jiLuId;
+	accuratevaluationResultServices.recorddetails($scope.allfrom).success(function(data, statue) {
+		if (data.code == 200) {
+			if (data.data && data.data != null) {
+				$scope.getResidentialAreaDetai = data.data;
+				$scope.formData.residentialAreaID = $scope.getResidentialAreaDetai.xiaoquid;
+				$scope.formData.residentialAreaName = $scope.getResidentialAreaDetai.weituopingguxiangmu;
+				$scope.getResidentialAreaDetai.shichangdanjia = upade($scope.getResidentialAreaDetai.shichangdanjia);
+				$scope.getResidentialAreaDetai.roomType = checkRoomNumType($scope.getResidentialAreaDetai.jushileixing);
+
+				if ($scope.getResidentialAreaDetai.chaoxiang == "" || $scope.getResidentialAreaDetai.chaoxiang == null) {
+					$scope.getResidentialAreaDetai.chaoxiang = "";
+				} else {
+					$scope.getResidentialAreaDetai.chaoxiang = "  " + $scope.getResidentialAreaDetai.chaoxiang + "朝向";
+				}
+
+				if ($scope.getResidentialAreaDetai.suozailouceng == "" || $scope.getResidentialAreaDetai.suozailouceng == null) {
+					$scope.getResidentialAreaDetai.suozailouceng = "";
+				} else {
+					$scope.getResidentialAreaDetai.suozailouceng = "所在" + $scope.getResidentialAreaDetai.suozailouceng + "层";
+				}
+
+				if ($scope.getResidentialAreaDetai.zonglouceng == "" || $scope.getResidentialAreaDetai.zonglouceng == null) {
+					$scope.getResidentialAreaDetai.zonglouceng = "";
+				} else {
+					$scope.getResidentialAreaDetai.zonglouceng = " 共" + $scope.getResidentialAreaDetai.zonglouceng + "层";
+				}
+				if ($scope.getResidentialAreaDetai.teshuyinsu == "" || $scope.getResidentialAreaDetai.teshuyinsu == null) {
+					$scope.getResidentialAreaDetai.teshuyinsu = "";
+				} else {
+					$scope.getResidentialAreaDetai.teshuyinsu = " " + $scope.getResidentialAreaDetai.teshuyinsu;
+				}
+				if ($scope.getResidentialAreaDetai.jianchengniandai == "" || $scope.getResidentialAreaDetai.jianchengniandai == null) {
+					$scope.getResidentialAreaDetai.jianchengniandai = "";
+				} else {
+					$scope.getResidentialAreaDetai.jianchengniandai = $scope.getResidentialAreaDetai.jianchengniandai + "年";
+				}
+
+
+			}
+		}
+	}).error(function(data, statue) {
+
+	})
+}
+
 
 
 //案例信息
@@ -335,81 +395,94 @@ function getPriceTrendPic($scope, accuratevaluationResultServices, ec, type) {
 		$scope.ngloading = false;
 		if (data.code = 200) {
 
-			var myChart = ec.init(document.getElementById('chart'));
-			var option = {
-				tooltip: {
-					trigger: 'axis'
-				},
-				toolbox: {
-					show: false
-				},
-				calculable: true,
-				legend: {
-					data: ['城市均价', '行政区均价', '小区均价'],
-					x: 'center',
-					y: 'bottom'
-				},
-				xAxis: [{
-					type: 'category',
-					boundaryGap: false
-				}],
-				yAxis: [{
-					type: 'value',
-					axisLabel: {
-						formatter: '{value} 元/m²'
-					}
-				}],
-				series: [{
-					"name": "城市均价",
-					"type": "line",
-					"markPoint": {
-						"data": [{
-							"type": "min",
-							"name": "最小值"
-						}, {
-							"type": "max",
-							"name": "最大值"
-						}]
-					}
-				}, {
-					"name": "行政区均价",
-					"type": "line",
-					"markPoint": {
-						"data": [{
-							"type": "min",
-							"name": "最小值"
-						}, {
-							"type": "max",
-							"name": "最大值"
-						}]
-					}
-				}, {
-					"name": "小区均价",
-					"type": "line",
-					"markPoint": {
-						"data": [{
-							"type": "min",
-							"name": "最小值"
-						}, {
-							"type": "max",
-							"name": "最大值"
-						}]
-					}
-				}]
-			};
+
 
 			var obj = data.data;
 			var _obj = {};
-			var ary1 = [];
-			option.series[0].data = [];
-			option.series[1].data = [];
-			option.series[2].data = [];
+
 			if (type == "lishi") {
+				var myChart = ec.init(document.getElementById('chart'));
+				var option = {
+					tooltip: {
+						trigger: 'axis'
+					},
+					toolbox: {
+						show: false
+					},
+					calculable: true,
+					legend: {
+						data: ['城市均价', '行政区均价', '小区均价'],
+						x: 'center',
+						y: 'bottom'
+					},
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false
+					}],
+					yAxis: [{
+						type: 'value',
+						axisLabel: {
+							formatter: '{value} 元/m²'
+						}
+					}],
+					series: [{
+						"name": "城市均价",
+						"type": "line",
+						"markPoint": {
+							"data": [{
+								"type": "min",
+								"name": "最小值"
+							}, {
+								"type": "max",
+								"name": "最大值"
+							}]
+						}
+					}, {
+						"name": "行政区均价",
+						"type": "line",
+						"markPoint": {
+							"data": [{
+								"type": "min",
+								"name": "最小值"
+							}, {
+								"type": "max",
+								"name": "最大值"
+							}]
+						}
+					}, {
+						"name": "小区均价",
+						"type": "line",
+						"markPoint": {
+							"data": [{
+								"type": "min",
+								"name": "最小值"
+							}, {
+								"type": "max",
+								"name": "最大值"
+							}]
+						}
+					}]
+				};
+				var ary1 = [];
+				option.series[0].data = [];
+				option.series[1].data = [];
+				option.series[2].data = [];
 				$scope.getPriceTrendPicStr = "历史";
 				_obj = obj.history;
 				if (_obj != null) {
 					$scope.isgetPriceTrendPic_history = false;
 					if (_obj != null) {
+						if (_obj.Community.length < _obj.City.length) {
+							var num = _obj.City.length - _obj.Community.length;
+							var isnullarry = [];
+							for (var i = 0; i < num; i++) {
+								var isnullobj = {
+									"Price": "-"
+								};
+								isnullarry[i] = isnullobj;
+								_obj.Community.unshift(isnullarry[i]);
+							}
+						}
 						for (var j = 0; j < _obj.City.length; j++) {
 							option.series[0].data[j] = _obj.City[j].Price;
 							option.series[1].data[j] = _obj.Region[j].Price;
@@ -435,35 +508,110 @@ function getPriceTrendPic($scope, accuratevaluationResultServices, ec, type) {
 					$scope.isgetPriceTrendPic_history = true;
 				}
 			} else {
+
 				$scope.getPriceTrendPicStr = "未来";
-				_obj = obj.next;
-				if (_obj != null) {
-					$scope.isgetPriceTrendPic_history = false;
-					if (_obj != null) {
-						for (var j = 0; j < _obj.City.length; j++) {
-							option.series[0].data[j] = _obj.City[j].Price;
-							option.series[1].data[j] = _obj.Region[j].Price;
-							option.series[2].data[j] = _obj.Community[j].Price;
-							ary1[j] = _obj.City[j].Date;
-						}
+
+				var arry = [];
+				arry = obj.next;
+				if (arry != null && arry.length != 0) {
+
+					var myChart = ec.init(document.getElementById('chart'));
+					var option = {
+						tooltip: {
+							trigger: 'axis'
+						},
+						toolbox: {
+							show: false
+						},
+						calculable: true,
+						legend: {
+							data: ['小区均价'],
+							x: 'center',
+							y: 'bottom'
+						},
+						xAxis: [{
+							type: 'category',
+							boundaryGap: false
+						}],
+						yAxis: [{
+							type: 'value',
+							axisLabel: {
+								formatter: '{value} 元/m²'
+							}
+						}],
+						series: [{
+							"name": "小区均价",
+							"type": "line",
+							"markPoint": {
+								"data": [{
+									"type": "min",
+									"name": "最小值"
+								}, {
+									"type": "max",
+									"name": "最大值"
+								}]
+							}
+						}]
+					};
+					var ary1 = [];
+					option.series[0].data = [];
+					for (var j = 0; j < arry.length; j++) {
+						option.series[0].data[j] = arry[j].Price;
+
+						ary1[j] = arry[j].Data;
 					}
 					option.xAxis[0].data = ary1;
 					myChart.setOption(option, true);
 					window.onresize = myChart.resize;
-
 				} else {
-					if (_obj != null) {
-						for (var j = 0; j < _obj.City.length; j++) {
-							option.series[0].data[j] = _obj.City[j].Price;
-							option.series[1].data[j] = _obj.Region[j].Price;
-							option.series[2].data[j] = _obj.Community[j].Price;
-							ary1[j] = _obj.City[j].Date;
-						}
-						option.xAxis[0].data = ary1;
-						myChart.setOption(option, true);
-						window.onresize = myChart.resize;
+					var myChart = ec.init(document.getElementById('chart'));
+					var option = {
+						tooltip: {
+							trigger: 'axis'
+						},
+						toolbox: {
+							show: false
+						},
+						calculable: true,
+						legend: {
+							data: ['小区均价'],
+							x: 'center',
+							y: 'bottom'
+						},
+						xAxis: [{
+							type: 'category',
+							boundaryGap: false
+						}],
+						yAxis: [{
+							type: 'value',
+							axisLabel: {
+								formatter: '{value} 元/m²'
+							}
+						}],
+						series: [{
+							"name": "小区均价",
+							"type": "line",
+							"markPoint": {
+								"data": [{
+									"type": "min",
+									"name": "最小值"
+								}, {
+									"type": "max",
+									"name": "最大值"
+								}]
+							}
+						}]
+					};
+					var ary1 = [];
+					option.series[0].data = [];
+					for (var j = 0; j < arry.length; j++) {
+						option.series[0].data[j] = arry[j].Price;
+
+						ary1[j] = arry[j].Data;
 					}
-					$scope.isgetPriceTrendPic_history = true;
+					option.xAxis[0].data = ary1;
+					myChart.setOption(option, true);
+					window.onresize = myChart.resize;
 				}
 			}
 		} else {
@@ -500,4 +648,20 @@ function checkRoomNumType(val) {
 	if ("9" == val) {
 		return "五居室以上"
 	}
+	if ("-1" == val || "0" == val) {
+		return "其他"
+	}
+}
+
+
+
+function upade(num) {
+	var _num = num + "";
+	var str = "";
+	if (_num != null && _num.length > 2) {
+		str = Math.round(parseInt(num) / 100) * 100 + "";
+	} else {
+		str = "0";
+	}
+	return str;
 }

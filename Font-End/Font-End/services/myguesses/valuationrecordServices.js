@@ -16,7 +16,9 @@ define(['handler'], function(handler) {
             var recordlist = function(from) {
                 var params = {
                     cityName: from.cityName,
-                    keHuId: from.keHuId
+                    keHuId: from.keHuId,
+                    page:from.page,
+                    pageSize:from.pageSize
                 };
                 return $http({
                     method: 'get',

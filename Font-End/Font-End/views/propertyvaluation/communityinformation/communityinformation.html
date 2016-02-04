@@ -21,11 +21,11 @@
 				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3" style="margin-top: 10px;">
 					<p> <strong class="text_color_ac9 font_s_11">{{getResidentialAreaDeta.residentialAreaName}}</strong>
 					</p>
-					<p> <strong>行&nbsp;&nbsp;政&nbsp;&nbsp;区：</strong>
+					<p><span>行&nbsp;&nbsp;政&nbsp;&nbsp;区：</span>
 						{{getResidentialAreaDeta.districtName}}
 					</p>
 					<p>
-						<strong>片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：</strong>
+						<span>片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：</span>
 						{{getResidentialAreaDeta.regionName}}
 					</p>
 					<div>
@@ -34,12 +34,12 @@
 						<div  class="f-cf"></div>
 					</div>
 					<p>
-						<strong>小区均价：</strong>
+						<span>小区基准价：</span>
 						<span class="error_color pad_r_10">{{getResidentialAreaDeta.unitPrice}}</span>
 						元
 					</p>
 					<p>
-						<strong  class="f-fl">价格涨幅：</strong>
+						<span class="f-fl">价格涨幅：</span>
 						<div  class="f-fl">
 							<span class="font_s_9 pad_r_1">
 								环比
@@ -66,67 +66,61 @@
 
 			<div class="mar_lr_1" style="margin-top: 10px; margin-bottom: 4em;">
 				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">
-					<div>
+					<div class="f-cf">
 						<div class="f-fl">楼盘地址：</div>
 						<div style="margin-left:80px;">{{getResidentialAreaDeta.address}}</div>
-					
 					</div>
-					<div class="f-cf"></div>
-					<div>
-						<ul>
-							<li class="f-fl" style="width: 50%">
-								<strong>用      途：</strong>
-								{{getResidentialAreaDeta.purpose}}
-							</li>
-							<li class="f-fl" style="width: 50%">
-								<strong>建筑类别：</strong>
-								{{getResidentialAreaDeta.buildingType}}
-							</li>
-
-							<li class="f-fl" style="width: 50%">
-								<strong>楼层状况：</strong>
-								{{getResidentialAreaDeta.floorCondition}}
-							</li>
-							<li class="f-fl" style="width: 50%">
-								<strong>车位状况：</strong>
-								{{getResidentialAreaDeta.carCondition}}
-							</li>
-
-							<li class="f-fl" style="width: 50%">
-								<strong>容积率：</strong>
-								{{getResidentialAreaDeta.plotRatio}}
-							</li>
-							<li class="f-fl" style="width: 50%">
-								<strong>绿化率：</strong>
-								{{getResidentialAreaDeta.greeningRate}}
-							</li>
-						</ul>
-						<div class="f-cf"></div>
+					<div class="f-cf">
+						<div class="f-fl">用途：</div>
+						<div style="margin-left:40px;">{{getResidentialAreaDeta.purpose}}</div>
 					</div>
-					<div>
+					<div class="f-cf">
+						<div class="f-fl">建筑类别：</div>
+						<div style="margin-left:80px;">{{getResidentialAreaDeta.buildingType}}</div>
+					</div>
+					<div class="f-cf">
+						<div class="f-fl">容积率：</div>
+						<div style="margin-left:60px;">{{getResidentialAreaDeta.plotRatio}}</div>
+					</div>
+					<div class="f-cf">
+						<div class="f-fl">绿化率：</div>
+						<div style="margin-left:60px;">{{getResidentialAreaDeta.greeningRate}}</div>
+					</div>
+
+					<div class="f-cf">
+						<div class="f-fl">楼层状况：</div>
+						<div style="margin-left:80px;">{{getResidentialAreaDeta.floorCondition}}</div>
+					</div>
+					<div class="f-cf">
+						<div class="f-fl">车位状况：</div>
+						<div style="margin-left:80px;">{{getResidentialAreaDeta.carCondition}}</div>
+						<!-- <div>
 						<strong>物业管理费：</strong>
 						{{getResidentialAreaDeta.managementFee}}元/月
 					</div>
-					<div>
-						<strong>物业管理公司：</strong>
-						{{getResidentialAreaDeta.managementConpany}}
+					-->
+					<div class="f-cf">
+						<div class="f-fl">物业管理公司：</div>
+						<div style="margin-left:120px;">{{getResidentialAreaDeta.managementConpany}}</div>
 					</div>
-					<div>
-						<strong>开发商：</strong>
-						{{getResidentialAreaDeta.developers}}
+					<div class="f-cf">
+						<div class="f-fl">开发商：</div>
+						<div style="margin-left:60px;">{{getResidentialAreaDeta.developers}}</div>
 					</div>
+					<div class="f-cf"></div>
 					<div>
-						<strong>土地面积：</strong>
+						<span>土地面积：</span>
 						{{getResidentialAreaDeta.area}}㎡
 					</div>
 					<div>
-						<strong>建筑面积：</strong>
+						<span>建筑面积：</span>
 						{{getResidentialAreaDeta.buildingArea}}㎡
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="wrap2">
+	</div>
+		<div id="wrap2" flag="false">
 			<!-- 周边配套 -->
 			<div class="mar_lr_1"  style="margin-top: 10px;">
 				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3">

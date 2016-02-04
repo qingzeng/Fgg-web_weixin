@@ -16,7 +16,7 @@
 
 					<div class="f-fl">估价对象：</div>
 					<div style="margin-left:80px;word-break:break-all">
-						{{getResidentialAreaDetai.residentialAreaName}}{{getResidentialAreaDetai.floorBuilding}}{{getResidentialAreaDetai.cellNumber}}{{getResidentialAreaDetai.houseNumber}}
+						{{getResidentialAreaDetai.weituopingguxiangmu}}{{getResidentialAreaDetai.louzhuanghao}}{{getResidentialAreaDetai.cell}}{{getResidentialAreaDetai.huhao}}
 					</div>
 					<div  class="f-cf"></div>
 				</div>
@@ -24,14 +24,14 @@
 
 			<div class="mar_lr_1">
 				<div class="bor bor_color_eb text_bg_fff pad_05 bor_rad_3 font_s_8" style="margin-top: 10px;">
-					<p>建筑面积：{{getResidentialAreaDetai.area}}㎡</p>
+					<p>建筑面积：{{getResidentialAreaDetai.weituopinggumianji}}㎡</p>
 					<p>
-						居室类型：{{getResidentialAreaDetai.houseType}}、{{getResidentialAreaDetai.toward }}、{{getResidentialAreaDetai.specialFactors}}
+						居室类型：{{getResidentialAreaDetai.roomType}}{{getResidentialAreaDetai.chaoxiang }}{{getResidentialAreaDetai.teshuyinsu}}
 					</p>
 					<p>
-						楼层情况：所在{{getResidentialAreaDetai.floor}}层、共{{getResidentialAreaDetai.totalfloor}}层
+						楼层情况：{{getResidentialAreaDetai.suozailouceng}}{{getResidentialAreaDetai.zonglouceng}}
 					</p>
-					<p>建成年代：{{getResidentialAreaDetai.buildingyear}}年</p>
+					<p>建成年代：{{getResidentialAreaDetai.jianchengniandai}}</p>
 				</div>
 			</div>
 
@@ -39,12 +39,12 @@
 				<div class="bor bor_color_eb text_bg_fff pad_05 font_s_8 bor_rad_3" style="margin-top: 10px;">
 					<li class="f-fr">
 						市场单价:
-						<span class="error_color pad_lr_02" style="font-weight:bolder;">{{getResidentialAreaDetai.price}}</span>
+						<span class="error_color pad_lr_02" style="font-weight:bolder;">{{getResidentialAreaDetai.shichangdanjia}}</span>
 						元/㎡
 					</li>
 					<li  >
 						市场总价:
-						<span class="error_color pad_lr_02" style="font-weight:bolder;">{{getResidentialAreaDetai.totalprice}}</span>
+						<span class="error_color pad_lr_02" style="font-weight:bolder;">{{getResidentialAreaDetai.zongjia}}</span>
 						万元
 					</li>
 
@@ -55,8 +55,10 @@
 				<div class="weui_input pad_tb_10" style="margin-top: 7px;">
 					<span class="f-fl text_color_4c5 font_s_9">您觉得以上价格是否准确</span>
 					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_l_1">
-						<span class="weui_btn_brown bor_rad_3 text_color_fff" id="piceCkeck_true" style="padding: 4px 18px 2px; margin-left: 6px;" ng-click="piceCkeck('true')">准</span>
-						<span class="text_bg_51 bor_rad_3 text_color_fff" id="piceCkeck_false" style="padding: 4px 12px 2px;  margin-left: 6px;" ng-click="piceCkeck('false')">不准</span>
+
+						<button id="ispermitclick"  ng-click="permitclick()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor  weui_btn_brown bor_color_brown text_color_fff" ng-class="{true:'weui_btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[ispermit]">准</button>
+						<button  id="isallowclick" ng-click="allowclick()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor  weui_btn_brown bor_color_brown text_color_fff" ng-class="{true:'weui_btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[isdisallow]">不准</button>
+
 					</div>
 				</div>
 			</div>
@@ -67,7 +69,7 @@
 						地图
 					</span>
 					<span class="ccyc"> <i class="weui_icon_dingwei pad_10_15"></i>
-						{{getResidentialAreaDetai.address}}
+						{{getResidentialAreaDetai.xiangxidizhi}}
 					</span>
 					<span clss="f-cf"></span>
 				</div>
@@ -82,14 +84,14 @@
 					</span>
 					<span class="ccyc">
 						<i class="weui_icon_fz pad_10_15"></i>
-						{{getResidentialAreaDetai.residentialAreaName}}
+						{{getResidentialAreaDetai.xiaoquname}}
 					</span>
 					<span clss="f-cf"></span>
 				</div>
 			</div>
 
 		</div>
-		<div id="wrap1">
+		<div id="wrap1" flag="true">
 
 			<!-- 案例 -->
 			<div class="mar_lr_1" style="padding: 10px 0;">
@@ -135,10 +137,10 @@
 					</ul>
 				</div>
 			</div>
-			<div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;" ng-show="caseType.isCaseType"
+			<div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; margin-bottom: 3em;" ng-show="caseType.isCaseType"
                 >该小区没有一条{{caseType.name}}数据</div>
 
-			<div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;" ng-show="caseType.getCaseInfoMorevisMore"  ng-hide="caseType.isCaseType">
+			<div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; margin-bottom: 3em;" ng-show="caseType.getCaseInfoMorevisMore"  ng-hide="caseType.isCaseType">
 				请滑动手机左右翻页，当前第
 				<span class="error_color">{{curPage}}</span>
 				页，共
@@ -146,7 +148,7 @@
 				页
 			</div>
 		</div>
-		<div id="wrap2">
+		<div id="wrap2" flag="true">
 			<!-- 价格走势 -->
 
 			<div class="mar_lr_1" style="padding: 10px 0;">
@@ -167,7 +169,7 @@
 
 		</div>
 
-		<div id="wrap3">
+		<div id="wrap3" flag="true">
 			<!-- 周边小区 -->
 			<div class="mar_lr_1" style="padding-top: 10px;">
 				<div class="pad_lr_06 bor_rad_3 text_bg_fff font_s_6 ty_list">
@@ -222,7 +224,8 @@
 			<div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
 				<div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
 					<div class="weui_cell_bd weui_cell_primary_1">
-						<input type="text" class="weui_input" id="price" name="price" ng-model="formData.price"></div>
+						<input type="text" class="weui_input" id="price" maxlength="7" name="price"/>
+					</div>
 					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_r_20">元/㎡</div>
 				</div>
 			</div>
@@ -230,12 +233,22 @@
 			<div class=" pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_05 form_valid">
 				<div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
 					<div class="weui_cell_bd weui_cell_primary_1">
-						<input type="text" class="weui_input" id="totalprice" name="totalprice" ng-model="formData.totalprice"></div>
+						<input type="text" class="weui_input" id="totalprice" name="totalprice"   maxlength="7" />
+					</div>
 					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_r_20">万元</div>
 				</div>
 			</div>
+			<div class="mar_tb_1" ng-show="ispass">请至少输入单价或者总价其中一项</div>
 			<div class="mar_tb_1">
-				<button class="weui_btn weui_btn_brown" ng-click="commit()">确定</button>
+				<div class="f-fr" style="width:45%">
+
+					<button class="weui_btn weui_btn_brown" ng-click="cancel()">取消</button>
+
+				</div>
+				<div style="width:45%">
+					<button class="weui_btn weui_btn_brown" ng-click="commit()">确定</button>
+				</div>
+
 			</div>
 		</div>
 	</form>

@@ -97,7 +97,7 @@
                 open: true,
                 livereload: 35729,
                 // Change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'//192.168.3.189 localhost
+                hostname: '192.168.3.189'//192.168.3.189 localhost
             },
             server: {
                 options: {

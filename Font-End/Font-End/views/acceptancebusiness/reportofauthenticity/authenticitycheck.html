@@ -1,7 +1,7 @@
 
 <div class="text_bg_f4f">
     <div class="pad_b_1">
-        <p class="weui_btn_brown tx_c text_color_fff pad_tb_04">输入查询</p>
+        <p class="bg_grey tx_c text_color_fff pad_tb_04">输入查询</p>
         <div class="mar_1">
             <form id="authenticitycheck">
                 <div class="bor bor_color_brown bor_rad_3 pad_xx_10 mar_b_10 form_valid">
@@ -10,7 +10,7 @@
                 <div class="bor bor_color_brown bor_rad_3 pad_xx_10 mar_b_10 form_valid">
                     <input type="text" class="weui_input" placeholder="请输入委托方的姓名" id="entrustname" ng-model="formData.client" name="entrustname" />
                 </div>
-                <button class="weui_btn weui_btn_brown mar_tb_1" ng-click="truesubmit()">查询</button>
+                <button class="weui_btn weui_btn_brown mar_tb_1" style="width:82%;margin-left:auto;margin-right:auto;" ng-click="truesubmit()">查询</button>
             </form>
             <div class="font_s_8 text_color_red mar_b_10">
                 <table border="0" cellpadding="0" cellspacing="0">
@@ -41,9 +41,9 @@
         </div>
     </div>
     <div class="pad_b_1">
-        <p class="weui_btn_brown tx_c text_color_fff pad_tb_04">二维码查询</p>
+        <p class="bg_grey tx_c text_color_fff pad_tb_04">二维码查询</p>
         <div class="mar_lr_3 pad_tb_3 tx_c">
-            <button class="text_color_ac9 bor bor_color_brown bor_rad_3 font_s_1 pad_tb_08 width_100" ng-click="scanning()">扫一扫</button>
+            <button class="text_color_ac9 bor bor_color_brown bor_rad_3 font_s_1 pad_tb_08 width_100" ng-click="scanningSweep()">扫一扫</button>
         </div>
     </div>
 </div>
