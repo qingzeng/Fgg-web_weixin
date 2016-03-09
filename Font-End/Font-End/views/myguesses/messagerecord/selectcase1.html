@@ -1,8 +1,50 @@
 ﻿<form style="height:100%;">
-	<div class="text_bg_f4f pad_t_1">
-		<!-- leobiaoye-->
-		<div class="mar_lr_1 pad_lr_10 bor bor_color_eb bor_rad_3 text_bg_fff font_s_7">
-			<table class=" width_100 text_color_51">
+	<div class="text_bg_f4f pad_t_1" >
+	        <div class="pad_lr_06 bor bor_color_eb bor_rad_3 text_bg_fff font_s_6 ty_list">
+            <dl class="pad_x_8">
+            	<dd class="width_10 f-fl ccyc"> <div class="tx_l">&nbsp</div></dd>
+                <dd class="width_250 f-fl ccyc">标题</dd>
+                <dd class="width_250 f-fl">是否阅读</dd>
+                <dd class="width_40 f-fl">日期</dd>
+                <dd class="f-cf"></dd>
+            </dl>
+        </div>
+        <div ng-show="norecord" class="font_s_6">
+            <p style="margin-top:1em;text-align:center">
+                暂无消息记录数据
+            </p>
+        </div>
+        <div ng-hide="norecord">
+            <div class=" bor_rad_3 text_bg_fff font_s_6 ty_list" id="msglist">
+                <table style="width:100%">
+                    <tr ng-repeat="item in items" class="pad_x_5 bor_b bor_color_eb">
+                        <td class="width_10 pad_x_8" style="vertical-align:middle">
+                          <input tag="{{item.xiaoXiId}}" type="checkbox" class="icheckbox_square-orange" ng-value="item.xiaoXiId" ng-click="flagCheckBox(item.xiaoXiId)"/>
+                        </td>
+                        <td class="width_250 pad_x_8"  style="vertical-align:middle">
+                           <a style='color:#000000' class='pad_x_8' href='#/declarationsuccess?id={{item.xiaoXiId}}'>{{item.xiaoXiTitle}}</a>
+                        </td>
+                        <td class="width_250 pad_x_8"  style="vertical-align:middle">
+                          <a style='color:#000000' class='pad_x_8' href='#/declarationsuccess?id={{item.xiaoXiId}}'>{{item.xiaoXiZhuangTai}}</a>
+                        </td>
+                        <td class="width_40 pad_x_8" style="vertical-align:middle">
+                        	<a style='color:#000000' href='#/declarationsuccess?id={{item.xiaoXiId}}'>{{item.xiaoXiFaSongShiJian}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="mar_lr_1 font_s_8 tx_c text_color_51" style="padding-top: 10px; padding-bottom: 7em;">
+                请滑动手机左右翻页，当前第
+                <span class="error_color">{{pageIndex}}</span>
+                页，共
+                <span class="error_color">{{pageTotal}}</span>
+                页
+            </div>
+        </div>
+		<!-- 
+				<div class="mar_lr_1 pad_lr_10 bor bor_color_eb bor_rad_3 text_bg_fff font_s_7" id="msglist">
+			<table class=" width_100 text_color_51" style="height:304px;">
 				<tr class='bor_b bor_color_eb'>
 					<td class="width_10 pad_x_5">
 						<div class="tx_l">&nbsp</div>
@@ -11,9 +53,8 @@
 					<td class="width_250 pad_x_5 tx_c">是否阅读</td>
 					<td class="pad_x_5 tx_c">日期</td>
 				</tr>
-			</table>
-			<table class='pad_x_8 text_bg_fff ' style='width:100% ' id="msglist">
-				<tr class='bor_b bor_color_eb ' ng-repeat="item in items">
+
+				<tr class='bor_b bor_color_eb' ng-repeat="item in items">
 					<td class='width_10' style='text-align: center;vertical-align:middle'>
 						<input tag="{{item.xiaoXiId}}" type="checkbox" class="icheckbox_square-orange" ng-value="item.xiaoXiId" ng-click="flagCheckBox(item.xiaoXiId)"/>
 					</td>
@@ -27,7 +68,6 @@
 						<a style='color:#000000' class='pad_x_8' href='#/declarationsuccess?id={{item.xiaoXiId}}'>{{item.xiaoXiFaSongShiJian}}</a>
 					</td>
 				</tr>
-
 			</table>
 		</div>
 		<div ng-class="{true: 'block', false: 'hidden'}[norecord]" class="font_s_6 mar_lr_1 tx_c" style="padding: 1em 0 3em;">暂无消息记录数据</div>
@@ -42,25 +82,26 @@
 				<span class="error_color">{{pageTotal}}</span>
 				页
 			</p>
-		</div>
-		<div class="fixed_0 width_100" ng-class="{true: 'hidden', false: 'block'}[norecord]">
+		</div>	-->
+		<div class="p_fixed width_100" ng-class="{true: 'hidden', false: 'block'}[norecord]">
 			<div class="pad_051 weui_btn_e3" style="padding: .6em 1em;z-index:99999999;">
 				<div class="font_s_1 tx_c">
 					<ul>
 						<li class="f-fl width_300">
-							<button id="btnSelectAll" ng-click="selectAll()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">全选</button>
+							<button id="btnSelectAll" ng-click="selectAll()" class="width_100 font_s_1 btn_select text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">全选</button>
 						</li>
 						<li class="f-fl width_300 mar_lr_5_b">
-							<button ng-click="delete()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">删除</button>
+							<button ng-click="deleteMsg()" class="width_100 font_s_1 btn_select text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">删除</button>
 						</li>
 						<li class="f-fl width_300">
-							<button ng-click="read()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">标记已读</button>
+							<button ng-click="read()" class="width_100 font_s_1 btn_select text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">标记已读</button>
 						</li>
 						<li class="f-cf"></li>
 					</ul>
 				</div>
 			</div>
 		</div>
+	
 	</div>
 </form>
 <!-- 弹出框 -->
@@ -73,16 +114,16 @@
 		<div class="mar_lr_1 tx_c" id="dialogConfirm">
 			<ul>
 				<li class="f-fl width_50 mar_r_10">
-					<button ng-click="commitCancel()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">取消</button>
+					<button ng-click="commitCancel()" class="width_100 font_s_1 btn_select text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">取消</button>
 				</li>
 				<li class="f-fl width_50">
-					<button ng-click="commitConfirm()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">确定</button>
+					<button ng-click="commitConfirm()" class="width_100 font_s_1 btn_select text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">确定</button>
 				</li>
 				<li class="f-cf"></li>
 			</ul>
 		</div>
 		<div class="mar_lr_3" id="dialogCancel">
-			<button ng-click="commitCancel()" class="width_100 font_s_1 weui_btn_brown text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">朕，知道了。</button>
+			<button ng-click="commitCancel()" class="width_100 font_s_1 btn_select text_color_fff pad_tb_04 bor_rad_3 bor bor_color_brown">朕，知道了。</button>
 		</div>
 	</div>
 </div>

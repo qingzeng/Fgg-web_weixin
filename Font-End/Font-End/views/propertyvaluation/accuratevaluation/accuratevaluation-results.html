@@ -56,8 +56,8 @@
 					<span class="f-fl text_color_4c5 font_s_9">您觉得以上价格是否准确</span>
 					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_l_1">
 
-						<button id="ispermitclick"  ng-click="permitclick()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor  weui_btn_brown bor_color_brown text_color_fff" ng-class="{true:'weui_btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[ispermit]">准</button>
-						<button  id="isallowclick" ng-click="allowclick()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor  weui_btn_brown bor_color_brown text_color_fff" ng-class="{true:'weui_btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[isdisallow]">不准</button>
+						<button id="ispermitclick"  ng-click="permitclick()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor  btn_brown bor_color_brown text_color_fff" ng-class="{true:'btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[ispermit]">准</button>
+						<button  id="isallowclick" ng-click="allowclick()" class="width_100 font_s_1 text_color_51 pad_tb_04 bor_rad_3 bor  btn_brown bor_color_brown text_color_fff" ng-class="{true:'btn_brown bor_color_brown text_color_fff', false:'weui_btn_c3 bor_color_72'}[isdisallow]">不准</button>
 
 					</div>
 				</div>
@@ -94,7 +94,7 @@
 		<div id="wrap1" flag="true">
 
 			<!-- 案例 -->
-			<div class="mar_lr_1" style="padding: 10px 0;">
+			<div class="mar_lr_8" style="padding: 10px 0;">
 				<div class="case bor bor_color_eb bor_rad_3 tx_c text_bg_fff selected" id="anli">
 					<ul>
 						<li class="f-fl current" ng-click="getCaseInfo('挂牌')">挂牌案例</li>
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 
-			<div class="mar_lr_1">
+			<div class="mar_lr_8">
 				<div class="pad_lr_06 bor_rad_3 text_bg_fff font_s_6 ty_list">
 					<ul>
 						<li>
@@ -125,7 +125,7 @@
 					<ul>
 						<li ng-repeat="item in caseInfos">
 							<dl class="pad_x_5">
-								<dd class="width_23 f-fl">{{item.caseTime}}</dd>
+								<dd class="width_23 f-fl" style="white-space:nowrap;">{{item.caseTime}}</dd>
 								<dd class="width_15 f-fl">{{item.area}}</dd>
 								<dd class="width_20 f-fl">{{item.roomNumType}}</dd>
 								<dd class="width_22 f-fl">{{item.price}}</dd>
@@ -208,7 +208,7 @@
 </div>
 <div class=" weui_btn_e3" style="position:fixed;bottom:0;left:0; width:100%;">
 	<div style="position:relative;margin: 1em .5em;">
-		<button class="weui_btn weui_btn_brown" ng-click="next()">委托报单</button>
+		<button class="local_btn" ng-click="next()" id="sub">委托报单</button>
 	</div>
 </div>
 <div ng-class="{true: 'block', false: 'hidden'}[iscommit]">
@@ -233,7 +233,7 @@
 			<div class=" pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_05 form_valid">
 				<div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
 					<div class="weui_cell_bd weui_cell_primary_1">
-						<input type="text" class="weui_input" id="totalprice" name="totalprice"   maxlength="7" />
+						<input type="text" class="weui_input" id="totalprice" name="totalprice"   maxlength="10" />
 					</div>
 					<div class="weui_cell_ft font_s_8 text_color_4c5 pad_r_20">万元</div>
 				</div>
@@ -256,7 +256,7 @@
 
 <div id="loadingToast" class="weui_loading_toast" ng-show="ngloading">
 	<div class="weui_mask_transparent"></div>
-	<div class="weui_toast">
+	<div class="weui_toast" style="z-index:888888888">
 		<div class="weui_loading">
 			<div class="weui_loading_leaf weui_loading_leaf_0"></div>
 			<div class="weui_loading_leaf weui_loading_leaf_1"></div>

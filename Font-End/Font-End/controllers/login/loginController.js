@@ -40,6 +40,18 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', '.
         } else {
             getkeHuIdByOpenId($scope, $layer, $, handler, openid);
         }
+        var ih = window.innerHeight;
+        $(window).resize(function(event) {
+            if (window.innerHeight < ih) {
+                $('.weui_dialogs').css({
+                    'bottom': '55px'
+                });
+            } else {
+                $('.weui_dialogs').css({
+                    'top': '0'
+                });
+            };
+        });
         formvalidate();
         $scope.commit = function() {
             var flag = $("#formData").valid();
@@ -76,12 +88,19 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', '.
         $scope.info_submit = function() {
                 var flag = $("#userinfo").valid();
                 if (flag) {
-                    if ($("#usernames").val == "" || $("#usernames").val == null ||
-                        $("#usertel").val == "" || $("#usertel").val == null ||
-                        $("#usercode").val == "" || $("#usercode").val == null ||
-                        $("#userwork").val == "" || $("#userwork").val == null ||
-                        $("#usercompany").val == "" || $("#usercompany").val == null ||
-                        $("#deltaladdress").val == "" || $("#deltaladdress").val == null) {} else {
+                    if ($("#usernames").val() == "" || $("#usernames").val() == null ||
+                        $("#usertel").val() == "" || $("#usertel").val() == null ||
+                        $("#usercode").val() == "" || $("#usercode").val() == null ||
+                        $("#userwork").val() == "" || $("#userwork").val() == null ||
+                        $("#usercompany").val() == "" || $("#usercompany").val() == null ||
+                        $("#cityname").val() == "" || $("#cityname").val() == null ||
+                        $("#districtname").val() == "" || $("#districtname").val() == null ||
+                        $("#deltaladdress").val() == "" || $("#deltaladdress").val() == null) {
+                        $layer.open({
+                            content: "请选择城市和区域！",
+                            time: 2
+                        });
+                    } else {
                         loginServices.saveUserMessage($scope.userinfodetal).success(function(data, statue) {
                             if (data.code == 200) {
                                 $layer.open({
@@ -129,7 +148,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', '.
             $(this).addClass('one').siblings('li').removeClass('one');
             if ($(this).text() == "男") {
                 $scope.userinfodetal.gender = "男";
-
             } else {
                 $scope.userinfodetal.gender = "女";
             }
@@ -141,25 +159,25 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', '.
             if ($("#cityname option:selected").text() != "城市选择") {
                 $scope.areaData.parentid = $("#cityname option:selected").attr("data");
                 //$("#deltaladdress").val($("#cityname option:selected").text());
-                $scope.userinfodetal.address=$("#cityname option:selected").text();
+                $scope.userinfodetal.address = $("#cityname option:selected").text();
                 getarealist($scope, loginServices);
             } else {
                 //$("#district").find("option[0]").attr("selected",true);
                 $("#districtname option:gt(0)").remove();
                 $("#deltaladdress").val("");
-                $scope.userinfodetal.address="";
+                $scope.userinfodetal.address = "";
             }
         });
         $("#districtname").change(function(event) {
             if ($("#districtname option:selected").text() != "区域选择") {
                 //$("#deltaladdress").val($("#cityname option:selected").text() + $("#districtname option:selected").text());
-                $scope.userinfodetal.address=$("#cityname option:selected").text()+$("#districtname option:selected").text();
+                $scope.userinfodetal.address = $("#cityname option:selected").text() + $("#districtname option:selected").text();
             } else {
                 if ($("#cityname option:selected").text() != "区域选择") {
-                    $scope.userinfodetal.address=$("#cityname option:selected").text();
+                    $scope.userinfodetal.address = $("#cityname option:selected").text();
                     //$("#deltaladdress").val($("#cityname option:selected").text());
                 } else {
-                    $scope.userinfodetal.address="";
+                    $scope.userinfodetal.address = "";
                 }
             }
         });
@@ -183,6 +201,12 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', '.
                     required: true
                 },
                 usercompany: {
+                    required: true
+                },
+                cityname: {
+                    required: true
+                },
+                districtname: {
                     required: true
                 },
                 deltaladdress: {
@@ -209,6 +233,12 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', '.
                 },
                 usercompany: {
                     required: "请输入您所在的公司或机构!"
+                },
+                cityname: {
+                    required: "请输入您所在城市!"
+                },
+                districtname: {
+                    required: "请输入您所在的城市区域!"
                 },
                 deltaladdress: {
                     required: "请输入联系人地址"
@@ -302,9 +332,8 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', '.
             });
         }
         //验证码倒计时
-        var wait = 60;
-
         function time() {
+            var wait = 60;
             var t = setInterval(function() {
                 wait--;
                 $("#sendcode").val(wait + "秒重发验证码");
@@ -527,7 +556,6 @@ function isinfoall($scope, $layer, loginServices) {
             content: "网络异常！",
         });
     });
-
 }
 
 //微信配置

@@ -44,7 +44,7 @@ jQuery.validator.addMethod("posint", function(value, element) {
 
 // 保留至多两位小数
 jQuery.validator.addMethod("posintdec", function(value, element) {
-    return this.optional(element) || /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/.test(value);
+    return this.optional(element) || /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/.test($.trim(value));
 }, "保留至多两位小数");
 
 // 保留至多5位小数
@@ -68,7 +68,7 @@ jQuery.validator.addMethod("posintdec4", function(value, element) {
     return flag;
 }, "请输入所在层为-1或者1~100的整数");
 
-//成数验证
+//期贷成数
 jQuery.validator.addMethod("chengshu", function(value, element) {
     var flag = false;
     var money = jQuery("#loanamount").val();
@@ -85,21 +85,76 @@ jQuery.validator.addMethod("chengshu", function(value, element) {
 }, "请选择期贷成数");
 
 
-//成数验证
+//面积验证
 jQuery.validator.addMethod("mianji", function(value, element) {
     var flag = false;
-    if (value == "") {
+    if ($.trim(value) == "") {
         flag = false;
     } else {
-        if (/^\d/.test(value)) {
-             if (/^\d+(\.\d{1,2})?$/.test(value)){
-               flag = true; 
-           }else{
-              flag = false;
-           }
+        if (/^\d/.test($.trim(value))) {
+            if (/^\d+(\.\d{1,2})?$/.test($.trim(value))) {
+                flag = true;
+            } else {
+                flag = false;
+            }
         } else {
             flag = false;
         }
     }
     return flag;
 }, "请输入面积为1~9998.99，只留两位小数");
+
+//总楼层与所在楼层对比
+jQuery.validator.addMethod("larger", function(value, element) {
+    var sumreward = $("#totalfloor").val();
+    var flag = false;
+    if (sumreward == null || sumreward == "" || value == null || value == "") {
+        flag = true;
+    } else {
+        if (sumreward != null && sumreward != "" && value != null && value != "") {
+            if (parseInt(value) <= parseInt(sumreward)) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }else{
+            flag = true;
+        }
+    }
+    return flag;
+}, "总楼层不能低于所在楼层!");
+
+//总楼层与所在楼层对比
+jQuery.validator.addMethod("larger1", function(value, element) {
+    var sumreward = $("#currentfloor").val();
+    var flag = false;
+    if (sumreward == null || sumreward == "" || value == null || value == "") {
+        flag = true;
+    } else {
+        if (sumreward != null && sumreward != "" && value != null && value != "") {
+            if (parseInt(value) >= parseInt(sumreward)) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }else{
+            flag = true;
+        }
+    }
+    return flag;
+}, "总楼层不能低于所在楼层!");
+
+//居室类型最少有一个
+jQuery.validator.addMethod("listone", function(value, element) {
+    var sumreward1 = $.trim($("#roomtypetoward").val());
+    var sumreward2 = $.trim($("#roomtype").val());
+    var flag = false;
+    if ( sumreward1 == "" && sumreward2 == "") {
+        flag = false;
+    } else {
+         flag = true;
+    }
+    return flag;
+}, "请选择居室类型!");
+
+ 

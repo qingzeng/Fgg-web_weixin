@@ -46,7 +46,10 @@ define(['app', 'jquery', 'handler', '_layer', '../../../services/acceptancebusin
 				if (tempWeiTuoPingGuNo.length <= 0 || tempWeiTuoPingGuNo.length > 12 || !re.test(tempWeiTuoPingGuNo)) {
 					message($layer, msg);
 				} else {
+					$("#loadingToast").show();
 					progressreportServices.findcommissionedEvaluation(keHuId, cityName, tempWeiTuoPingGuNo).success(function(result, statue) {
+						$("#loadingToast").hide();
+						$("button").blur();
 						if (result.code == 200) {
 							if (result.data != null && result.data.result.length > 0) {
 								window.location.href = "#/progressdetails-one?weiTuoPingGuNo=" + tempWeiTuoPingGuNo;
@@ -56,7 +59,10 @@ define(['app', 'jquery', 'handler', '_layer', '../../../services/acceptancebusin
 						} else {
 							message($layer, msg);
 						}
-					}).error(function(data, statue) {});
+					}).error(function(data, statue) {
+						$("#loadingToast").hide();
+						$("button").blur();
+					});
 				}
 			}
 		}

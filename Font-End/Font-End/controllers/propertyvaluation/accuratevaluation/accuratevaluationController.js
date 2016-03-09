@@ -44,9 +44,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 typeName: "五居室以上",
                 value: 9
             }, {
-                typeName: "多居多室",
-                value: 9
-            }, {
                 typeName: "其他",
                 value: ""
             }];
@@ -153,50 +150,57 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             $scope.just_unit = false;
             $scope.just_building = true;
 
-            $(function() {
 
-                if (getParameterByName("flag") == "true") {
-                    var str = window.localStorage.getItem("fggjrrecordsdetial");
-                    var _obj={};
-                    _obj = $.parseJSON(str);
+            //获取localStorage数据
+            function loadformlocs(name, $scope, $) {
+                var _obj = {};
+                _obj = jQuery.parseJSON(name);
 
-                    $scope.form.residentialAreaID = ifNull(_obj.residentialAreaID); 
-                    $scope.form.residentialAreaName = ifNull(_obj.residentialAreaName);
-                    $scope.form.area =ifNull(_obj.area);
-                    $scope.form.roomtype=ifNull(_obj.roomtype);
-                    $scope.form.totalfloor=ifNull(_obj.totalfloor);
-                    $scope.form.floorBuilding = ifNull(_obj.buildingnum);
-                    $scope.form.floor = ifNull(_obj.currentfloor);
-                    $scope.form.houseNumber = ifNull(_obj.unit);
-                    $scope.form.buildingyear = ifNull(_obj.buildyear);
-                    //跳转回来获取居室和朝向
-                    if (_obj.toward != "" && _obj.roomtype != "" &&_obj.toward != null &&_obj.roomtype != null ) {
-                        $("#roomtypetoward").css("width", "0px").attr("flag","false");
-                        $("#groups").show();
-                        $("#toward").val(_obj.toward + "朝向");     
-                    } else {
-                        $("#roomtypetoward").css("width", "100%");
-                    }
-
-                    if (ifNull($scope.form.unit)) {
-                        $("#special").show();
-                        $scope.form.specialFactors = ifNull(_obj.unit); // 特殊因素
-                    } else {
-                        $("#special").hide();
-                    }
-                    $("#specialreson").val(ifNull(_obj.special));
+                $scope.form.residentialAreaID = ifNull(_obj.residentialAreaID);
+                $scope.form.residentialAreaName = ifNull(_obj.residentialAreaName);
+                $scope.form.area = ifNull(_obj.area);
+                $scope.form.roomtype = ifNull(_obj.roomtype);
+                $scope.form.totalfloor = ifNull(_obj.totalfloor);
+                $scope.form.floorBuilding = ifNull(_obj.floorBuilding);
+                $scope.form.floor = ifNull(_obj.floor);
+                $scope.form.houseNumber = ifNull(_obj.houseNumber);
+                $scope.form.buildingyear = ifNull(_obj.buildingyear);
+                $scope.form.toward = ifNull(_obj.toward);
+                if (ifNull(_obj.cellNumber) != "") {
+                    $("#hasorunite").show();
+                    $scope.form.cellNumber = ifNull(_obj.cellNumber);
                 }
+                //跳转回来获取居室和朝向(居室必不为空)
+                //$("#roomtypetoward").css("width", "0");
+                $("#roomtypetoward").hide();
+                $("#groups").show();
+                $("#roomtypetoward").attr("flag", "false");
+                if (ifNull(_obj.toward) != "") {
+                    $("#toward").val(_obj.toward + "朝向");
+                }
+                if (ifNull(_obj.special) != "") {
+                    getSpecial($scope, AccuratevaluationService, $);
+                }
+                $("#specialreson").val(ifNull(_obj.special));
+
+            }
+
+            $(function() {
 
                 $('body').bind('click', function(event) {
                     // IE支持 event.srcElement ， FF支持 event.target
                     var evt = event.srcElement ? event.srcElement : event.target;
 
                     if (evt.id == 'roomtypelist' || evt.id == 'roomtype' || evt.id == 'roomtypetoward') {
-                        //$('#roomtypelist').show(); 
+                        $('#roomtypelist').show();
                     } else {
-                        //$('#roomtypelist').hide(); 
+                        $('#roomtypelist').hide();
                     }
-
+                    if (evt.id == 'towardlist' || evt.id == 'toward') {
+                        $('#towardlist').show();
+                    } else {
+                        $('#towardlist').hide();
+                    }
                     if (evt.id == 'buildnumber' || evt.id == 'buildingnum') {} // 如果是元素本身，则返回
                     else {
                         $scope.isShowBuildLs = false;
@@ -212,19 +216,46 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                     } else {
                         //$scope.isShowHouseLs = false;
                     }
+                    if (evt.id == 'toward' || evt.id == 'specialreson') {
+                        $('#speciallist').show();
+                    } else {
+                        $('#speciallist').hide();
+                    }
                 });
                 if (getParameterByName("flag") != "true") {
-                //跳转回来获取居室和朝向
-                if (getParameterByName("roomtype") != null && getParameterByName("toward") != null) {
-                    $("#roomtypetoward").css("width", "0");
-                } else {
-                    $("#roomtypetoward").css("width", "100%");
-                }
+                    //跳转回来获取居室和朝向
+                    if (getParameterByName("roomtype") != null && getParameterByName("toward") != null) {
+                        //$("#roomtypetoward").css("width", "0");
+                        $("#roomtypetoward").hide();
+                    } else {
+                        // $("#roomtypetoward").css("width", "100%");
+                        $("#roomtypetoward").show();
+                    }
                 }
 
+
+                if (window.localStorage.getItem("save") == "flag") {
+                    //alert("返回加载数据")
+                    var str2 = window.localStorage.getItem("saveData");
+                    loadformlocs(str2, $scope, $);
+                    window.localStorage.setItem("save", "flag1");
+                }
+
+                if (getParameterByName("flag") == "true") {
+                    var str1 = window.localStorage.getItem("fggjrrecordsdetial");
+                    loadformlocs(str1, $scope, $);
+                }
                 //评估对象模糊匹配
                 $("#appraisalobject").focus(function() {
-
+                    $("#appraisalobject").on('keyup paste', function() {
+                        $scope.form.residentialAreaID = "";
+                    });
+                    $("#appraisalobject").change(function() {
+                        $scope.form.residentialAreaID = "";
+                    });
+                    // $("#appraisalobject").focus();ler
+                    // alert($.trim($("#aisalobject").val()));
+                    //if ($.trim($("#aisalobject").val()) != " ) {
                     $(this).autocomplete(url, {
                         width: $("#appraisalobject").width(),
                         scroll: true,
@@ -236,28 +267,36 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                         extraParams: { //url传入的参数
                             cityName: $scope.form.cityName,
                             residentialAreaName: function() {
-                                return $("#appraisalobject").val(); //encodeURIComponent(
+                                return $("#appraisalobject").val().replace(/\s/g, "");
+                                // return $("#appraisalobject").val();
+                                //return $("#appraisalobject").val(); //encodeURIComponent(
                             },
                             count: function() {
                                 return 6;
                             }
                         },
                         parse: function(data) {
-                            data = data.data;
-                            residentialAreaList = data;
-                            if (data == null && data == "") {
-                                return;
-                            }
-                            return $.map(data, function(row) {
-                                if (row == null) {
+                            if ($.trim($("#appraisalobject").val()) != "") {
+                                data = data.data;
+                                residentialAreaList = data;
+                                if (data == null && data == "") {
                                     return;
                                 }
-                                return {
-                                    data: row,
-                                    value: row.SearchFlag == "小区地址" ? row.MatchName : row.matchName, //此处无需把全部列列出来，只是两个关键列
-                                    result: row.SearchFlag == "小区地址" ? row.MatchName : row.matchName
-                                }
-                            })
+                                return $.map(data, function(row) {
+                                    if (row == null) {
+                                        return;
+                                    }
+                                    return {
+                                        data: row,
+                                        value: row.SearchFlag == "小区地址" ? row.MatchName : row.matchName, //此处无需把全部列列出来，只是两个关键列
+                                        result: row.SearchFlag == "小区地址" ? row.MatchName : row.matchName
+                                    }
+                                })
+                            }
+                            if (data == null) {
+                                $scope.form.residentialAreaID = "";
+                            }
+
                         },
                         formatItem: function(row, i, max) {
                             if (row.SearchFlag == "小区地址") {
@@ -285,24 +324,35 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                         $("#appraisalobject").val($scope.form.residentialAreaName);
                         $scope.form.floorBuilding = "";
                         $scope.form.houseNumber = "";
+                        $("#specialreson").val("");
                         $("#hasorunite").hide();
                         isCheck = true;
                         getSpecial($scope, AccuratevaluationService, $);
                     });
-
+                    // }else{
+                    //     $scope.form.residentialAreaID ="";
+                    //     $scope.form.residentialAreaName="";
+                    // }
+                    // }); 
                 });
+
                 $("#appraisalobject").blur(function() {
                     //选择下拉框
                     if (isCheck) {
                         isCheck = false;
                         return;
                     }
+                    //if ($.trim($("#appraisalobject").val()) != "") {
                     if (residentialAreaList && residentialAreaList.length > 0) {
                         $scope.form.residentialAreaID = residentialAreaList[0].residentialAreaid;
                         $scope.form.residentialAreaName = residentialAreaList[0].matchName; // 小区名称
                     }
                     $("#appraisalobject").val($scope.form.residentialAreaName);
                     getSpecial($scope, AccuratevaluationService, $);
+                    //}else{
+                    //    $scope.form.residentialAreaID ="";
+                    //  $scope.form.residentialAreaName="";
+                    //}
                 });
 
 
@@ -332,10 +382,9 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
 
             });
 
-
-
             $("#areas").blur(function() {
                 if ($.trim($("#appraisalobject").val()) != "") {
+
                     if ($.trim($("#areas").val()) != "") {
                         if (/^[1-9]+\.{0,1}[0-9]{0,2}$/.test($.trim($("#areas").val()))) {
                             $scope.getroomtype.cityName = $scope.form.cityName;
@@ -352,7 +401,6 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             $("#roomtypetoward").click(function() {
                 $("#speciallist").hide();
                 if ($(this).attr("flag") == "true") {
-                    $("html,body").css("overflow", "hidden");
                     $("#roomtypelist").show();
                 }
             });
@@ -362,22 +410,29 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 $("#speciallist").hide();
                 $("#roomtypelist").show();
                 event.stopPropagation();
-                $("html,body").css("overflow", "hidden");
             });
             $("#toward").click(function(event) {
                 $("#roomtypelist").css("display", "none");
                 $("#towardlist").show();
                 event.stopPropagation();
-                $("html,body").css("overflow", "hidden");
+
             });
             $scope.roomtypelist = function(value) {
+                $("#roomtypetoward").val(value).focus().blur();
+                $("#roomtype").val(value).focus().blur();
                 $scope.form.roomtype = value;
                 $scope.roomType = value;
                 $("#roomtypelist").hide();
                 if ($scope.flag == true) {
                     $("#towardlist1").css("display", "block");
                 }
-                $("html,body").css("overflow", "auto");
+
+            }
+
+            //朝向文本框点击事件
+            $scope.towardClick = function() {
+                //隐藏特殊因素下拉框
+                $("#speciallist").hide();
             }
 
             $scope.towardlist = function(value) {
@@ -385,41 +440,51 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 $scope.form.toward = value;
                 $("#toward").val(value + "朝向");
                 $("#towardlist").hide();
-                $("html,body").css("overflow", "auto");
+
                 //$("#special").show();
                 //$scope.form.specialFactors = $scope.specialFactorsLs[0].value;//选中第一个
-                if ($scope.specialFactorsLs && $scope.specialFactorsLs.length > 0 && $scope.specialFactorsLs[0].value != "") {
+                if (getParameterByName("flag") == "true") {
                     $("#special").show();
                     $("#speciallist").show();
                 } else {
-                    $("#special").hide();
-                    $("#speciallist").hide();
+                    if ($scope.specialFactorsLs && $scope.specialFactorsLs.length > 0 && $scope.specialFactorsLs[0].value != "") {
+                        $("#special").show();
+                        $("#speciallist").show();
+                    } else {
+                        $("#special").hide();
+                        $("#speciallist").hide();
+                    }
                 }
             }
 
             $scope.towardlist1 = function(value) {
-                $("#roomtypetoward").css("width", "0");
+                //$("#roomtypetoward").css("width", "0");
+                $("#roomtypetoward").hide();
                 $("#groups").show();
                 $scope.flag = false;
                 $scope.form.toward = value;
                 $("#toward").val(value + "朝向");
                 $("#towardlist1").hide();
 
-                $("html,body").css("overflow", "auto");
                 //$("#special").show();
                 //$scope.form.specialFactors = $scope.specialFactorsLs[0].value;//选中第一个
-                if ($scope.specialFactorsLs && $scope.specialFactorsLs.length > 0 && $scope.specialFactorsLs[0].value != "") {
+                if (getParameterByName("flag") == "true") {
                     $("#special").show();
                     $("#speciallist").show();
                 } else {
-                    $("#special").hide();
-                    $("#speciallist").hide();
+                    if ($scope.specialFactorsLs && $scope.specialFactorsLs.length > 0 && $scope.specialFactorsLs[0].value != "") {
+                        $("#special").show();
+                        $("#speciallist").show();
+                    } else {
+                        $("#special").hide();
+                        $("#speciallist").hide();
+                    }
                 }
             }
 
             $scope.clicklist = function() {
+                getSpecial($scope, AccuratevaluationService, $);
                 $("#speciallist").show();
-                $("html,body").css("overflow", "hidden");
             }
 
             $scope.hasnone = function(value) {
@@ -432,7 +497,7 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 $("#speciallist").hide();
                 $scope.form.specialFactors = value;
                 $("#specialreson").val(value);
-                $("html,body").css("overflow", "auto");
+
             }
 
             //显示楼栋列表
@@ -550,25 +615,34 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 }
 
                 //跳转回来获取居室和朝向
+
                 if (houseName.rooms != "" && houseName.toward != "") {
-                    $("#roomtypetoward").css("width", "0");
+                    //$("#roomtypetoward").css("width", "0");
+                    $("#roomtypetoward").hide();
                     $("#toward").attr("value", houseName.toward + "朝向");
                     $("#groups").show();
                 } else {
                     if (houseName.rooms == "" && houseName.toward == "") {
-                        $("#roomtypetoward").css("width", "100%");
+                        // $("#roomtypetoward").css("width", "100%");
+                        $("#roomtypetoward").show();
+                        $("#groups").hide();
+                        $("#toward").attr("value", "");
                     } else {
-                        $("#groups").show();
-                        if (houseName.toward != "") {
-                            $("#roomtypetoward").css("width", "0");
-                            $("#toward").attr("value", houseName.toward + "朝向");
 
+                        if (houseName.toward != "") {
+                            //$("#roomtypetoward").css("width", "0");
+                            $("#roomtypetoward").hide();
+                            $("#groups").show();
+                            $("#toward").attr("value", houseName.toward + "朝向");
                         }
                         if (houseName.rooms != "") {
-                            $("#roomtypetoward").css("width", "0");
+                            //$("#roomtypetoward").css("width", "0");
+                            $("#roomtypetoward").hide();
+                            $("#groups").show();
                         }
                     }
                 }
+                $("#roomtypetoward").val(houseName.rooms);
                 $scope.form.houseNumber = houseName.houseName;
                 $scope.form.floor = houseName.floor;
                 $scope.form.totalfloor = houseName.floorCount;
@@ -609,7 +683,7 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                                     $scope.isShowUnitLs = false;
                                     $("#hasorunite").hide();
                                 } else {
-
+                                    $scope.unitList = data.data;
                                     $scope.isShowUnitLs = true;
                                     $("#hasorunite").show();
                                 }
@@ -675,17 +749,12 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             var myDate = new Date();
             var year = myDate.getFullYear();
             $("#Assess").validate({
-                focusout: true,
-                onsubmit: false,
                 rules: {
                     appraisalobject: { //评估对象
                         required: true
                     },
                     buildingnum: {
                         maxlength: 30
-                    },
-                    houseType: {
-                        required: true
                     },
                     areas: { //房屋面积
                         required: true,
@@ -694,22 +763,26 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                         min: 1,
                         maxlength: 7,
                     },
-                    roomtype: { //房屋类型
-                        required: true,
-                        maxlength: 20
+                    roomtypetoward: {
+                        listone: true
+                    },
+                    roomtype: {
+                        listone: true
                     },
                     buildingyear: { //建成年代
                         min: 1900, //1900~2016
                         max: parseInt(year)
                     },
-                    currentfloor: {
-                        posintdec4: true, // 正整数
-                        max: 100
-                    },
                     totalfloor: {
                         posint: true, // 正整数
                         max: 100,
-                        larger: true
+                        larger1: true
+
+                    },
+                    currentfloor: {
+                        posintdec4: true, // 正整数
+                        max: 100
+
                     }
                 },
                 messages: {
@@ -724,70 +797,85 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                         mianji: "请输入面积为1~9998.99，只留两位小数",
                         max: "请输入面积范围为1~9998.99",
                         min: '请输入面积范围为1~9998.99',
-                        maxlength: jQuery.validator.format("请输入一个 长度最多是 {0} 的字符串"),
-                        maxlength: "请输入面积范围为1~9998.99"
+                        maxlength: jQuery.validator.format("请输入面积范围为1~9998.99"),
+                        //maxlength: "请输入面积范围为1~9998.99"
                     },
-                    houseType: {
-                        required: "请选择居室类型"
+                    roomtypetoward: {
+                        listone: "请选择居室类型!",
                     },
-
-                    roomtype: { //评估公司
+                    roomtype: {
+                        listone: "请选择居室类型!",
                         required: "请选择居室类型!"
                     },
                     buildingyear: {
-                        maxlength: "请输入年代为1900~" + year + "的四位整数 !",
-                        minlength: "请输入年代为1900~" + year + "的四位整数 !",
+                        maxlength: jQuery.validator.format("请输入年代为1900~" + year + "的四位整数 !"),
+                        minlength: jQuery.validator.format("请输入年代为1900~" + year + "的四位整数 !"),
                         min: "请输入年代为1900~" + year + "的四位整数 !",
                         max: "请输入年代为1900~" + year + "的四位整数 !"
                     },
-                    currentfloor: {
-                        posintdec4: "请输入所在层为-1或者1~100的整数",
-                        max: "请输入所在层为-1或者1~100的整数"
-
-                    },
                     totalfloor: {
                         posint: "请输入总楼层为1~100的整数",
+                        maxlength: jQuery.validator.format("请输入总楼层为1~100的整数"),
                         max: "请输入总楼层为1~100的整数",
-                        larger: "总楼层不能低于所在楼层!"
+                        larger1: "总楼层不能低于所在楼层!"
+                    },
+
+                    currentfloor: {
+                        posintdec4: "请输入所在层为-1或者1~100的整数",
+                        max: "请输入所在层为-1或者1~100的整数",
+                        maxlength: jQuery.validator.format("请输入所在层为-1或者1~100的整数")
+
                     }
+
                 },
                 success: function(label) {
-                    label.closest('.form_valid').next(".error").remove();
-                    if (label[0].control.id == "currentfloor" || label[0].control.id == "totalfloor") {
-                        $("#" + label[0].control.id).parent().parent().parent().parent().removeClass('error_bor');
-                    } else {
-                        $("#" + label[0].control.id).parent().parent().parent().removeClass('error_bor');
+
+                    if (label[0].control.id != "") {
+                        if (label[0].control.id == "currentfloor") {
+                            $("#msgFloor").hide();
+                            $("#" + label[0].control.id).removeClass('error');
+                            $("#totalfloor").parent().parent().parent().removeClass('error_bor');
+                        } else if (label[0].control.id == "totalfloor") {
+                            $("#msgTotalfloor").hide();
+                            $("#" + label[0].control.id).removeClass('error');
+                            $("#totalfloor").parent().parent().parent().removeClass('error_bor');
+                        } else {
+                            label.closest('.form_valid').next(".error").remove();
+                            if (label[0].control.id == "roomtype" || label[0].control.id == "roomtypetoward") {
+                                $("#roomtypetoward").parent().parent().parent().removeClass('error_bor');
+                            } else {
+                                $("#" + label[0].control.id).parent().parent().parent().removeClass('error_bor');
+                            }
+                        }
                     }
                 },
                 errorPlacement: function(error, element) {
                     element.closest('.form_valid').next(".error").remove();
                     if (error[0].innerHTML != "") {
-                        var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
-                        element.closest('.form_valid').after(html);
-                        element.closest('.form_valid').addClass('bor error_bor');
-                        $("#" + element[0].id).focus();
+                        if (element[0].id == "currentfloor") {
+                            $("#msgFloor").show();
+                            $("#msg_Floor").text(error[0].innerHTML);
+                            $("#currentfloor").parent().parent().parent().addClass('error_bor');
+                        } else if (element[0].id == "totalfloor") {
+                            $("#msgTotalfloor").show();
+                            $("#msg_Totalfloor").text(error[0].innerHTML);
+                            $("#totalfloor").parent().parent().parent().addClass('error_bor');
+                        } else {
+
+                            var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
+                            element.closest('.form_valid').after(html);
+                            element.closest('.form_valid').addClass('bor error_bor');
+
+                        }
+
                     }
                 }
             });
-            //总楼层大于或等于所在楼层
-            $.validator.addMethod("larger", function(value, element) {
-                var sumreward = $("#currentfloor").val();
-                var flag = false;
-                if (sumreward == null || sumreward == "" || value == null || value == "") {
-                    flag = true;
-                } else {
-                    if (parseInt(value) >= parseInt(sumreward)) {
-                        flag = true;
-                    } else {
-                        flag = false
-                    }
-                }
-                return flag;
-            }, $.validator.format("总楼层不能低于所在楼层!"));
 
             //提交表单
             $scope.onSubmit = function() {
-                debugger;
+                $("#totalfloor").focus();
+                $("#totalfloor").blur();
                 if ($("#Assess").valid()) {
                     if ($scope.form.residentialAreaID != "") {
                         if ($("#appraisalobject").val() != "" && $("#areas").val() != "" && $("#roomtype ").val() != "") {
@@ -795,13 +883,14 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                             if ($scope.form.toward == "不确定") {
                                 $scope.form.toward = "";
                             }
+                            $scope.form.specialFactors = $("#specialreson").val();
                             $("#loadingToast").show();
+                            //$scope.form.cityName = window.localStorage.getItem("cityName_Zh");
                             AccuratevaluationService.getPrecisePrice($scope.form).success(function(data, statue) {
-
-                                if (data.code == 200) {
-                                    $("#loadingToast").hide();
+                                if (data.code == 200) {    
                                     var obj = data.data;
                                     if (obj && obj != null) {
+                                         $("#loadingToast").hide();
                                         obj.residentialAreaName = $scope.form.residentialAreaName;
 
                                         var _obj = {
@@ -810,15 +899,19 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                                             jiLuId: obj.xunjiaID
                                         };
                                         window.localStorage.setItem("obj", JSON.stringify(_obj));
-                                        window.open("#/accuratevaluation-results?cellNumber=" + $scope.form.cellNumber);
-                                        //window.location.href = "#/accuratevaluation-results?cellNumber=" + $scope.form.cellNumber;
+                                        window.localStorage.setItem("save", "flag");
+                                        window.localStorage.setItem("saveData", JSON.stringify($scope.form));
+                                        //window.open("#/accuratevaluation-results?cellNumber=" + $scope.form.cellNumber);
+                                        window.location.href = "#/accuratevaluation-results?cellNumber=" + $scope.form.cellNumber;
                                     } else {
+                                         $("#loadingToast").hide();
                                         $layer.open({
                                             content: "估值失败！",
                                             btn: ['OK']
                                         });
                                     }
                                 } else {
+                                     $("#loadingToast").hide();
                                     $("#loadingToast").hide();
                                     $layer.open({
                                         content: "估值失败！",
@@ -833,9 +926,11 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                                 });
                             });
                         } else {
+                             $("#loadingToast").hide();
                             return false;
                         }
                     } else {
+                         $("#loadingToast").hide();
                         $layer.open({
                             content: "未匹配到小区，请重新输入",
                             btn: ['OK']
@@ -867,10 +962,11 @@ function getSpecial($scope, AccuratevaluationService, $) {
             residentialAreaName: $scope.form.residentialAreaName
         }).success(function(data, statue) {
             if (data.code == 200) {
-                $scope.specialFactorsLs = data.data;
-                if ($scope.specialFactorsLs && $scope.specialFactorsLs.length > 0) {
-                    if ($scope.specialFactorsLs[0].value && $scope.specialFactorsLs[0].value != null &&
-                        $scope.specialFactorsLs[0].value != "") {} else {
+                if (data.data && data.data.length > 0) {
+                    if (data.data[0].value && data.data[0].value != null &&
+                        data.data[0].value != "") {
+                        $scope.specialFactorsLs = data.data;
+                    } else {
                         $("#special").hide();
                         //$("#specialreson").unbind("click");
                     }
@@ -968,7 +1064,7 @@ function checkRoomType(val) {
     if ("五居室" == val) {
         return "5"
     }
-    if ("五居室以上" == val || "多居多室" == val) {
+    if ("五居室以上" == val || "多居多室" == val || "多室多厅" == val) {
         return "9"
     }
     if ("其他" == val) {

@@ -6,8 +6,8 @@ define(['app', 'jquery', 'handler'], function(app, $, handler) {
     app.controller('DelegatedeclarationCtrl', function($scope) {
         $scope.resultnum = getParameterByName("reportNum");
         $scope.submittime = getParameterByName("submittime");
-        $("#loadingToast").show();
         time();
+        $("#loadingToast").show();
         setTimeout("submithref()", 5000);
     });
 });
@@ -18,16 +18,17 @@ function getParameterByName(name) {
 }
 
 function submithref() {
-    time();
+//    time();
     window.location.href = "#/alldeclarations"
 }
 var wait = 5;
 function time() {
+	$("#seconds").text(wait);
     var t = setInterval(function() {
-        $("#seconds").text(wait);
+//        $("#seconds").text(wait);
         wait--;
         $("#seconds").text(wait);
-        if (wait == 0) {
+        if (wait == 1) {
             clearInterval(t);
             wait = 5;
         }

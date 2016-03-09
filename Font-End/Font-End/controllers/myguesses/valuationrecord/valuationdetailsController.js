@@ -26,36 +26,21 @@ define(['app', 'jquery', 'handler', '../../../services/myguesses/valuationrecord
             }
             //重新估价
         $scope.appraisal = function() {
-
-
-
-            // window.location.href = "#/accuratevaluation?area=" + ifNull($scope.recordsdetial.weituopinggumianji) +
-            //     "&residentialAreaID=" + ifNull($scope.recordsdetial.xiaoquid) +
-            //     "&residentialAreaName=" + ifNull($scope.recordsdetial.weituopingguxiangmu) +
-            //     "&roomtype=" + ifNull($scope.recordsdetial.jushileixing) +
-            //     "&unit=" + ifNull($scope.recordsdetial.huhao) +
-            //     "&toward=" + ifNull($scope.recordsdetial.chaoxiang) +
-            //     "&special=" + ifNull($scope.recordsdetial.teshuyinsu) +
-            //     "&buildingnum=" + ifNull($scope.recordsdetial.louzhuanghao) +
-            //     "&currentfloor=" + ifNull($scope.recordsdetial.suozailouceng) +
-            //     "&totalfloor=" + ifNull($scope.recordsdetial.zonglouceng) +
-            //     "&buildyear=" + ifNull($scope.recordsdetial.jianchengniandai);
                 var obj={};
                 obj.area = ifNull($scope.recordsdetial.weituopinggumianji);
                 obj.residentialAreaID=ifNull($scope.recordsdetial.xiaoquid) ;
-                obj.residentialAreaName=ifNull($scope.recordsdetial.weituopingguxiangmu) ;
+                obj.residentialAreaName=ifNull($scope.recordsdetial.weituopingguxiangmu);
                 obj.roomtype=ifNull($scope.recordsdetial.jushileixing) ;
-                obj.unit=ifNull($scope.recordsdetial.huhao) ;
+                obj.houseNumber=ifNull($scope.recordsdetial.huhao) ;
                 obj.toward=ifNull($scope.recordsdetial.chaoxiang) ;
                 obj.special=ifNull($scope.recordsdetial.teshuyinsu) ;
-                obj.buildingnum=ifNull($scope.recordsdetial.louzhuanghao) ;
-                obj.currentfloor=ifNull($scope.recordsdetial.suozailouceng) ;
+                obj.floorBuilding=ifNull($scope.recordsdetial.louzhuanghao) ;
+                obj.floor=ifNull($scope.recordsdetial.suozailouceng) ;
                 obj.totalfloor=ifNull($scope.recordsdetial.zonglouceng) ;
-                obj.buildyear=ifNull($scope.recordsdetial.jianchengniandai);
-
+                obj.buildingyear=ifNull($scope.recordsdetial.jianchengniandai);
+                obj.cellNumber=ifNull($scope.recordsdetial.cellNumber);
                 var str=JSON.stringify(obj);
                 window.localStorage.setItem("fggjrrecordsdetial",str);
-
                 window.location.href = "#/accuratevaluation?flag=true&tempid="+Math.random();
         }
     });

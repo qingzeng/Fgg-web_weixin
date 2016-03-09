@@ -7,7 +7,8 @@ define(['app', 'jquery', 'handler', '_swipe', '../../../services/myguesses/valua
         //判断用户是否登陆
         handler.isKeHuID();
         var keHuId = window.localStorage.getItem("keHuId");
-        var cityName = window.localStorage.getItem("cityName");
+        var cityName = window.localStorage.getItem("cityName_Zh");
+        //var cityName = window.localStorage.getItem("cityName");
         $scope.formData = {
             keHuId: keHuId,
             cityName: cityName,

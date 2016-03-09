@@ -63,7 +63,7 @@ define(['angularAMD', 'angular-route', 'handler', 'jquery'], function(angularAMD
                 controller: 'citySelectCtrl',
                 controllerUrl: '../../controllers/login/citySelectController'
             }))
-            .when("/search", angularAMD.route({ //小区查询结果
+            .when("/search", angularAMD.route({ //小区查询
                 templateUrl: 'views/search/search.html',
                 controller: 'searchCtrl',
                 controllerUrl: '../../controllers/search/searchController'
@@ -158,21 +158,6 @@ define(['angularAMD', 'angular-route', 'handler', 'jquery'], function(angularAMD
                 controller: 'Progressdetails-twoCtrl',
                 controllerUrl: '../../controllers/acceptancebusiness/progressreport/progressdetails-twoController'
             }))
-            .when("/progressdetails-three", angularAMD.route({ //进度详情3
-                templateUrl: 'views/acceptancebusiness/progressreport/progressdetails-three.html',
-                controller: 'Progressdetails-threeCtrl',
-                controllerUrl: '../../controllers/acceptancebusiness/progressreport/progressdetails-threeController'
-            }))
-            .when("/progressdetails-four", angularAMD.route({ //进度详情4
-                templateUrl: 'views/acceptancebusiness/progressreport/progressdetails-four.html',
-                controller: 'Progressdetails-fourCtrl',
-                controllerUrl: '../../controllers/acceptancebusiness/progressreport/progressdetails-fourController'
-            }))
-            .when("/progressdetails-fives", angularAMD.route({ //进度详情5
-                templateUrl: 'views/acceptancebusiness/progressreport/progressdetails-fives.html',
-                controller: 'Progressdetails-fivesCtrl',
-                controllerUrl: '../../controllers/acceptancebusiness/progressreport/progressdetails-fivesController'
-            }))
             .when("/markreadunrecoverable", angularAMD.route({ //标记已读后不可恢复提示
                 templateUrl: 'views/myguesses/messagerecord/markreadunrecoverable.html',
                 controller: 'MarkreadunrecoverableCtrl',
@@ -183,7 +168,7 @@ define(['angularAMD', 'angular-route', 'handler', 'jquery'], function(angularAMD
                 controller: 'MarkreadcaseCtrl',
                 controllerUrl: '../../controllers/myguesses/messagerecord/markreadcaseController'
             }))
-            .when("/selectcase1", angularAMD.route({ //消息-全选情况
+            .when("/selectcase1", angularAMD.route({ //消息列表
                 templateUrl: 'views/myguesses/messagerecord/selectcase1.html',
                 controller: 'Selectcase1Ctrl',
                 controllerUrl: '../../controllers/myguesses/messagerecord/selectcase1Controller'
@@ -192,16 +177,6 @@ define(['angularAMD', 'angular-route', 'handler', 'jquery'], function(angularAMD
                 templateUrl: 'views/myguesses/messagerecord/declarationsuccess.html',
                 controller: 'DeclarationsuccessCtrl',
                 controllerUrl: '../../controllers/myguesses/messagerecord/declarationsuccessController'
-            }))
-            .when("/cancellationapplication", angularAMD.route({ //撤单申请
-                templateUrl: 'views/myguesses/messagerecord/cancellationapplication.html',
-                controller: 'CancellationapplicationCtrl',
-                controllerUrl: '../../controllers/myguesses/messagerecord/cancellationapplicationController'
-            }))
-            .when("/aborted", angularAMD.route({ //已中止报单
-                templateUrl: 'views/myguesses/declarationrecords/aborted.html',
-                controller: 'AbortedCtrl',
-                controllerUrl: '../../controllers/myguesses/declarationrecords/abortedController'
             }))
             .when("/alldeclarations", angularAMD.route({ //报单记录列表
                 templateUrl: 'views/myguesses/declarationrecords/alldeclarations.html',
@@ -213,21 +188,7 @@ define(['angularAMD', 'angular-route', 'handler', 'jquery'], function(angularAMD
                 controller: 'CompleteddeclarationCtrl',
                 controllerUrl: '../../controllers/myguesses/declarationrecords/completeddeclarationController'
             }))
-            .when("/nocallandcallthe", angularAMD.route({ //受理中报单
-                templateUrl: 'views/myguesses/declarationrecords/nocallandcallthe.html',
-                controller: 'NocallandcalltheCtrl',
-                controllerUrl: '../../controllers/myguesses/declarationrecords/nocallandcalltheController'
-            }))
-            .when("/notaccepted", angularAMD.route({ //未受理报单
-                templateUrl: 'views/myguesses/declarationrecords/notaccepted.html',
-                controller: 'NotacceptedCtrl',
-                controllerUrl: '../../controllers/myguesses/declarationrecords/notacceptedController'
-            }))
-            .when("/bdmap", angularAMD.route({ //百度地图
-                templateUrl: 'views/propertyvaluation/accuratevaluation/bdmap.html',
-                controller: 'Accuratevaluation-resultsCtrl',
-                controllerUrl: '../../controllers/propertyvaluation/accuratevaluation/accuratevaluation-resultsController'
-            }))
+   
             .otherwise({
                 redirectTo: "/login"
             });

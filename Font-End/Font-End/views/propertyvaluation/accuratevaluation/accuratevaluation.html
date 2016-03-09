@@ -1,6 +1,6 @@
 ﻿<form id="Assess">
     <div class="pad_tb_1 mar_lr_1">
-        <div class="bor bor_color_hui bor_rad_3 pad_xx_10 mar_b_10 mar_t_2 form_valid">
+        <div class="bor bor_color_hui bor_rad_3 mar_t_2 form_valid pad_xx_10"  >
             <div>
                 <div>
                     <!-- 小区名称 -->
@@ -8,6 +8,7 @@
                 </div>
             </div>
         </div>
+        <div class="mar_b_10"></div>
         <div class="mar_b_10">
             <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid" style="height:45px;">
                 <div class="weui_input bor_rad_0 weui_icon_qb" style="  background-position: right 12px;height: auto;">
@@ -101,9 +102,10 @@
         <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
             <span class="f-fl text_color_4c5">居室类型：</span>
             <div class="weui_cell_bd weui_cell_primary_1 relativ">
-                <input  type="text" class="weui_input f-fl"  id="roomtypetoward" flag="true" style="width: 100%;" readonly="readonly" />
-                <div style="display:none" id="groups">
-                <input ng-model="form.roomtype" required="true" type="text" class="weui_input" name="roomtype" id="roomtype" style="width: 60%;" readonly="readonly" /><input type="text"  style="width:40%"  class="weui_input" name="toward" id="toward" value="" readonly="readonly" />
+                <input  type="text" class="weui_input f-fl" name="roomtypetoward" id="roomtypetoward" flag="true" style="width: 100%;" readonly="readonly" />
+                <div style="display: none;" id="groups">
+                    <input ng-model="form.roomtype" required="true" type="text" class="weui_input" name="roomtype" id="roomtype" style="width: 60%;" readonly="readonly" />
+                    <input type="text"  style="width:40%"  class="weui_input" name="toward" id="toward" ng-click="towardClick()" value="" readonly="readonly" />
                 </div>
                 <div style="display:none;height: 7em;" class="slidlist absolut" id="roomtypelist">
                     <ul>
@@ -115,7 +117,7 @@
                         <li ng-repeat="itemtowards in towards" ng-click="towardlist(itemtowards.towardName)">{{itemtowards.towardName}}朝向</li>
                     </ul>
                 </div>
-                 <div style="display:none;height: 7em;" class="slidlist absolut" id="towardlist1">
+                <div style="display:none;height: 7em;" class="slidlist absolut" id="towardlist1">
                     <ul>
                         <li ng-repeat="itemtowards in towards" ng-click="towardlist1(itemtowards.towardName)">{{itemtowards.towardName}}朝向</li>
                     </ul>
@@ -133,7 +135,7 @@
             <span class="f-fl text_color_4c5">特殊因素：</span>
             <div class="weui_cell_bd weui_cell_primary_1 relativ">
                 <!-- 门牌号 -->
-                <input type="text" class="weui_input" name="rspecialreson" id="specialreson" value="" readonly="readonly" ng-click="clicklist()" />
+                <input type="text" class="weui_input" name="specialreson" id="specialreson" value="" readonly="readonly" ng-click="clicklist()" />
                 <div style="height:auto;display:none;" class="slidlist absolut" id="speciallist">
                     <ul>
                         <li ng-click="hasnone('无')">无</li>
@@ -148,23 +150,34 @@
     </div>
 </div>
 <div class="mar_b_10">
-    <div class=" pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
+    <div class=" pad_xx_10 bor bor_color_hui bor_rad_3">
         <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb ">
             <span class="f-fl text_color_4c5">楼层情况：</span>
             <div class="weui_cell_bd weui_cell_primary_2 font_s_9">
                 <span class="f-fl">所在</span>
-                <span class="f-fl" style="width: 20%">
-                    <input ng-model="form.floor" type="text" class="weui_input tx_c" maxlength="2" name="currentfloor" id="currentfloor"/>
-                </span>
+                <input ng-model="form.floor" type="text" class="weui_input tx_c f-fl" style="width: 20%" maxlength="2" name="currentfloor" id="currentfloor"/>
                 <span class="f-fl">层，共</span>
-                <span class="f-fl" style="width: 20%">
-                    <input type="text" ng-model="form.totalfloor" maxlength="2" class="weui_input tx_c" name="totalfloor" id="totalfloor"/>
-                </span>
+                <input type="text" ng-model="form.totalfloor" maxlength="2" class="weui_input tx_c f-fl" style="width: 20%"  name="totalfloor" id="totalfloor"/>
                 <span class="f-fl">层</span>
             </div>
         </div>
     </div>
+    <div id ="msgFloor" class="weui_cell text-bg-gray error hidden" >
+        <label>
+            <span class="error_color">
+                提示： <i id="msg_Floor"></i>
+            </span>
+        </label>
+    </div>
+    <div id ="msgTotalfloor" class="weui_cell text-bg-gray error hidden" >
+        <label>
+            <span class="error_color">
+                提示： <i id="msg_Totalfloor"></i>
+            </span>
+        </label>
+    </div>
 </div>
+
 <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
     <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
         <span class="f-fl text_color_4c5">建成年代：</span>
@@ -177,7 +190,7 @@
     </div>
 </div>
 <div class="mar_t_3">
-    <button class="weui_btn weui_btn_brown" ng-click="onSubmit()">精准估值</button>
+    <button class="local_btn" ng-click="onSubmit()" id="sub" >精准估值</button>
 </div>
 <p class="font_s_8 error_color pad_t_12 tx_c">输入条件越完善，估值越精准</p>
 </div>
@@ -199,6 +212,6 @@
     <div class="weui_loading_leaf weui_loading_leaf_10"></div>
     <div class="weui_loading_leaf weui_loading_leaf_11"></div>
 </div>
-<p class="weui_toast_content">数据加载中</p>
+<p class="weui_toast_content">数据提交中</p>
 </div>
 </div>

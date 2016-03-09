@@ -33,10 +33,10 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
         var xizhengqu;
         //$scope.formData.city = "beijing";
         //$("#slidlisterrorinfo").hide();
-        $("#infomation").slideUp();
+        //        $("#infomation").slideUp();
 
         function messagehide() {
-            var money = $("#loanamount").val();
+            var money = $.trim($("#loanamount").val());
             if (money == "") {
                 $("#infomation").slideUp();
             } else {
@@ -94,18 +94,19 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                 if ($("#linkperson").val() == "" || $("#linkpersontel").val() == "" || $('#billperson').val() == "" || $('#billpersontel').val() == "" || $('#assesscompany').val() == "") {
                     return;
                 } else {
-                    if ($("#loanamount").val() != "" && $("#loanratio").val() == "请选择") {
+                    if ($.trim($("#loanamount").val()) != "" && $("#loanratio").val() == "请选择") {
                         messagehide();
                     } else {
                         $("#slidlisterrorinfo").hide();
-                        if ($("#loanamount").val() != "" && $("#loanamount").val() != null && $("#loanamount").val() != "") {
-                            $scope.formData.expectPrice = (parseFloat($("#loanamount").val()) * parseFloat($("#loanrationum").val())) + ""; //期贷金额
-                        }  
+                        if ($.trim($("#loanamount").val()) != "" && $.trim($("#loanamount").val()) != null && $.trim($("#loanamount").val()) != "") {
+                            $scope.formData.expectPrice = (parseFloat($.trim($("#loanamount").val())) * parseFloat($("#loanrationum").val())) + ""; //期贷金额
+                        }
                         if ($("#lookday").val() != null && $("#lookday").val() != "" && $("#lookday").val() != "请选择") {
                             $scope.formData.appointmentTime = $("#lookday").val() + $("#looktime").val(); //看房时间
                         }
                         $("#loadingToast").show();
                         delegatedeclarationServices.entrustsubmit($scope.formData).success(function(data, statue) {
+                            debugger;
                             if (data.code == 200) {
                                 $scope.result = data.data;
                                 $("#loadingToast").hide();
@@ -131,7 +132,7 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             }
         }
         $("#loanamount").blur(function(event) {
-            if ($("#loanamount").val() != "" && $("#loanratio").val() == "请选择") {
+            if ($.trim($("#loanamount").val()) != "" && $("#loanratio").val() == "请选择") {
                 messagehide();
             } else {
                 $("#infomation").slideUp();
@@ -191,19 +192,21 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             messages: {
                 linkperson: {
                     required: "请输入看房联系人!",
-                    maxlength: "请输入最多20个字符!"
+                    maxlength: jQuery.validator.format("请输入最多20个字符!"),
                 },
                 linkpersontel: {
                     required: "请输入看房联系人电话!",
-                    isMobile: "请输入正确的11位手机号码!"
+                    isMobile: "请输入正确的11位手机号码!",
+                    maxlength: jQuery.validator.format("请输入正确的11位手机号码!")
                 },
                 billperson: {
                     required: "请输入报单联系人!",
-                    maxlength: "请输入最多20个字符!"
+                    maxlength: jQuery.validator.format("请输入最多20个字符!"),
                 },
                 billpersontel: { //报单联系人电话
                     required: "请输入报单联系人电话!",
-                    isMobile: "请输入正确的11位手机号码!"
+                    isMobile: "请输入正确的11位手机号码!",
+                    maxlength: jQuery.validator.format("请输入正确的11位手机号码!"),
                 },
                 assesscompany: { //评估公司
                     required: "请选择评估公司!"
@@ -214,24 +217,26 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                     min: "请输入金额为1~9999，只留两位小数"
                 },
                 addressee: { //收件联系人
-                    maxlength: "请输入最多20个字符!"
+                    maxlength: jQuery.validator.format("请输入最多20个字符!"),
                 },
                 addresseetel: { //收件联系人
-                    isMobile: "请输入正确的11位手机号码!"
+                    isMobile: "请输入正确的11位手机号码!",
+                    maxlength: jQuery.validator.format("请输入正确的11位手机号码!"),
                 },
                 deltaladdress: {
-                    maxlength: "请输入最多60个字符"
+                    maxlength: jQuery.validator.format("请输入最多60个字符"),
                 },
                 community: {
-                    maxlength: "请输入最多60个字符"
+                    maxlength: jQuery.validator.format("请输入最多60个字符"),
                 },
                 area: { //面积
                     posintdec: "请输入面积范围为1~9998.99，只留两位小数",
                     max: "请输入面积为1~9998.99，只留两位小数",
-                    min: "请输入面积为1~9998.99，只留两位小数"
+                    min: "请输入面积为1~9998.99，只留两位小数",
+                    maxlength: jQuery.validator.format("请输入面积为1~9998.99，只留两位小数"),
                 },
                 hourseaddress: { //房本证载地址
-                    maxlength: "请输入最多60个字符!"
+                    maxlength: jQuery.validator.format("请输入最多60个字符!"),
                 },
                 note: {
                     stringCheck: "不能输入特殊字符!"
@@ -252,12 +257,12 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
                         var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
                         element.closest('.form_valid').after(html);
                         element.closest('.ss').addClass('bor error_bor');
-                        $("#" + element[0].id).focus();
+                        //                        $("#" + element[0].id).focus();
                     } else {
                         var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
                         element.closest('.form_valid').after(html);
                         element.closest('.form_valid').addClass('bor error_bor');
-                        $("#" + element[0].id).focus();
+                        //                        $("#" + element[0].id).focus();
                     }
                 }
             }
@@ -269,9 +274,13 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
             //$("html,body").css("overflow", "hidden");
         });
         $scope.compnylist = function(val) {
-            $scope.formData.estimateCompany = val;
             $("#companylist").hide();
             $scope.nonecompany = false;
+            $("#assesscompany").val(val);
+            $scope.formData.estimateCompany = val;
+            //去除提示信息
+            $("#assesscompany").focus();
+            $("#assesscompany").blur();
             //$("html,body").css("overflow", "auto");
         }
         $scope.nonchoice = function() {
@@ -321,7 +330,7 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
         });
         //小区模糊匹配
         $("#community").autocomplete(rootUrl + "/webservice/getResidentialAreaByName?", {
-            width: $("#community").width(),
+            width: $("#linkperson").width(),
             scroll: true,
             matchCase: false,
             scrollHeight: 200,

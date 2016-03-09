@@ -199,6 +199,9 @@ $.Autocompleter = function(input, options) {
 		select.unbind();
 		$input.unbind();
 		$(input.form).unbind(".autocomplete");
+	}).bind("input", function() {
+	    // @hack:support for inputing chinese characters in firefox
+	    onChange(0, true);
 	});
 	
 	

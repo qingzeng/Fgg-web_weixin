@@ -52,7 +52,7 @@
                     <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
                         <span class="weui_cell_bd f-fl text_color_4c5 font_s_9">评估公司：</span>
                         <div class="weui_cell_primary_1 relativ">
-                            <input type="text" class="weui_input tx_l" name="assesscompany" id="assesscompany" name="assesscompany" ng-model="formData.estimateCompany" style="width:68%" readonly="true"/>
+                            <input type="text" class="weui_input tx_l"  name="assesscompany" id="assesscompany" ng-model="formData.estimateCompany" style="width:68%" readonly="true"/>
                             <div style="display:none;height: auto;" class="slidlist absolut" id="companylist">
                                 <ul>
                                     <li ng-click="nonchoice()">请选择</li>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="f-cf"></div>
                 </div>
-                <div class="weui_cell text-bg-gray" id="infomation" style="font-size:0.9em;">
+                <div class="weui_cell text-bg-gray hidden" id="infomation" style="font-size:0.9em;">
                     <label><span class="error_color">提示：</span>请选择贷款成数!</label>
                 </div>
                 <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10 form_valid">
@@ -144,7 +144,7 @@
                                 <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
                                     <select class="weui_select font_s_9 tx_c pad_r_1" id="district">
                                         <option value="">区域选择</option>
-                                        <option value="" ng-show="xizhengqui" selected>{{xizhengqus.selecte}}</option>
+                                        <option value="" ng-if="xizhengqui" selected>{{xizhengqus.selecte}}</option>
                                         <option ng-repeat="items in district" value="{{item.idzd}}">{{items.valuezd}}</option>
                                     </select>
                                 </div>
@@ -168,7 +168,7 @@
                 <span class="weui_btn_dark bor_rad_3 text_color_fff font_s_8" style="padding:2px 8px 0; margin-left: 6px;">选填</span>
                 <span class="f-fr text_color_ac9" id="slidup">收起</span>
             </div>
-            <div class="mar_tb_05" id="houseinfo">
+            <div class="mar_tb_05 hidden" id="houseinfo">
                 <div class="pad_xx_10 bor bor_color_hui bor_rad_3 mar_t_10">
                     <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_sj">
                         <span class="f-fl text_color_4c5 font_s_9">估价目的：</span>
@@ -275,7 +275,7 @@
             </div>
         </div>
         <div class="mar_lr_1 pad_t_1 pad_b_2">
-            <button class="weui_btn weui_btn_brown bor_rad_3" ng-click="submit2()">确认委托</button>
+            <button class="local_btn weui_btn_brown bor_rad_3" ng-click="submit2()">确认委托</button>
         </div>
     </form>
 </div>

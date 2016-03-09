@@ -51,10 +51,11 @@ define(['app', 'jquery', 'handler', '_layer', '../../../services/propertyvaluati
 
 
 		$scope.next = function() {
+			window.localStorage.setItem("save", "flag1");
 			if ($scope.getResidentialAreaDeta.residentialAreaName == null || $scope.getResidentialAreaDeta.residentialAreaName == "" || $scope.getResidentialAreaDeta.residentialAreaName == undefined) {
 				return false;
 			} else {
-				window.location.href = "#/accuratevaluation?residentialAreaID=" + $scope.formData.residentialAreaID + "&residentialAreaName=" + $scope.getResidentialAreaDeta.residentialAreaName;
+				window.location.href = "#/accuratevaluation?residentialAreaID=" + $scope.formData.residentialAreaID + "&residentialAreaName=" + $scope.getResidentialAreaDeta.residentialAreaName + "&xqcz=true";
 			}
 		}
 	}).filter('unsafe', ['$sce', function($sce) {
@@ -80,7 +81,7 @@ function getResidentialAreaDetai($scope, communityinformationServices, $layer) {
 			if ($scope.getResidentialAreaDeta.imagesList != null && $scope.getResidentialAreaDeta.imagesList.length > 2) {
 				$("#pic").attr("src", $scope.getResidentialAreaDeta.imagesList[1].url);
 			} else {
-				$("#pic").attr("src", "http://fungugu.com/content/images/untitledBig_d42e273.jpg");
+				$("#pic").attr("src", "http://fungugu.com/content/images/untitledBig.jpg");
 			}
 
 			$scope.getResidentialAreaDeta.unitPrice = upade($scope.getResidentialAreaDeta.unitPrice);

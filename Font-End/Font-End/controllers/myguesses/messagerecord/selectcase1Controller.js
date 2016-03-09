@@ -32,7 +32,35 @@ define(['app', 'jquery', 'handler', '_swipe', '../../../services/myguesses/messa
 		$scope.checkItem = "";
 		//消息列表
 		$scope.recordlist = {};
+		$(function(){
 		getData($scope, selectcaseServices, $scope.pageIndex, $scope.pageSize);
+		  $("#msglist").swipe({
+				swipe: function(event, direction, distance, duration, fingerCount) {
+				 
+					if (direction == "left") {
+						 
+						if ($scope.pageIndex == $scope.pageTotal) {
+							return;
+						} else {
+							$("#btnSelectAll").removeClass("btn-selected");
+							$scope.pageIndex += 1;
+							getData($scope, selectcaseServices, $scope.pageIndex, $scope.pageSize);
+						}
+					} else if (direction == "right") {
+					 
+						if ($scope.pageIndex == 1) {
+							return;
+						} else {
+							$("#btnSelectAll").removeClass("btn-selected");
+							$scope.pageIndex -= 1;
+							getData($scope, selectcaseServices, $scope.pageIndex, $scope.pageSize);
+						}
+					}
+
+				}
+			});
+
+		});
 		//获取选择的消息编号
 		function getSelectItem() {
 			$scope.checkItem = "";
@@ -60,7 +88,7 @@ define(['app', 'jquery', 'handler', '_swipe', '../../../services/myguesses/messa
 				}
 			}
 			//标记删除
-		$scope.delete = function() {
+		$scope.deleteMsg = function() {
 				//当前操作为删除
 				$scope.deleteOrRead = true;
 				//获取勾选的消息
@@ -96,7 +124,7 @@ define(['app', 'jquery', 'handler', '_swipe', '../../../services/myguesses/messa
 						var _obj = {};
 						_obj = $scope.items[i];
 						for (var j = 0; j < arry.length; j++) {
-							if (_obj.xiaoXiId == arry[j]&&_obj.xiaoXiZhuangTai =="已读") {
+							if (_obj.xiaoXiId == arry[j] && _obj.xiaoXiZhuangTai == "已读") {
 								dialogButtonOp(true);
 								$scope.commitMsg = "您选中消息记录包含已读消息";
 								$scope.commit = true;
@@ -158,38 +186,9 @@ define(['app', 'jquery', 'handler', '_swipe', '../../../services/myguesses/messa
 			}
 			//跳转到详细信息
 		$scope.gotoDetails = function(id) {
+
 			window.location.href = "#/declarationsuccess?id=" + id;
 		}
-
-
-
-		//修改分页 所以注释无特效分页
-		$(function() {
-
-			var mySwiper = $("#msglist").swipe({
-				swipe: function(event, direction, distance, duration, fingerCount) {
-					if (direction == "left") {
-						if ($scope.pageIndex == $scope.pageTotal) {
-							return;
-						} else {
-							$scope.pageIndex += 1;
-							getData($scope, selectcaseServices, $scope.pageIndex, $scope.pageSize);
-						}
-					} else if (direction == "right") {
-						if ($scope.pageIndex == 1) {
-							return;
-						} else {
-							$scope.pageIndex -= 1;
-							getData($scope, selectcaseServices, $scope.pageIndex, $scope.pageSize);
-						}
-					}
-
-				}
-			});
-
-		})
-
-
 	});
 
 	//显示知道了或者确认取消 showOk为true显示知道了按钮  false显示确认取消按钮
@@ -205,7 +204,9 @@ define(['app', 'jquery', 'handler', '_swipe', '../../../services/myguesses/messa
 
 	//获取消息列表 修改分页 所以注释无特效分页
 	function getData($scope, selectcaseServices, pageIndex, pageSize) {
+		$("#loadingToast").show();
 		selectcaseServices.getAllMessage(keHuId, pageIndex, pageSize).success(function(result, statue) {
+			$("#loadingToast").hide();
 			if (result.code == 200) {
 				$scope.items = result.data.message;
 				if ($scope.items.length > 0) {
@@ -226,7 +227,9 @@ define(['app', 'jquery', 'handler', '_swipe', '../../../services/myguesses/messa
 					$scope.norecord = true;
 				}
 			}
-		}).error(function(data, statue) {});
+		}).error(function(data, statue) {
+			$("#loadingToast").hide();
+		});
 	}
 
 });

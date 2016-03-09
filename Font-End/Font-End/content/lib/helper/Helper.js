@@ -3,12 +3,16 @@
 define(['jquery'], function ($) {
     var handler = handler || {};
     window.handler = handler;
-    handler.redirectUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4c921279399e1337&redirect_uri=" + "http%3a%2f%2ffggFinanceWebTest.yunfangdata.com%2fFont-End%2f%23%2flogin" + "&response_type=code&scope=snsapi_base&connect_redirect=1#wechat_redirect";//外网测试版链接地址
+    handler.redirectUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4c921279399e1337&redirect_uri=" + "http%3a%2f%2ffggFinanceWebTest.yunfangdata.com%2fFont-End%2f%23%2flogin" + "&response_type=code&scope=snsapi_base&connect_redirect=1#wechat_redirect";
+    //外网测试版链接地址
     //handler.rootUrl = "http://fggwechat.yunfangdata.com:10086";
     //handler.rootUrl = "http://192.168.14.35:8089/fgg_GoldWeChat";
-    handler.rootUrl = "http://fggFinanceApiTest.yunfangdata.com";//外网测试版接口地址
+    handler.rootUrl = "http://fggFinanceApiTest.yunfangdata.com";
+    //handler.rootUrl = "http://fggFinanceApi.yunfangdata.com";
+    //外网测试版接口地址
     //handler.bdMapUrl = "http://localhost:8058/Font-End/bdMap.html";
-    handler.bdMapUrl = "http://fggFinanceWebTest.yunfangdata.com/bdMap.html";//外网测试版地址
+    handler.bdMapUrl = "http://fggFinanceWebTest.yunfangdata.com/bdMap.html";
+    //外网测试版地址
     handler.netErrorMsg = "网络异常，请稍后再试！";
     handler.setTitle = function (str) {
         var $body = $('body');

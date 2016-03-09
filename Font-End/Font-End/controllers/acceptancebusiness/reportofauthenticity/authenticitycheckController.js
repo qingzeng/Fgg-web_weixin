@@ -67,8 +67,11 @@ define(['app', 'jquery', 'handler', '_layer', 'jValidate', 'jValidateexpand', 'a
 
 //真伪查询
 function selectCheckReport($scope, Data, $layer, Services) {
+    $("#loadingToast").show();
     Services.selectReport(Data).success(function (data, statue) {
         $scope.ReportInfo = {};
+        $("#loadingToast").hide();
+        $("button").blur();
         if (data.code == 200) {
             if (data.data != null) {
                 $scope.ReportInfo = data.data;
@@ -89,7 +92,8 @@ function selectCheckReport($scope, Data, $layer, Services) {
             })
         }
     }).error(function (data, statue) {
-
+       $("#loadingToast").hide();
+        $("button").blur();
     });
 }
 

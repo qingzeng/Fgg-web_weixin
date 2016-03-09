@@ -23,7 +23,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 		$scope.isdisallow = true;
 
 		$scope.getResidentialAreaDetai.cellNumber = getParameterByName("cellNumber");
-		$scope.formData.pageSize = 10;
+		$scope.formData.pageSize = 7;
 		$scope.formData.pageIndex = 1;
 		recorddetails($scope, accuratevaluationResultServices, _obj);
 		$(function() {
@@ -42,7 +42,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 					case 1:
 						$("#wrap0,#wrap2,#wrap3").hide();
 						$("#wrap1").show();
-						$scope.formData.pageSize = 10;
+						$scope.formData.pageSize = 7;
 						$scope.formData.pageIndex = 1;
 						$("#anli ul li").removeClass("current");
 						$("#anli ul li").eq(0).addClass('current');
@@ -70,7 +70,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 			$("#price").on('keyup paste', function() {
 				if ($.trim($(this).val()) != "") {
 					if (/^[1-9]\d*$/.test($.trim($(this).val()))) {
-						$("#totalprice").val((parseInt($("#price").val()) * parseInt($scope.getResidentialAreaDetai.weituopinggumianji) / 10000).toFixed(2));
+						$("#totalprice").val((parseInt($("#price").val()) * parseInt($scope.getResidentialAreaDetai.weituopinggumianji) / 10000).toFixed(0));
 
 					} else {
 						$(this).val("");
@@ -81,8 +81,26 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 			});
 			$("#totalprice").on('keyup paste', function() {
 				if ($.trim($(this).val()) != "") {
+				
+					if(($("#price").val()+"").length>=7){
+						if(($("#totalprice").val()+"").length>=7){
+						var _val = $("#totalprice").val();
+						return $("#totalprice").val(_val.substring(0,7));
+					}	
+					}
+
+					// if(($("#price").val()+"").length==7){
+					// 	var _val = $("#totalprice").val();
+					// 	if((_val+"").length>10){
+					// 		 $("#totalprice").val(_val.substring(0,10));
+					// 	}
+					// 	return;
+					// }
 					if (/^[1-9]+\.{0,1}[0-9]{0,2}$/.test($.trim($(this).val()))) {
-						$("#price").val(((parseInt($("#totalprice").val()) * 10000) / parseInt($scope.getResidentialAreaDetai.weituopinggumianji)).toFixed(0));
+						var price=((parseInt($("#totalprice").val()) * 10000) / parseInt($scope.getResidentialAreaDetai.weituopinggumianji)).toFixed(0);
+						if(price.length<=7){
+							$("#price").val(price);
+						}
 
 					} else {
 						$(this).val("");
@@ -91,6 +109,8 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 					$("#price").val("");
 				}
 			});
+
+
 
 			$("#caselist").swipe({
 				swipe: function(event, direction, distance, duration, fingerCount) {
@@ -125,14 +145,18 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 
 		})
 
-		var flag = true;
+		var flag1 = true;
+		var _flag = false;
+		var _isflah = true;
 		$scope.permitclick = function() {
+			if(_isflah){
 			$scope.ispermit = false;
 			$("#isallowclick").unbind("click");
-			flag=false;
+			flag1=false;
+			}
 		};
 		$scope.allowclick = function() {
-			if(flag){
+			if(flag1){
 		 	$scope.iscommit = true;
 		 	}
 		};
@@ -163,13 +187,18 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 					$scope.type.cityName_Zh = window.localStorage.getItem("cityName_Zh");
 					$scope.type.price = $.trim($("#price").val());
 					$scope.type.totalprice = $.trim($("#totalprice").val());
-
+					$scope.ngloading = true;
 					accuratevaluationResultServices.feekback($scope.type).success(function(data, statue) {
+						$scope.ngloading = false;
 						$("#totalprice,#price").val("");
 						$scope.iscommit = false;
 						if (data.code = 200) {
+							flag1=false;
+							_isflah = false;
 							$scope.isdisallow = false;
-							$("#ispermitclick,#isallowclick").unbind("click");
+							$("#ispermitclick").unbind("click");
+							$("#isallowclick").unbind("click");
+							//$("#ispermitclick,#isallowclick").unbind("click");
 							$layer.open({
 								content: "反馈成功!",
 								btn: ['OK']
@@ -178,6 +207,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 							$scope.isdisallow = true;
 						}
 					}).error(function(data, statue) {
+							$scope.ngloading = false;
 						$("#totalprice,#price").val("");
 						$scope.iscommit = false;
 						$scope.isdisallow = true;
@@ -208,7 +238,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 				$("#anli ul li").removeClass("current");
 				$("#anli ul li").eq(2).addClass('current');
 			}
-			$scope.formData.pageSize = 10;
+			$scope.formData.pageSize = 7;
 			$scope.formData.pageIndex = 1;
 			$scope.caseinfoType = val;
 			getCaseInfo($scope, accuratevaluationResultServices, val, $layer);
@@ -230,7 +260,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 				messages: {
 					totalprice: {
 						posintdec: "总价保留两位小数",
-						maxlength: "最大长度为7位"
+						maxlength: "最大长度为10位"
 					},
 					price: {
 
@@ -250,7 +280,7 @@ define(['app', 'jquery', 'handler', '_layer', 'echarts', 'echarts/chart/line', '
 						var html = '<div class="weui_cell text-bg-gray error">' + '<label><span class="error_color">提示：</span>' + error[0].innerHTML + '</label>' + '</div>';
 						element.closest('.form_valid').after(html);
 						element.closest('.form_valid').addClass('bor error_bor');
-						$("#" + element[0].id).focus();
+						//$("#" + element[0].id).focus();
 					}
 				}
 			})

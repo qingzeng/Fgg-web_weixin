@@ -97,7 +97,7 @@ function getlist($scope, declarationServices) {
     declarationServices.getDeclarationInfo($scope.formData).success(function(data, statue) {
         $("#loadingToast").hide();
         if (data.code == 200) {
-            if (data.data.count == 0) {
+            if (data.data.result.length == 0) {
                 $("#showlist").hide();
                 $("#shownull").show();
 

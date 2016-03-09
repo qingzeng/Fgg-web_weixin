@@ -9,7 +9,7 @@ define(['app', 'jquery', 'handler', '_layer', '../../services/login/loginService
 		$scope.result = {};
 		handler.isKeHuID();
 
-
+		$scope.isloading = false;
 
 		$scope.formData.keHuId = window.localStorage.getItem("keHuId");
 		$scope.cityList = [];
@@ -25,15 +25,16 @@ define(['app', 'jquery', 'handler', '_layer', '../../services/login/loginService
 
 //获取城市
 function getcitylist($scope, loginServices, $layer) {
-
+	$scope.isloading = true;
 	loginServices.getCities($scope.formData).success(function(data, statue) {
+		$scope.isloading = false;
 		// alert("获取城市:" + JSON.stringify(data));
 		if (data.code == 200) {
 			$scope.cityList = data.data;
 			getbindCity($scope, loginServices, $layer);
 		}
 	}).error(function(data, statue) {
-
+		$scope.isloading = false;
 		$layer.open({
 			content: handler.netErrorMsg,
 			btn: ['OK']
@@ -45,8 +46,10 @@ function getcitylist($scope, loginServices, $layer) {
 //绑定城市
 function bindMyCity($scope, $layer, loginServices, i) {
 	// alert("城市选择");
+	$scope.isloading = true;
 	$scope.formData.cityId = $scope.cityList[i].id_zd;
 	loginServices.bindCity($scope.formData).success(function(data, statue) {
+		$scope.isloading = false;
 		//  alert("绑定城市:" + JSON.stringify(data));
 		if (data.code == 200) {
 			$scope.selectedRow = i;
@@ -58,6 +61,7 @@ function bindMyCity($scope, $layer, loginServices, i) {
 
 		}
 	}).error(function(data, statue) {
+		$scope.isloading = false;
 		$layer.open({
 			content: handler.netErrorMsg,
 			btn: ['OK']
@@ -69,9 +73,11 @@ function bindMyCity($scope, $layer, loginServices, i) {
 
 //绑定城市
 function bindMyCityOther($scope, $layer, loginServices, i) {
+	$scope.isloading = true;
 	// alert("城市选择");
 	$scope.formData.cityId = $scope.cityList[i].id_zd;
 	loginServices.bindCity($scope.formData).success(function(data, statue) {
+		$scope.isloading = false;
 		//  alert("绑定城市:" + JSON.stringify(data));
 		if (data.code == 200) {
 			$scope.selectedRow = i;
@@ -82,6 +88,7 @@ function bindMyCityOther($scope, $layer, loginServices, i) {
 
 		}
 	}).error(function(data, statue) {
+		$scope.isloading = false;
 		$layer.open({
 			content: handler.netErrorMsg,
 			btn: ['OK']
@@ -92,14 +99,15 @@ function bindMyCityOther($scope, $layer, loginServices, i) {
 
 
 
-
 //获取绑定
 function getbindCity($scope, loginServices, $layer) {
+	$scope.isloading = true;
 	loginServices.getbindCity($scope.formData).success(function(data, statue) {
+		$scope.isloading = false;
 		// alert("获取绑定城市:" + JSON.stringify(data));
 		if (data.code == 200) {
 			if (data.data == null || data.data == "") {
-				bindMyCityOther($scope, $layer, loginServices, 0); 
+				bindMyCityOther($scope, $layer, loginServices, 0);
 			} else {
 				for (var i = 0; i < $scope.cityList.length; i++) {
 					if (data.data.cityId === $scope.cityList[i].id_zd) {
@@ -115,6 +123,7 @@ function getbindCity($scope, loginServices, $layer) {
 
 		}
 	}).error(function(data, statue) {
+		$scope.isloading = false;
 		$layer.open({
 			content: handler.netErrorMsg,
 			btn: ['OK']

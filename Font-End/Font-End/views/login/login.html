@@ -53,12 +53,10 @@
     </div>
 </div>
 <!-- 弹窗 -->
-<div ng-hide="user_info" id="info">
-    <!---->
-    <div class="weui_mask_transition weui_fade_toggle block"></div>
+<div ng-hide="user_info" id="info" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:33;background:#fff;overflow:auto;">
     <form id="userinfo">
-        <div class="weui_dialog"  style="    position: absolute;width: 80%;top: 50%;left: 50%;height: 100%;overflow: hidden;">
-            <div class="pad_1 mar_t_1" style=" max-height: 400px; height: 400px; overflow-y: auto; display: block; text-align: left;">
+        <div class="weui_dialogs" style="width:100%;height:100%;overflow:auto;text-align:left;position:absolute;">
+            <div class="pad_1 mar_t_1" style="">
                 <div class="mar_b_10">
                     <div class="pad_xx_10 bor bor_color_hui bor_rad_3 form_valid">
                         <div class="weui_input bor_b_type_x bor_color_hui bor_rad_0 weui_icon_qb">
@@ -96,7 +94,7 @@
                         </div>
                     </div>
                     <div class="f-fr bor bor_color_hui" style="width: 40%;overflow:hidden">
-                        <input class="width_100 font_s_9 text_color_ac9" ng-click="sendcodes()" id="sendcode" value="获取验证码" style="padding:11px 0 11px 10px;" readonly="readonly"></div>
+                        <input class="width_100 font_s_9 text_color_ac9" ng-click="sendcodes()" id="sendcode" value="获取验证码" style="padding:11px 0;text-align:center;" readonly="readonly"></div>
                     <div class="f-cf"></div>
                 </div>
                 <div class="mar_b_10">
